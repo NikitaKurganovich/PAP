@@ -11,9 +11,6 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.Navigator
 
-
-//Будет в будующем скрином, а пока так
-//TODO make a normal screen
 data class RegistrationScreen(val navigator: Navigator): Screen {
     @Composable
     override fun Content() {
