@@ -19,9 +19,12 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import com.example.papproject.R
+import com.example.papproject.tabs.HomeTab
+import com.example.papproject.tabs.TestsTab
 
-class ProfileScreen: Screen {
+class ProfileScreen : Screen {
     @Composable
     override fun Content() {
         val provider = GoogleFont.Provider(
@@ -31,11 +34,13 @@ class ProfileScreen: Screen {
 
         )
 
-        val navigator = LocalNavigator.currentOrThrow
+        val tabNavigator = LocalTabNavigator.current
         Column(
             Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("Profile screen",
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                "Profile screen",
                 Modifier
                     .height(50.dp),
                 style = TextStyle(
@@ -48,29 +53,31 @@ class ProfileScreen: Screen {
                     textAlign = TextAlign.Center,
                 )
             )
-            Text("You can navigate across screens",
+            Text(
+                "You can navigate across screens",
                 Modifier
                     .width(146.dp)
                     .height(50.dp),
-                style = MaterialTheme.typography.bodySmall)
+                style = MaterialTheme.typography.bodySmall
+            )
             Row(
                 Modifier
-                .fillMaxWidth()
-                .align(alignment = Alignment.CenterHorizontally)
-                .padding(all = 5.dp)
-            ){
+                    .fillMaxWidth()
+                    .align(alignment = Alignment.CenterHorizontally)
+                    .padding(all = 5.dp)
+            ) {
                 Button(
                     onClick = {
-                        navigator.replace(TestScreen())
+                        tabNavigator.current = TestsTab
                     }
-                ){
+                ) {
                     Text("To tests")
                 }
                 Button(
                     onClick = {
-                        navigator.replace(HomeScreen())
+                        tabNavigator.current = HomeTab
                     }
-                ){
+                ) {
                     Text("To home")
                 }
             }

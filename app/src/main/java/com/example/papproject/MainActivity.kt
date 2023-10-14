@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material3.*
@@ -23,26 +25,42 @@ import com.example.papproject.tabs.ProfileTab
 import com.example.papproject.tabs.TestsTab
 import com.example.papproject.ui.theme.PAPProjectTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-           TabNavigator(HomeTab){
-               Scaffold(
-                   content = {
-                       CurrentTab()
-                   },
-                   bottomBar = {
-                       BottomNavigation {
-                           TabNavigationItem(HomeTab)
-                           TabNavigationItem(TestsTab)
-                           TabNavigationItem(ProfileTab)
-                       }
-                   }
-               )
-           }
+            Content()
+        }
+    }
+
+    @Composable
+    fun Content(){
+        TabNavigator(HomeTab){
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = {
+                            Text(text = it.current.options.title)
+                        }
+                    )
+                },
+                content = {
+                    Column(modifier = Modifier
+                        .padding(it)) {
+                        CurrentTab()
+                    }
+
+                },
+                bottomBar = {
+                    BottomNavigation {
+                        TabNavigationItem(HomeTab)
+                        TabNavigationItem(TestsTab)
+                        TabNavigationItem(ProfileTab)
+                    }
+                }
+            )
         }
     }
 

@@ -26,6 +26,8 @@ import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import com.example.papproject.R
 import com.example.papproject.tabs.HomeTab
+import com.example.papproject.tabs.ProfileTab
+import com.example.papproject.tabs.TestsTab
 
 class HomeScreen: Screen {
     @Composable
@@ -37,7 +39,7 @@ class HomeScreen: Screen {
 
         )
 
-        val navigator = LocalNavigator.currentOrThrow
+        val tabNavigator = LocalTabNavigator.current
         Column(Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally) {
             Text("Home screen",
@@ -65,14 +67,14 @@ class HomeScreen: Screen {
             ){
                 Button(
                     onClick = {
-                        navigator.replace(TestScreen())
+                        tabNavigator.current = TestsTab
                     }
                 ){
                     Text("To tests")
                 }
                 Button(
                     onClick = {
-                        navigator.replace(ProfileScreen())
+                        tabNavigator.current = ProfileTab
                     }
                 ){
                     Text("To profile")

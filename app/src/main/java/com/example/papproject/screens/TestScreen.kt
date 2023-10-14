@@ -19,7 +19,10 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import com.example.papproject.R
+import com.example.papproject.tabs.HomeTab
+import com.example.papproject.tabs.ProfileTab
 
 class TestScreen: Screen {
     @Composable
@@ -31,7 +34,7 @@ class TestScreen: Screen {
 
         )
 
-        val navigator = LocalNavigator.currentOrThrow
+        val tabNavigator = LocalTabNavigator.current
         Column(
             Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally) {
@@ -61,14 +64,14 @@ class TestScreen: Screen {
             ){
                 Button(
                     onClick = {
-                        navigator.replace(HomeScreen())
+                        tabNavigator.current = HomeTab
                     }
                 ){
                     Text("To home")
                 }
                 Button(
                     onClick = {
-                        navigator.replace(ProfileScreen())
+                        tabNavigator.current = ProfileTab
                     }
                 ){
                     Text("To profile")
