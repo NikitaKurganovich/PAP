@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "365195293860",
+    "project_id": "pap-bsuir",
+    "storage_bucket": "pap-bsuir.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365195293860:android:616994fccf390aec3b2231",
+        "android_client_info": {
+          "package_name": "com.example.papproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArRB2ZKJuxUI2cVj_fg0xwUaVuTJtp0FM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

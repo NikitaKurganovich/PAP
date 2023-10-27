@@ -20,6 +20,7 @@ import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import com.example.papproject.screens.HomeScreen
+import com.example.papproject.screens.LoginScreen
 import com.example.papproject.tabs.HomeTab
 import com.example.papproject.tabs.ProfileTab
 import com.example.papproject.tabs.TestsTab
@@ -31,7 +32,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Content()
+            Navigator(LoginScreen())
+            //Content()
         }
     }
 
