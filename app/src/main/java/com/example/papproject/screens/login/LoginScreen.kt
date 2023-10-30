@@ -1,4 +1,4 @@
-package com.example.papproject.screens
+package com.example.papproject.screens.login
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
@@ -7,14 +7,17 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import cafe.adriel.voyager.core.screen.Screen
 import com.example.papproject.util.Hash
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.app
 import java.lang.Exception
 
 class LoginScreen: Screen {
     @Composable
     override fun Content() {
         val db = Firebase.firestore
+        val auth = Firebase.auth
         var loginText by remember { mutableStateOf("Entre login") }
         var passwordText by remember { mutableStateOf("Entre password") }
         var correctPassword = ""
@@ -43,6 +46,14 @@ class LoginScreen: Screen {
                                     message = if (Hash.getSHA(passwordText) == document.data["password"] as String)
                                         "You are $loginText"
                                     else "Incorrect login or password"
+                                    if(Hash.getSHA(passwordText) == document.data["password"] as String){
+                                        auth.signInAnonymously()
+                                            .addOnCompleteListener{
+                                                if(it.isSuccessful){
+                                                    val user = auth.currentUser
+                                                }
+                                            }
+                                    }
                                 }
                             }
                         }

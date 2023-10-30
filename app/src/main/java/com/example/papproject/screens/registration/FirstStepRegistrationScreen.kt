@@ -1,9 +1,9 @@
-package com.example.papproject.screens
+package com.example.papproject.screens.registration
 
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
 
-class LectureTestScreen: Screen {
+class FirstStepRegistrationScreen: Screen {
     @Composable
     override fun Content() {
         TODO("Not yet implemented")
