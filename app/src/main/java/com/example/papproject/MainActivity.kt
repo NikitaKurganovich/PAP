@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.CurrentTab
@@ -21,9 +21,8 @@ import com.example.papproject.tabs.HomeTab
 import com.example.papproject.tabs.ProfileTab
 import com.example.papproject.tabs.TestsTab
 import com.example.papproject.util.EnvironmentCheck
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,8 +33,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val showDialog = remember { mutableStateOf(false) }
+            val auth = Firebase.auth
+            var user by remember { mutableStateOf(auth.currentUser)}
 
-            val user = Firebase.auth.currentUser
+            DisposableEffect(Unit) {
+                val listener = FirebaseAuth.AuthStateListener {
+                    user = it.currentUser
+                }
+                auth.addAuthStateListener(listener)
+                onDispose { auth.removeAuthStateListener(listener) }
+            }
+
             if(user != null){
                 Content()
             } else{

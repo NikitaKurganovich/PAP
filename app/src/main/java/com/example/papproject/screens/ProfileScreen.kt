@@ -23,6 +23,8 @@ import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import com.example.papproject.R
 import com.example.papproject.tabs.HomeTab
 import com.example.papproject.tabs.TestsTab
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class ProfileScreen : Screen {
     @Composable
@@ -79,6 +81,13 @@ class ProfileScreen : Screen {
                     }
                 ) {
                     Text("To home")
+                }
+                Button(
+                    onClick = {
+                        Firebase.auth.signOut()
+                    }
+                ){
+                    Text("Logout")
                 }
             }
         }

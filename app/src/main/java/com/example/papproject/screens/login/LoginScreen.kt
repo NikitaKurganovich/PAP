@@ -18,23 +18,24 @@ class LoginScreen: Screen {
     override fun Content() {
         val db = Firebase.firestore
         val auth = Firebase.auth
-        var loginText by remember { mutableStateOf("Entre login") }
-        var passwordText by remember { mutableStateOf("Entre password") }
-        var correctPassword = ""
+        var loginText by remember { mutableStateOf("") }
+        var passwordText by remember { mutableStateOf("") }
         var message by remember { mutableStateOf("") }
 
         Column{
             TextField(
-                loginText,
+                value = loginText,
                 onValueChange = {
                     loginText = it
-                }
+                },
+                placeholder = { Text(text = "Entre your login") }
             )
             TextField(
-                passwordText,
+                value = passwordText,
                 onValueChange = {
                     passwordText = it
-                }
+                },
+                placeholder = { Text(text = "Entre your password") }
             )
             Button(
                 onClick = {
