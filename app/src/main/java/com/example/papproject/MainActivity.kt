@@ -1,5 +1,8 @@
 package com.example.papproject
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -50,17 +53,34 @@ class MainActivity : ComponentActivity() {
                 Navigator(LoginScreen())
             }
 
-            if (!EnvironmentCheck.isOnline(this)) {
-                showDialog.value = true
+            // Listen for network changes
+            val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val networkCallback = object : ConnectivityManager.NetworkCallback() {
+                override fun onLost(network: Network) {
+                    showDialog.value = true
+                }
+
+                override fun onAvailable(network: Network) {
+                    showDialog.value = false
+                }
             }
+
+            // Register the callback to listen for network changes
+            connectivityManager.registerDefaultNetworkCallback(networkCallback)
+
+            // Remember to unregister the callback when it's no longer needed
+            DisposableEffect(Unit) {
+                onDispose { connectivityManager.unregisterNetworkCallback(networkCallback) }
+            }
+
             if (showDialog.value) {
                 AlertDialog(
                     onDismissRequest = { showDialog.value = false },
-                    title = { Text("No Internet Connection") },
-                    text = { Text("Please check your internet connection and try again.") },
+                    title = { Text("Отсутствует подключение к сети") },
+                    text = { Text("Пожалуйста, проверьте своё подключение к интернету и повторите попытку") },
                     confirmButton = {
-                        Button(onClick = { showDialog.value = false }) {
-                            Text("Try reconnect")
+                        Button(onClick = { connectivityManager.unregisterNetworkCallback(networkCallback)   }) {
+                            Text("Попробывать переподключиться")
                         }
                     }
                 )
