@@ -9,12 +9,9 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.example.papproject.screens.registration.RegistrationScreen
-import com.example.papproject.util.Hash
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.ktx.app
-import java.lang.Exception
 
 class LoginScreen : Screen {
     @Composable
@@ -22,18 +19,18 @@ class LoginScreen : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val db = Firebase.firestore
         val auth = Firebase.auth
-        var loginText by remember { mutableStateOf("") }
+        var emailText by remember { mutableStateOf("") }
         var passwordText by remember { mutableStateOf("") }
         var message by remember { mutableStateOf("") }
 
         Column {
             TextField(
-                value = loginText,
+                value = emailText,
                 onValueChange = {
-                    loginText = it
+                    emailText = it
                     message = ""
                 },
-                placeholder = { Text(text = "Введите логин") }
+                placeholder = { Text(text = "Введите вашу почту") }
             )
             TextField(
                 value = passwordText,
@@ -45,22 +42,14 @@ class LoginScreen : Screen {
             )
             Button(
                 onClick = {
-                    db.collection("Users")
-                        .get()
-                        .addOnSuccessListener { result ->
-                            for (document in result) {
-                                if (document.id == loginText &&
-                                    Hash.getSHA(passwordText) == document.data["password"] as String
-                                ) {
-                                    auth.signInAnonymously()
-                                    message = "Вы успешно вошли!\nИдёт загрузка"
-                                } else {
-                                    message = "Неправильный логин или пароль"
-                                }
+                    auth.signInWithEmailAndPassword(emailText, passwordText)
+                        .addOnCompleteListener() { task ->
+                            if (task.isSuccessful) {
+                                message = "Вы успешно зашли!"
+                                auth.currentUser
+                            } else {
+                                message = "Некорректная почта или пароль"
                             }
-                        }
-                        .addOnFailureListener {
-                            println(it.message)
                         }
 
                 }

@@ -4,17 +4,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.TextField
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.example.papproject.screens.HomeScreen
 import com.example.papproject.screens.login.LoginScreen
-import com.example.papproject.util.Hash
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -22,11 +19,11 @@ import com.google.firebase.ktx.Firebase
 class RegistrationScreen() : Screen {
     @Composable
     override fun Content() {
+
         val navigator = LocalNavigator.currentOrThrow
         val db = Firebase.firestore
         val auth = Firebase.auth
-
-        var loginText by remember { mutableStateOf("") }
+        var emailText by remember { mutableStateOf("") }
         var passwordText by remember { mutableStateOf("") }
         var repeatPasswordText by remember { mutableStateOf("") }
         var message by remember { mutableStateOf("") }
@@ -37,12 +34,12 @@ class RegistrationScreen() : Screen {
         ) {
             Text("Регистрация")
             TextField(
-                value = loginText,
+                value = emailText,
                 onValueChange = {
-                    loginText = it
+                    emailText = it
                     message = ""
                 },
-                placeholder = { androidx.compose.material.Text(text = "Введите логин") }
+                placeholder = { androidx.compose.material.Text(text = "Введите вашу почту") }
             )
             TextField(
                 value = passwordText,
@@ -65,23 +62,14 @@ class RegistrationScreen() : Screen {
                     if(passwordText != repeatPasswordText){
                         message = "Пароли не совпадают!"
                     } else {
-                        db.collection("Users")
-                            .get()
-                            .addOnSuccessListener { result ->
-                                for(document in result){
-                                    if(document.id == loginText){
-                                        message = "Логин занят! Попробуйте другой."
-                                    }
-                                }
-                                if(message != "Логин занят! Попробуйте другой."){
-                                    db.collection("Users")
-                                        .document(loginText)
-                                        .set(
-                                            hashMapOf(
-                                                "password" to Hash.getSHA(passwordText)
-                                            )
-                                        )
-                                    auth.signInAnonymously()
+                        auth.createUserWithEmailAndPassword(emailText, passwordText)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    message = "Вы успешно зарегистрировались!"
+                                    db.collection("users").document(auth.currentUser!!.uid).set(hashMapOf("results" to "bad"))
+                                    auth.currentUser
+                                } else {
+                                    message = "Почта занята!"
                                 }
                             }
                     }
