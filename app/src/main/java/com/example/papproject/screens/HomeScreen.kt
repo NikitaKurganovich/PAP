@@ -6,38 +6,23 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material3.Icon
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.googlefonts.GoogleFont
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
-import cafe.adriel.voyager.navigator.tab.Tab
-import cafe.adriel.voyager.navigator.tab.TabNavigator
-import com.example.papproject.R
-import com.example.papproject.tabs.HomeTab
 import com.example.papproject.tabs.ProfileTab
 import com.example.papproject.tabs.TestsTab
+import com.example.papproject.ui.theme.montserratFontFamily
 
 class HomeScreen: Screen {
     @Composable
     override fun Content() {
-        val provider = GoogleFont.Provider(
-            providerAuthority = "com.google.android.gms.fonts",
-            providerPackage = "com.google.android.gms",
-            certificates = R.array.com_google_android_gms_fonts_certs
 
-        )
 
         val tabNavigator = LocalTabNavigator.current
         Column(Modifier.fillMaxSize(),
@@ -47,9 +32,7 @@ class HomeScreen: Screen {
                 .height(50.dp),
                 style = TextStyle(
                     fontSize = 30.sp,
-                    fontFamily = FontFamily(
-                        Font(googleFont = GoogleFont("Montserrat"), fontProvider = provider)
-                    ),
+                    fontFamily = montserratFontFamily,
                     fontWeight = FontWeight(500),
                     color = Color(0xFF000000),
                     textAlign = TextAlign.Center,

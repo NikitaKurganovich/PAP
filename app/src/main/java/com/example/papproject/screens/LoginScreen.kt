@@ -1,4 +1,4 @@
-package com.example.papproject.screens.login
+package com.example.papproject.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
@@ -8,7 +8,6 @@ import androidx.compose.runtime.*
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.example.papproject.screens.registration.RegistrationScreen
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
