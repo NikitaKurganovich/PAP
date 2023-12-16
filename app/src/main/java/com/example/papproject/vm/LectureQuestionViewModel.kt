@@ -1,4 +1,6 @@
 package com.example.papproject.vm
 
-class LectureQuestionViewModel {
+import androidx.lifecycle.ViewModel
+
+class LectureQuestionViewModel: ViewModel() {
 }

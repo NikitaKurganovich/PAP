@@ -1,10 +1,12 @@
 package com.example.papproject.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,15 +17,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
+import com.example.papproject.datasource.FirebaseDataSource
+import com.example.papproject.model.LectureQuestion
 import com.example.papproject.tabs.ProfileTab
 import com.example.papproject.tabs.TestsTab
 import com.example.papproject.ui.theme.montserratFontFamily
+import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.launch
 
 class HomeScreen: Screen {
     @Composable
     override fun Content() {
-
-
         val tabNavigator = LocalTabNavigator.current
         Column(Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally) {
@@ -63,6 +67,27 @@ class HomeScreen: Screen {
                     Text("To profile")
                 }
             }
+            val data = FirebaseDataSource.getLectureQuestions("Мотивация","Удовлетворенность трудом")
+
+            val scope = rememberCoroutineScope()
+            var emptyList by remember { mutableStateOf(listOf(LectureQuestion("1","2", listOf("226","446")))) }
+
+            scope.launch {
+                data.collect { value ->
+                    emptyList = value
+                }
+            }
+
+            LazyColumn(
+                Modifier.fillMaxSize()
+            ) {
+                items(emptyList){
+                    it.QuestionElement()
+                }
+            }
+
+
+
         }
     }
 }

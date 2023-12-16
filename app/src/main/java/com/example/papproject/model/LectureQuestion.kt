@@ -1,58 +1,36 @@
 package com.example.papproject.model
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.material3.Typography
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.googlefonts.Font
-import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.papproject.ui.theme.PAPProjectTheme
 import com.example.papproject.ui.theme.montserratFontFamily
+import com.google.firebase.database.IgnoreExtraProperties
 
+@IgnoreExtraProperties
 open class LectureQuestion(
-    private val question: String,
-    private val correctAnswer: String,
-    private val answers: List<String>
+    val question: String = "",
+    val correct_answer: String = "",
+    val available_answers: List<String> = listOf()
 ) {
     var isAnsweredCorrectly: Boolean = false
 
     @Composable
-    open fun QuestionElement() {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(15.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            DisplayQuestionText(
-                Modifier
-                    .weight(0.7f)
-                    .align(Alignment.CenterHorizontally)
-            )
-            Spacer(Modifier.weight(0.05f))
-            AnswerVariants(Modifier.weight(0.25f))
-        }
-    }
-
-    @Composable
-    open fun DisplayQuestionText(modifier: Modifier = Modifier) {
+    open fun QuestionElement(modifier: Modifier = Modifier) {
         Card(
-            modifier = modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize().clickable { println(available_answers + correct_answer) },
             shape = RoundedCornerShape(20.dp),
             elevation = CardDefaults.cardElevation(4.dp)
         ) {
             Box(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -62,15 +40,17 @@ open class LectureQuestion(
                     textAlign = TextAlign.Center
                 )
             }
+            AnswerVariants()
         }
     }
+
     @Composable
     fun AnswerVariants(modifier: Modifier = Modifier) {
         var selectedAnswer by remember { mutableStateOf("") }
         var isCorrect by remember { mutableStateOf(false) }
 
         Column(modifier = modifier) {
-            answers.forEach { answer ->
+            available_answers.forEach { answer ->
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -78,7 +58,7 @@ open class LectureQuestion(
                             selected = (answer == selectedAnswer),
                             onClick = {
                                 selectedAnswer = answer
-                                isCorrect = (answer == correctAnswer)
+                                isCorrect = (answer == correct_answer)
                                 isAnsweredCorrectly = isCorrect
                             },
                             role = Role.RadioButton
