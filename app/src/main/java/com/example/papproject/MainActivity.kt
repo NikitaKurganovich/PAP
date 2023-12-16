@@ -6,6 +6,7 @@ import android.net.Network
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
@@ -19,24 +20,25 @@ import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import com.example.papproject.screens.login.LoginScreen
+import com.example.papproject.screens.LoginScreen
 import com.example.papproject.tabs.HomeTab
 import com.example.papproject.tabs.ProfileTab
 import com.example.papproject.tabs.TestsTab
-import com.example.papproject.util.EnvironmentCheck
+import com.example.papproject.ui.theme.Green40
+import com.example.papproject.ui.theme.PAPProjectTheme
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
-
-    @OptIn(ExperimentalMaterial3Api::class)
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Initialize Firebase Auth
+        auth = Firebase.auth
         super.onCreate(savedInstanceState)
         setContent {
             val showDialog = remember { mutableStateOf(false) }
-            val auth = Firebase.auth
             var user by remember { mutableStateOf(auth.currentUser)}
 
             DisposableEffect(Unit) {
@@ -46,12 +48,14 @@ class MainActivity : ComponentActivity() {
                 auth.addAuthStateListener(listener)
                 onDispose { auth.removeAuthStateListener(listener) }
             }
-
-            if(user != null){
-                Content()
-            } else{
-                Navigator(LoginScreen())
+            PAPProjectTheme {
+                if(user != null){
+                    Content()
+                } else{
+                    Navigator(LoginScreen())
+                }
             }
+
 
             // Listen for network changes
             val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -80,7 +84,7 @@ class MainActivity : ComponentActivity() {
                     text = { Text("Пожалуйста, проверьте своё подключение к интернету и повторите попытку") },
                     confirmButton = {
                         Button(onClick = { connectivityManager.unregisterNetworkCallback(networkCallback)   }) {
-                            Text("Попробывать переподключиться")
+                            Text("Переподключиться")
                         }
                     }
                 )
@@ -104,10 +108,11 @@ class MainActivity : ComponentActivity() {
                         .padding(it)) {
                         CurrentTab()
                     }
-
                 },
                 bottomBar = {
-                    BottomNavigation {
+                    BottomNavigation(
+                        contentColor = Green40
+                    ) {
                         TabNavigationItem(HomeTab)
                         TabNavigationItem(TestsTab)
                         TabNavigationItem(ProfileTab)
@@ -122,28 +127,12 @@ class MainActivity : ComponentActivity() {
         val tabNavigator = LocalTabNavigator.current
 
         BottomNavigationItem(
+            modifier = Modifier.background(MaterialTheme.colorScheme.primary),
             selected = tabNavigator.current.key == tab.key,
             onClick = { tabNavigator.current = tab },
             icon = { Icon(painter = tab.options.icon!!, contentDescription = tab.options.title) }
         )
     }
-}
-
-fun some(){
-    val auth = Firebase.auth
-
-    auth.signInAnonymously()
-        .addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                // Sign in success, update UI with the signed-in user's information
-                val user = auth.currentUser
-                // updateUI(user)
-            } else {
-                // If sign in fails, display a message to the user.
-                println(task.exception?.message)
-                // updateUI(null)
-            }
-        }
 }
 
 
