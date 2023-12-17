@@ -34,14 +34,25 @@ import com.google.firebase.database.database
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         Firebase.database.setPersistenceEnabled(true)
         auth = Firebase.auth
         super.onCreate(savedInstanceState)
+
         setContent {
             val showDialog = remember { mutableStateOf(false) }
             var user by remember { mutableStateOf(auth.currentUser)}
+            val networkCallback = object : ConnectivityManager.NetworkCallback() {
+                override fun onLost(network: Network) {
+                    showDialog.value = true
+                }
 
+                override fun onAvailable(network: Network) {
+                    showDialog.value = false
+                }
+            }
             DisposableEffect(Unit) {
                 val listener = FirebaseAuth.AuthStateListener {
                     user = it.currentUser
@@ -59,16 +70,7 @@ class MainActivity : ComponentActivity() {
 
 
             // Listen for network changes
-            val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val networkCallback = object : ConnectivityManager.NetworkCallback() {
-                override fun onLost(network: Network) {
-                    showDialog.value = true
-                }
 
-                override fun onAvailable(network: Network) {
-                    showDialog.value = false
-                }
-            }
 
             // Register the callback to listen for network changes
             connectivityManager.registerDefaultNetworkCallback(networkCallback)

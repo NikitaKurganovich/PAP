@@ -1,17 +1,20 @@
 package com.example.papproject.model
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.papproject.ui.theme.montserratFontFamily
+import com.example.papproject.util.DefaultText
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
@@ -27,22 +30,15 @@ open class LectureQuestion(
     @Composable
     open fun QuestionElement(modifier: Modifier = Modifier) {
         Card(
-            modifier = modifier.fillMaxSize().clickable { println(available_answers + correct_answer) },
+            modifier = modifier.fillMaxSize(0.88f),
             shape = RoundedCornerShape(20.dp),
-            elevation = CardDefaults.cardElevation(4.dp)
+            elevation = CardDefaults.cardElevation(4.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary) // Add this line to change the card's background color
         ) {
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = question,
-                    style = MaterialTheme.typography.headlineLarge,
-                    fontFamily = montserratFontFamily,
-                    textAlign = TextAlign.Center
-                )
+            Column(modifier.padding(16.dp)) { // Add padding inside the card
+                DefaultText(question, modifier.fillMaxWidth())
+                AnswerVariants(modifier)
             }
-            AnswerVariants()
         }
     }
 
@@ -55,6 +51,7 @@ open class LectureQuestion(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .padding(vertical = 5.dp)
                         .selectable(
                             selected = (answer == selectedAnswer),
                             onClick = {
@@ -64,19 +61,16 @@ open class LectureQuestion(
                             },
                             role = Role.RadioButton
                         )
-                        .padding(8.dp)
                 ) {
                     RadioButton(
                         selected = (answer == selectedAnswer),
                         onClick = null
                     )
-                    Text(
-                        text = answer,
-                        modifier = Modifier.padding(start = 8.dp)
+                    DefaultText(
+                        text = answer
                     )
                 }
             }
         }
     }
-
 }

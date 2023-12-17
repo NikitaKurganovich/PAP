@@ -1,8 +1,6 @@
 package com.example.papproject.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -11,8 +9,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
+import com.example.papproject.util.CustomButton
 import com.example.papproject.vm.*
 
 data class LectureTestScreen(
@@ -39,28 +39,28 @@ data class LectureTestScreen(
 
                 is LectureTestState.ShowingModules -> {
                     val data = (screenState as LectureTestState.ShowingModules).data
-                    LazyColumn {
+                    LazyColumn(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         items(data) {
                             it.QuestionElement()
+                            Spacer(modifier = Modifier.height(20.dp))
                         }
                         item{
-                            Button(
-                                onClick = {
-                                    var score = 0
-                                    data.forEach{
-                                        if (it.isAnsweredCorrectly){
-                                            score++
-                                        }
-                                        if (!it.isAnswered){
-                                            println("You do not answer to all questions")
-                                        } else{
-                                            println(score)
-                                        }
+                            CustomButton(onClick = {
+                                var score = 0
+                                data.forEach{
+                                    if (it.isAnsweredCorrectly){
+                                        score++
+                                    }
+                                    if (!it.isAnswered){
+                                        println("You do not answer to all questions")
+                                    } else{
+                                        println(score)
                                     }
                                 }
-                            ){
-                                Text("Проверка")
-                            }
+                            },
+                                modifier = Modifier.fillParentMaxWidth(0.76f))
                         }
                     }
                 }

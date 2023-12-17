@@ -1,15 +1,23 @@
 package com.example.papproject.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.TextField
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.papproject.ui.theme.montserratFontFamily
+import com.example.papproject.util.CustomButton
+import com.example.papproject.util.EmailField
+import com.example.papproject.util.LinkToLogin
+import com.example.papproject.util.PasswordField
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -21,68 +29,56 @@ class RegistrationScreen() : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val db = Firebase.firestore
         val auth = Firebase.auth
-        var emailText by remember { mutableStateOf("") }
-        var passwordText by remember { mutableStateOf("") }
-        var repeatPasswordText by remember { mutableStateOf("") }
-        var message by remember { mutableStateOf("") }
+        val emailText = remember { mutableStateOf("") }
+        val passwordText = remember { mutableStateOf("") }
+        val repeatPasswordText = remember { mutableStateOf("") }
+        val message = remember { mutableStateOf("") }
 
         Column(
-            Modifier
+            modifier = Modifier
                 .fillMaxSize()
+                .padding(40.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Text("Регистрация")
-            TextField(
-                value = emailText,
-                onValueChange = {
-                    emailText = it
-                    message = ""
-                },
-                placeholder = { androidx.compose.material.Text(text = "Введите вашу почту") }
+            Text(
+                text = "Регистрация в PAP",
+                style = MaterialTheme.typography.h5,
+                color = Color.Black,
+                fontFamily = montserratFontFamily
             )
-            TextField(
-                value = passwordText,
-                onValueChange = {
-                    passwordText = it
-                    message = ""
-                },
-                placeholder = { androidx.compose.material.Text(text = "Введите пароль") }
-            )
-            TextField(
-                value = repeatPasswordText,
-                onValueChange = {
-                    repeatPasswordText = it
-                    message = ""
-                },
-                placeholder = { androidx.compose.material.Text(text = "Повторите пароль") }
-            )
-            Button(
-                onClick = {
-                    if(passwordText != repeatPasswordText){
-                        message = "Пароли не совпадают!"
+            Spacer(modifier = Modifier.height(16.dp))
+            EmailField(emailText, message)
+            Spacer(modifier = Modifier.height(16.dp))
+            PasswordField(passwordText, "Введите пароль", message)
+            Spacer(modifier = Modifier.height(16.dp))
+            PasswordField(repeatPasswordText, "Повторите пароль", message)
+            Spacer(modifier = Modifier.height(16.dp))
+            androidx.compose.material.Text(message.value, color = Color.Red, fontFamily = montserratFontFamily)
+            CustomButton("Зарегистрироваться",
+                {
+                    if (passwordText.value != repeatPasswordText.value) {
+                        message.value = "Пароли не совпадают!"
+                    } else if (passwordText.value.length < 6) {
+                        message.value = "Пароль должен быть не менее 6 знаков!"
                     } else {
-                        auth.createUserWithEmailAndPassword(emailText, passwordText)
+                        auth.createUserWithEmailAndPassword(emailText.value, passwordText.value)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    message = "Вы успешно зарегистрировались!"
-                                    db.collection("users").document(auth.currentUser!!.uid).set(hashMapOf("results" to "bad"))
+                                    message.value = "Вы успешно зарегистрировались!"
+                                    db.collection("users").document(auth.currentUser!!.uid)
+                                        .set(hashMapOf("results" to "bad"))
                                     auth.currentUser
                                 } else {
-                                    message = "Почта занята!"
+                                    message.value = "Почта занята!"
                                 }
                             }
                     }
-                }
-            ) {
-                Text("Зарегистрироваться")
-            }
-            Text(message)
-            Button(
-                onClick = {
-                    navigator.replace(LoginScreen())
-                }
-            ) {
-                Text("Войти в существующий аккаунт")
-            }
+                },
+                Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            LinkToLogin(navigator)
         }
 
     }
