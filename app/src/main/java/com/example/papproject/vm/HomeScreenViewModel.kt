@@ -28,7 +28,6 @@ class HomeScreenViewModel : ViewModel() {
 
 
 sealed class HomeState {
-
     object Loading : HomeState()
     data class ShowingModules(val data: List<LectureModule>) : HomeState()
     object Empty : HomeState()

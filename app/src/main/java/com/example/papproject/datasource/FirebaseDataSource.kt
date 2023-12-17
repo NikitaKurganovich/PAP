@@ -37,7 +37,7 @@ object FirebaseDataSource : DataSource {
     override fun getLectureQuestions(moduleName: String, testName: String): Flow<List<LectureQuestion>> {
         return callbackFlow {
             val questionsReference: DatabaseReference = databaseReference
-                .getReference("lectures/$moduleName/tests/$testName/questions")
+                .getReference("lectures/$moduleName/modules/$testName/questions")
             val eventListener = object : ValueEventListener {
                 override fun onDataChange(data: DataSnapshot) {
                     val lectureQuestions = data.children.mapNotNull { snapshot ->
@@ -49,6 +49,9 @@ object FirebaseDataSource : DataSource {
                             )
                         }
                     }
+                    println(lectureQuestions)
+                    println(moduleName)
+                    println(testName)
                     trySend(lectureQuestions).isSuccess
                 }
 

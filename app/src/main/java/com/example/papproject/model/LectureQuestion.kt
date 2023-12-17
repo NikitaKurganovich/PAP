@@ -20,7 +20,9 @@ open class LectureQuestion(
     val correct_answer: String = "",
     val available_answers: List<String> = listOf()
 ) {
+
     var isAnsweredCorrectly: Boolean = false
+    var isAnswered: Boolean = false
 
     @Composable
     open fun QuestionElement(modifier: Modifier = Modifier) {
@@ -47,7 +49,6 @@ open class LectureQuestion(
     @Composable
     fun AnswerVariants(modifier: Modifier = Modifier) {
         var selectedAnswer by remember { mutableStateOf("") }
-        var isCorrect by remember { mutableStateOf(false) }
 
         Column(modifier = modifier) {
             available_answers.forEach { answer ->
@@ -58,8 +59,8 @@ open class LectureQuestion(
                             selected = (answer == selectedAnswer),
                             onClick = {
                                 selectedAnswer = answer
-                                isCorrect = (answer == correct_answer)
-                                isAnsweredCorrectly = isCorrect
+                                isAnswered = true
+                                isAnsweredCorrectly = (answer == correct_answer)
                             },
                             role = Role.RadioButton
                         )

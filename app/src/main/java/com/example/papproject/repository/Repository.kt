@@ -9,4 +9,5 @@ interface Repository {
 
     fun getModules(): Flow<List<LectureModule>>
 
+    fun upsertResults()
 }

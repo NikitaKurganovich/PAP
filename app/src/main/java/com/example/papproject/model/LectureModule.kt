@@ -10,6 +10,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.Navigator
+import com.example.papproject.screens.LectureTestScreen
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
@@ -18,7 +20,10 @@ class LectureModule(
     val submodulesNames: List<String> = listOf()
 ) {
     @Composable
-    fun LectureElement(modifier: Modifier = Modifier) {
+    fun LectureElement(
+        modifier: Modifier = Modifier,
+        navigator: Navigator
+    ) {
         Card(
             shape = RoundedCornerShape(20.dp),
             elevation = CardDefaults.cardElevation(4.dp),
@@ -26,12 +31,12 @@ class LectureModule(
         ) {
             Text(moduleName, style = MaterialTheme.typography.h2)
 
-
             submodulesNames.forEach {
-                Text(it, Modifier.clickable {  })
+
+                Text(it, Modifier.clickable {
+                       navigator.push(LectureTestScreen(moduleName, it))
+                })
             }
-
-
         }
     }
 }

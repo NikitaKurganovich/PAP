@@ -13,6 +13,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import com.example.papproject.vm.HomeScreenViewModel
 import com.example.papproject.vm.HomeState
@@ -20,7 +22,7 @@ import com.example.papproject.vm.HomeState
 class HomeScreen : Screen {
     @Composable
     override fun Content() {
-        val tabNavigator = LocalTabNavigator.current
+        val navigator = LocalNavigator.currentOrThrow
         val homeVM = HomeScreenViewModel()
         val screenState by homeVM.state.collectAsState()
 
@@ -42,7 +44,7 @@ class HomeScreen : Screen {
                     val data = (screenState as HomeState.ShowingModules).data
                     LazyColumn {
                         items(data) {
-                            it.LectureElement()
+                            it.LectureElement(navigator = navigator)
                         }
                     }
                 }
