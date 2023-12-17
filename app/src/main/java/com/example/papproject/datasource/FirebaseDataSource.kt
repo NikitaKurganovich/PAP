@@ -9,6 +9,31 @@ import kotlinx.coroutines.flow.callbackFlow
 
 object FirebaseDataSource : DataSource {
     private val databaseReference = FirebaseDatabase.getInstance()
+
+    override val lectureModules = callbackFlow {
+        val questionsReference: DatabaseReference = databaseReference
+            .getReference("lectures")
+        val eventListener = object : ValueEventListener {
+            override fun onDataChange(data: DataSnapshot) {
+                val lectureModules = data.children.mapNotNull { snapshot ->
+                    snapshot.getValue(LectureModule::class.java)?.let {
+                        LectureModule(
+                            moduleName = snapshot.key!!,
+                            submodulesNames = snapshot.child("modules").children.map { it.key ?: "" }
+                        )
+                    }
+                }
+                trySend(lectureModules).isSuccess
+                close()
+            }
+            override fun onCancelled(p0: DatabaseError) {
+                println(p0.message)
+                close()
+            }
+        }
+        questionsReference.addValueEventListener(eventListener)
+        awaitClose { questionsReference.removeEventListener(eventListener) }
+    }
     override fun getLectureQuestions(moduleName: String, testName: String): Flow<List<LectureQuestion>> {
         return callbackFlow {
             val questionsReference: DatabaseReference = databaseReference
@@ -24,7 +49,7 @@ object FirebaseDataSource : DataSource {
                             )
                         }
                     }
-                    trySend(lectureQuestions)
+                    trySend(lectureQuestions).isSuccess
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
@@ -38,30 +63,7 @@ object FirebaseDataSource : DataSource {
     }
 
     override fun getModules(): Flow<List<LectureModule>> {
-        return callbackFlow {
-            val questionsReference: DatabaseReference = databaseReference
-                .getReference("lectures")
-            val eventListener = object : ValueEventListener {
-                override fun onDataChange(data: DataSnapshot) {
-                    val lectureModules = data.children.mapNotNull { snapshot ->
-                        snapshot.getValue(LectureModule::class.java)?.let {
-                            LectureModule(
-                                moduleName = snapshot.key!!,
-                                submodulesNames = snapshot.child("modules").children.map { it.key ?: "" }
-                            )
-                        }
-                    }
-                    trySend(lectureModules)
-                }
-
-                override fun onCancelled(p0: DatabaseError) {
-                    println(p0.message)
-                    close()
-                }
-            }
-            questionsReference.addValueEventListener(eventListener)
-            awaitClose { questionsReference.removeEventListener(eventListener) }
-        }
+        return lectureModules
     }
 
 }

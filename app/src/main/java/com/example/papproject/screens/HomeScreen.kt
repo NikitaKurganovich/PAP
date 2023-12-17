@@ -1,94 +1,61 @@
 package com.example.papproject.screens
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
-import com.example.papproject.datasource.FirebaseDataSource
-import com.example.papproject.model.LectureModule
-import com.example.papproject.tabs.ProfileTab
-import com.example.papproject.tabs.TestsTab
-import com.example.papproject.ui.theme.montserratFontFamily
-import kotlinx.coroutines.launch
+import com.example.papproject.vm.HomeScreenViewModel
+import com.example.papproject.vm.HomeState
 
-class HomeScreen: Screen {
-    @SuppressLint("CoroutineCreationDuringComposition")
+class HomeScreen : Screen {
     @Composable
     override fun Content() {
         val tabNavigator = LocalTabNavigator.current
-        Column(Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("Home screen",
-                Modifier
-                .height(50.dp),
-                style = TextStyle(
-                    fontSize = 30.sp,
-                    fontFamily = montserratFontFamily,
-                    fontWeight = FontWeight(500),
-                    color = Color(0xFF000000),
-                    textAlign = TextAlign.Center,
-                )
-                )
-            Text("You can navigate across screens",
-                Modifier
-                    .width(146.dp)
-                    .height(50.dp),
-                style = MaterialTheme.typography.bodySmall)
-            Row(Modifier
-                .fillMaxWidth()
-                .align(alignment = Alignment.CenterHorizontally)
-                .padding(all = 5.dp)
-            ){
-                Button(
-                    onClick = {
-                        tabNavigator.current = TestsTab
+        val homeVM = HomeScreenViewModel()
+        val screenState by homeVM.state.collectAsState()
+
+        Column(
+            Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            when (screenState) {
+                is HomeState.Loading -> {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .wrapContentSize(Alignment.Center)
+                    )
+                }
+
+                is HomeState.ShowingModules -> {
+
+                    val data = (screenState as HomeState.ShowingModules).data
+                    LazyColumn {
+                        items(data) {
+                            it.LectureElement()
+                        }
                     }
-                ){
-                    Text("To tests")
                 }
-                Button(
-                    onClick = {
-                        tabNavigator.current = ProfileTab
-                    }
-                ){
-                    Text("To profile")
+
+                is HomeState.Empty -> {
+                    Text("Пусто")
                 }
-            }
-            val data = FirebaseDataSource.getModules()
 
-            val scope = rememberCoroutineScope()
-            var emptyList by remember { mutableStateOf(listOf(LectureModule("1", listOf("226","446")))) }
-
-            scope.launch {
-                data.collect { value ->
-                    emptyList = value
+                is HomeState.Error -> {
+                    val error = (screenState as HomeState.Error).e
+                    Text("Error: ${error.message}")
                 }
             }
-
-            LazyColumn(
-                Modifier.fillMaxSize()
-            ) {
-                items(emptyList){
-                    it.LectureElement()
-                }
-            }
-
-
-
         }
     }
 }

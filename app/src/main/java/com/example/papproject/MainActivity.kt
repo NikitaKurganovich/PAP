@@ -29,12 +29,13 @@ import com.example.papproject.ui.theme.PAPProjectTheme
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.database.database
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Initialize Firebase Auth
+        Firebase.database.setPersistenceEnabled(true)
         auth = Firebase.auth
         super.onCreate(savedInstanceState)
         setContent {

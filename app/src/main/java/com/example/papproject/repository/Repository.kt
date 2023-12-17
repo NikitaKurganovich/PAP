@@ -1,9 +1,12 @@
 package com.example.papproject.repository
 
-import com.example.papproject.datasource.FirebaseDataSource
+import com.example.papproject.model.LectureModule
+import com.example.papproject.model.LectureQuestion
+import kotlinx.coroutines.flow.Flow
 
-object Repository {
+interface Repository {
+    fun getLectureQuestions(moduleName: String, testName: String): Flow<List<LectureQuestion>>
 
-
+    fun getModules(): Flow<List<LectureModule>>
 
 }

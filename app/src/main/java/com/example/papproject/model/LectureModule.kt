@@ -1,5 +1,6 @@
 package com.example.papproject.model
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -27,7 +28,7 @@ class LectureModule(
 
 
             submodulesNames.forEach {
-                Text(it)
+                Text(it, Modifier.clickable {  })
             }
 
 
