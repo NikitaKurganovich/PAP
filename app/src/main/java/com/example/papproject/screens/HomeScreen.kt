@@ -1,5 +1,6 @@
 package com.example.papproject.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,14 +19,14 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import com.example.papproject.datasource.FirebaseDataSource
-import com.example.papproject.model.LectureQuestion
+import com.example.papproject.model.LectureModule
 import com.example.papproject.tabs.ProfileTab
 import com.example.papproject.tabs.TestsTab
 import com.example.papproject.ui.theme.montserratFontFamily
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 
 class HomeScreen: Screen {
+    @SuppressLint("CoroutineCreationDuringComposition")
     @Composable
     override fun Content() {
         val tabNavigator = LocalTabNavigator.current
@@ -67,10 +68,10 @@ class HomeScreen: Screen {
                     Text("To profile")
                 }
             }
-            val data = FirebaseDataSource.getLectureQuestions("Мотивация","Удовлетворенность трудом")
+            val data = FirebaseDataSource.getModules()
 
             val scope = rememberCoroutineScope()
-            var emptyList by remember { mutableStateOf(listOf(LectureQuestion("1","2", listOf("226","446")))) }
+            var emptyList by remember { mutableStateOf(listOf(LectureModule("1", listOf("226","446")))) }
 
             scope.launch {
                 data.collect { value ->
@@ -82,7 +83,7 @@ class HomeScreen: Screen {
                 Modifier.fillMaxSize()
             ) {
                 items(emptyList){
-                    it.QuestionElement()
+                    it.LectureElement()
                 }
             }
 
