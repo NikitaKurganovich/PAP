@@ -49,7 +49,7 @@ class HomeScreen : Screen {
                             Spacer(Modifier.height(10.dp))
                         }
                         items(data) {
-                            it.LectureElement(navigator = navigator)
+                            it.LectureElement(navigator = navigator, viewModel = homeVM)
                         }
                     }
                 }

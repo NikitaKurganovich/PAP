@@ -15,8 +15,8 @@ import kotlinx.coroutines.flow.callbackFlow
 
 object FirebaseDataSource : DataSource {
     private val databaseReference = FirebaseDatabase.getInstance()
-    private val db = Firebase.firestore
-    private val docRef = db.collection("users").document(Firebase.auth.currentUser?.uid ?: "")
+
+    private val docRef = Firebase.firestore.collection("users").document(Firebase.auth.currentUser?.uid ?: "")
 
     override val lectureModules = callbackFlow {
         val questionsReference: DatabaseReference = databaseReference
@@ -103,13 +103,14 @@ object FirebaseDataSource : DataSource {
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    callback(document.data?.mapValues { it.value.toString().toInt() } ?: emptyMap())
+                    val modules = document.data as Map<String, Int>
+                    callback(modules)
                 } else {
-                    callback(emptyMap())
+                    callback(hashMapOf())
                 }
             }
             .addOnFailureListener { exception ->
-                callback(emptyMap())
+                callback(hashMapOf())
                 Log.d(TAG, "get failed with ", exception)
             }
     }
