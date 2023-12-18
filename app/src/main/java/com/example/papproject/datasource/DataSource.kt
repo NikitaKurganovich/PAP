@@ -9,5 +9,6 @@ interface DataSource {
     fun getLectureQuestions(moduleName: String, submoduleName: String): Flow<List<LectureQuestion>>
     fun getModules(): Flow<List<LectureModule>>
     fun getLectureTheory(moduleName: String, submoduleName: String): Flow<String>
-
+    fun getUserResults(callback: (Map<String, Int>) -> Unit)
+    fun upsertResults(moduleName: String, submoduleName: String, score: Int)
 }

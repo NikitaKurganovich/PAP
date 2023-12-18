@@ -9,7 +9,6 @@ interface Repository {
 
     fun getModules(): Flow<List<LectureModule>>
     fun getLectureTheory(moduleName: String, submoduleName: String): Flow<String>
-
-    fun upsertResults()
-
+    fun upsertResults(moduleName: String, submoduleName: String, score: Int)
+    fun getUserResults(callback: (Map<String, Int>) -> Unit)
 }

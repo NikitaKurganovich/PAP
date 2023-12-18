@@ -2,15 +2,12 @@ package com.example.papproject.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -21,28 +18,33 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.example.papproject.ui.theme.montserratFontFamily
 import com.example.papproject.util.CustomButton
-import com.example.papproject.util.simpleVerticalScrollbar
+import com.example.papproject.util.DefaultText
 import com.example.papproject.vm.LectureScreenViewModel
 import com.example.papproject.vm.LectureScreenViewModelFactory
-import com.example.papproject.vm.LectureTestState
-import com.example.papproject.vm.LectureTheoryState
+import com.example.papproject.vm.LectureState
+import kotlinx.coroutines.flow.update
 
 data class LectureScreen(
     private val moduleName: String,
-    private val submoduleName: String
+    private val submoduleName: String,
 ) : Screen {
     @Composable
     override fun Content() {
         val currentVM: LectureScreenViewModel =
             viewModel(factory = LectureScreenViewModelFactory(moduleName, submoduleName))
-        val screenState by currentVM.theoryState.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
+        val isDialogOnNotFullOpen = remember { mutableStateOf(false) }
+        val isDialogOnConfirmOpen = remember { mutableStateOf(false) }
+        val screenState by currentVM.state.collectAsState()
+        ConfirmAnswersDialog(isDialogOnConfirmOpen, currentVM)
+        NotFullAnswerDialog(isDialogOnNotFullOpen)
         Column(
             Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
             when (screenState) {
-                is LectureTestState.Loading -> {
+                is LectureState.Loading -> {
                     CircularProgressIndicator(
                         modifier = Modifier
                             .fillMaxSize()
@@ -50,8 +52,51 @@ data class LectureScreen(
                     )
                 }
 
-                is LectureTheoryState.ShowingTheory -> {
-                    val data = (screenState as LectureTheoryState.ShowingTheory).data
+                is LectureState.ShowingQuestions -> {
+                    val data = (screenState as LectureState.ShowingQuestions).data
+                    LazyColumn(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        items(data) {
+                            it.QuestionElement()
+                            Spacer(modifier = Modifier.height(20.dp))
+                        }
+                        item {
+                            CustomButton(
+                                onClick = {
+                                    data.forEach {
+                                        if (it.isAnsweredCorrectly) {
+                                            currentVM.score++
+                                        }
+                                        if (!it.isAnswered) {
+                                            isDialogOnNotFullOpen.value = true
+                                        } else {
+                                            isDialogOnConfirmOpen.value = true
+                                        }
+                                    }
+                                },
+                                modifier = Modifier.fillParentMaxWidth(0.76f)
+                            )
+                        }
+                    }
+                }
+
+                is LectureState.ShowingResults -> {
+                    val data = (screenState as LectureState.ShowingResults).score
+                    DefaultText("Ваш результат: $data", Modifier.fillMaxWidth(0.8f))
+                }
+
+                is LectureState.Empty -> {
+                    Text("Пусто")
+                }
+
+                is LectureState.Error -> {
+                    val error = (screenState as LectureState.Error).e
+                    Text("Error: ${error.message}")
+                }
+
+                is LectureState.ShowingTheory -> {
+                    val data = (screenState as LectureState.ShowingTheory).data
 
                     LazyColumn(
                         modifier = Modifier
@@ -67,23 +112,67 @@ data class LectureScreen(
                             CustomButton(
                                 prompt = "Пройти тест по лекции",
                                 onClick = {
-                                    navigator.push(LectureTestScreen(currentVM))
+                                    currentVM.isTheoryRead.update { true }
                                 },
                                 modifier = Modifier.height(50.dp)
                             )
                         }
                     }
                 }
-
-                is LectureTheoryState.Empty -> {
-                    Text("Пусто")
-                }
-
-                is LectureTheoryState.Error -> {
-                    val error = (screenState as LectureTheoryState.Error).e
-                    Text("Error: ${error.message}")
-                }
             }
+        }
+
+    }
+
+    @Composable
+    fun NotFullAnswerDialog(
+        isDialogOnNotFullOpen: MutableState<Boolean>,
+    ) {
+        if (isDialogOnNotFullOpen.value) {
+            AlertDialog(
+                onDismissRequest = { isDialogOnNotFullOpen.value = false },
+                title = { Text("Пропущены вопросы!") },
+                text = { Text("Пожалуйста, удостовереть что вы ответили на все вопросы перед подтверждением проверки") },
+                confirmButton = {
+                    TextButton(onClick = {
+                        isDialogOnNotFullOpen.value = false
+                    }) {
+                        Text("ОК")
+                    }
+                }
+            )
+        }
+    }
+
+    @Composable
+    fun ConfirmAnswersDialog(
+        isDialogOnConfirmOpen: MutableState<Boolean>,
+        viewModel: LectureScreenViewModel,
+    ) {
+        if (isDialogOnConfirmOpen.value) {
+            AlertDialog(
+                onDismissRequest = {},
+                title = { Text("Проверить результаты?") },
+                text = { Text("Вы уверены, что хотите отправить тест на проверку?") },
+                confirmButton = {
+                    TextButton(onClick = {
+                        viewModel.upsertScore(
+                            viewModel.moduleName,
+                            viewModel.submoduleName,
+                            viewModel.score
+                        )
+                        viewModel.isResultsSend.update { true }
+                        isDialogOnConfirmOpen.value = false
+                    }) {
+                        Text("Да")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { isDialogOnConfirmOpen.value = false }) {
+                        Text("Отмена")
+                    }
+                }
+            )
         }
     }
 }

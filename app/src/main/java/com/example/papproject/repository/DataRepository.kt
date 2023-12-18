@@ -38,8 +38,12 @@ object DataRepository: Repository {
         return firebaseSource.getLectureTheory(moduleName, submoduleName)
     }
 
-    override fun upsertResults() {
-        TODO("Not yet implemented")
+    override fun upsertResults(moduleName: String, submoduleName: String, score: Int) {
+        firebaseSource.upsertResults(moduleName, submoduleName, score)
+    }
+
+    override fun getUserResults(callback: (Map<String, Int>) -> Unit) {
+        firebaseSource.getUserResults(callback)
     }
 
 

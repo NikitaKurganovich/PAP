@@ -1,14 +1,22 @@
 package com.example.papproject.datasource
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.example.papproject.model.LectureModule
 import com.example.papproject.model.LectureQuestion
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 object FirebaseDataSource : DataSource {
     private val databaseReference = FirebaseDatabase.getInstance()
+    private val db = Firebase.firestore
+    private val docRef = db.collection("users").document(Firebase.auth.currentUser?.uid ?: "")
 
     override val lectureModules = callbackFlow {
         val questionsReference: DatabaseReference = databaseReference
@@ -89,6 +97,31 @@ object FirebaseDataSource : DataSource {
             questionsReference.addValueEventListener(eventListener)
             awaitClose { questionsReference.removeEventListener(eventListener) }
         }
+    }
+
+    override fun getUserResults(callback: (Map<String, Int>) -> Unit) {
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    callback(document.data?.mapValues { it.value.toString().toInt() } ?: emptyMap())
+                } else {
+                    callback(emptyMap())
+                }
+            }
+            .addOnFailureListener { exception ->
+                callback(emptyMap())
+                Log.d(TAG, "get failed with ", exception)
+            }
+    }
+
+    override fun upsertResults(moduleName: String, submoduleName: String, score: Int) {
+        val nestedMap = hashMapOf(
+            submoduleName to score
+        )
+        val docData = hashMapOf(
+            moduleName to nestedMap
+        )
+        docRef.set(docData, SetOptions.merge())
     }
 
 }
