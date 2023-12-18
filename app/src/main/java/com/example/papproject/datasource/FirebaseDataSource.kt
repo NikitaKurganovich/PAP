@@ -2,6 +2,7 @@ package com.example.papproject.datasource
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.example.papproject.model.EmotionalIntelligenceQuestion
 import com.example.papproject.model.LectureModule
 import com.example.papproject.model.LectureQuestion
 import com.google.firebase.auth.ktx.auth
@@ -42,6 +43,25 @@ object FirebaseDataSource : DataSource {
         questionsReference.addValueEventListener(eventListener)
         awaitClose { questionsReference.removeEventListener(eventListener) }
     }
+    override val personalTests: Flow<List<String>> = callbackFlow {
+        val questionsReference: DatabaseReference = databaseReference
+            .getReference("personal_tests")
+        val eventListener = object : ValueEventListener {
+            override fun onDataChange(data: DataSnapshot) {
+                val personalTests = data.children.mapNotNull { snapshot ->
+                    snapshot.key
+                }
+                trySend(personalTests).isSuccess
+                close()
+            }
+            override fun onCancelled(p0: DatabaseError) {
+                println(p0.message)
+                close()
+            }
+        }
+        questionsReference.addValueEventListener(eventListener)
+        awaitClose { questionsReference.removeEventListener(eventListener) }
+    }
 
 
     override fun getLectureQuestions(moduleName: String, submoduleName: String): Flow<List<LectureQuestion>> {
@@ -59,9 +79,7 @@ object FirebaseDataSource : DataSource {
                             )
                         }
                     }
-                    println(lectureQuestions)
-                    println(moduleName)
-                    println(submoduleName)
+
                     trySend(lectureQuestions).isSuccess
                 }
 
@@ -75,8 +93,44 @@ object FirebaseDataSource : DataSource {
         }
     }
 
+    override fun getPersonalTestQuestions(testName: String): Flow<List<EmotionalIntelligenceQuestion>> {
+        return callbackFlow {
+            val testReference: DatabaseReference = databaseReference
+                .getReference("personal_tests/$testName")
+            val eventListener = object : ValueEventListener {
+                override fun onDataChange(data: DataSnapshot) {
+                    val answerVariants = data.child("answer_variants").getValue(object : GenericTypeIndicator<HashMap<String, Int>>() {})
+
+                    val personalQuestions = data.child("questions").children.mapNotNull { snapshot ->
+                        val questionText = snapshot.child("question").getValue(String::class.java)
+                        val relatedScale = snapshot.child("related_scale").getValue(String::class.java)
+
+                        if (questionText != null && relatedScale != null && answerVariants != null) {
+                            EmotionalIntelligenceQuestion(questionText, relatedScale, answerVariants)
+                        } else {
+                            null
+                        }
+                    }
+                    trySend(personalQuestions).isSuccess
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    println(p0.message)
+                    close()
+                }
+            }
+            testReference.addValueEventListener(eventListener)
+            awaitClose { testReference.removeEventListener(eventListener) }
+        }
+    }
+
+
     override fun getModules(): Flow<List<LectureModule>> {
         return lectureModules
+    }
+
+    override fun getTests(): Flow<List<String>> {
+       return personalTests
     }
 
     override fun getLectureTheory(moduleName: String, submoduleName: String): Flow<String> {
@@ -121,6 +175,13 @@ object FirebaseDataSource : DataSource {
         )
         val docData = hashMapOf(
             moduleName to nestedMap
+        )
+        docRef.set(docData, SetOptions.merge())
+    }
+
+    override fun upsertPersonalResults(testName: String, results: Map<String,Int>) {
+        val docData = hashMapOf(
+            testName to results as HashMap<String, Int>
         )
         docRef.set(docData, SetOptions.merge())
     }

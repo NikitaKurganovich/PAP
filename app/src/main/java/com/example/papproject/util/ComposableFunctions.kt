@@ -41,7 +41,8 @@ fun DefaultText(
         text = text,
         style = MaterialTheme.typography.h6,
         fontWeight = FontWeight.Bold,
-        fontFamily = montserratFontFamily
+        fontFamily = montserratFontFamily,
+        modifier = modifier
     )
 }
 
