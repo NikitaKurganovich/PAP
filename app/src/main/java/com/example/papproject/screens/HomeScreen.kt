@@ -1,8 +1,6 @@
 package com.example.papproject.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -12,10 +10,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
+import com.example.papproject.util.DefaultText
 import com.example.papproject.vm.HomeScreenViewModel
 import com.example.papproject.vm.HomeState
 
@@ -42,7 +41,13 @@ class HomeScreen : Screen {
                 is HomeState.ShowingModules -> {
 
                     val data = (screenState as HomeState.ShowingModules).data
-                    LazyColumn {
+                    LazyColumn(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        item {
+                            DefaultText("Продолжите обучение!")
+                            Spacer(Modifier.height(10.dp))
+                        }
                         items(data) {
                             it.LectureElement(navigator = navigator)
                         }

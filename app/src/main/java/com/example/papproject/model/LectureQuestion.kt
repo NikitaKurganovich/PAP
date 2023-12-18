@@ -10,6 +10,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
@@ -44,7 +45,7 @@ open class LectureQuestion(
 
     @Composable
     fun AnswerVariants(modifier: Modifier = Modifier) {
-        var selectedAnswer by remember { mutableStateOf("") }
+        var selectedAnswer by rememberSaveable { mutableStateOf("") }
 
         Column(modifier = modifier) {
             available_answers.forEach { answer ->

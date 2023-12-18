@@ -8,6 +8,8 @@ interface Repository {
     fun getLectureQuestions(moduleName: String, testName: String): Flow<List<LectureQuestion>>
 
     fun getModules(): Flow<List<LectureModule>>
+    fun getLectureTheory(moduleName: String, submoduleName: String): Flow<String>
 
     fun upsertResults()
+
 }

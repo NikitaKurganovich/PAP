@@ -12,22 +12,38 @@ class LectureScreenViewModel(
     submoduleName: String
 ) : ViewModel() {
     private val repository = DataRepository
-    private val questions = repository.getLectureQuestions(moduleName,submoduleName)
-    private val loading = MutableStateFlow(false)
 
-    val state = combine(
+    private val questions = repository.getLectureQuestions(moduleName,submoduleName)
+    private val questionsLoading = MutableStateFlow(false)
+
+    private val theory = repository.getLectureTheory(moduleName,submoduleName)
+    private val theoryLoading = MutableStateFlow(false)
+
+    val questionState = combine(
         questions,
-        loading
-    ) { modules, loading ->
+        questionsLoading
+    ) { questions, loading ->
         when {
             loading -> LectureTestState.Loading
-            modules.isEmpty() -> LectureTestState.Empty
-            else -> LectureTestState.ShowingModules(modules)
+            questions.isEmpty() -> LectureTestState.Empty
+            else -> LectureTestState.ShowingModules(questions)
         }
     }.catch {
         emit(LectureTestState.Error(it))
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), LectureTestState.Loading)
 
+    val theoryState = combine(
+        theory,
+        theoryLoading
+    ) { theory, loading ->
+        when {
+            loading -> LectureTheoryState.Loading
+            theory.isEmpty() -> LectureTheoryState.Empty
+            else -> LectureTheoryState.ShowingTheory(theory)
+        }
+    }.catch {
+        emit(LectureTheoryState.Error(it))
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), LectureTestState.Loading)
 
 }
 
@@ -49,4 +65,11 @@ sealed class LectureTestState {
     data class ShowingModules(val data: List<LectureQuestion>) : LectureTestState()
     object Empty : LectureTestState()
     data class Error(val e: Throwable): LectureTestState()
+}
+
+sealed class LectureTheoryState{
+    object Loading : LectureTheoryState()
+    data class ShowingTheory(val data: String) : LectureTheoryState()
+    object Empty : LectureTheoryState()
+    data class Error(val e: Throwable): LectureTheoryState()
 }

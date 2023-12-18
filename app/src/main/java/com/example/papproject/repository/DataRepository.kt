@@ -34,6 +34,10 @@ object DataRepository: Repository {
         return modules
     }
 
+    override fun getLectureTheory(moduleName: String, submoduleName: String): Flow<String> {
+        return firebaseSource.getLectureTheory(moduleName, submoduleName)
+    }
+
     override fun upsertResults() {
         TODO("Not yet implemented")
     }

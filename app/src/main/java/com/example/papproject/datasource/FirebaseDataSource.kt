@@ -34,10 +34,12 @@ object FirebaseDataSource : DataSource {
         questionsReference.addValueEventListener(eventListener)
         awaitClose { questionsReference.removeEventListener(eventListener) }
     }
-    override fun getLectureQuestions(moduleName: String, testName: String): Flow<List<LectureQuestion>> {
+
+
+    override fun getLectureQuestions(moduleName: String, submoduleName: String): Flow<List<LectureQuestion>> {
         return callbackFlow {
             val questionsReference: DatabaseReference = databaseReference
-                .getReference("lectures/$moduleName/modules/$testName/questions")
+                .getReference("lectures/$moduleName/modules/$submoduleName/questions")
             val eventListener = object : ValueEventListener {
                 override fun onDataChange(data: DataSnapshot) {
                     val lectureQuestions = data.children.mapNotNull { snapshot ->
@@ -51,7 +53,7 @@ object FirebaseDataSource : DataSource {
                     }
                     println(lectureQuestions)
                     println(moduleName)
-                    println(testName)
+                    println(submoduleName)
                     trySend(lectureQuestions).isSuccess
                 }
 
@@ -67,6 +69,26 @@ object FirebaseDataSource : DataSource {
 
     override fun getModules(): Flow<List<LectureModule>> {
         return lectureModules
+    }
+
+    override fun getLectureTheory(moduleName: String, submoduleName: String): Flow<String> {
+        return callbackFlow {
+            val questionsReference: DatabaseReference = databaseReference
+                .getReference("lectures/$moduleName/modules/$submoduleName/theory")
+            val eventListener = object : ValueEventListener {
+                override fun onDataChange(data: DataSnapshot) {
+                    val lectureTheory = data.getValue(String::class.java) ?: ""
+                    trySend(lectureTheory).isSuccess
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    println(p0.message)
+                    close()
+                }
+            }
+            questionsReference.addValueEventListener(eventListener)
+            awaitClose { questionsReference.removeEventListener(eventListener) }
+        }
     }
 
 }

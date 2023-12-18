@@ -19,14 +19,12 @@ import com.example.papproject.util.EmailField
 import com.example.papproject.util.LinkToRegistration
 import com.example.papproject.util.PasswordField
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class LoginScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val db = Firebase.firestore
         val auth = Firebase.auth
         val emailText = remember { mutableStateOf("") }
         val passwordText = remember { mutableStateOf("") }
