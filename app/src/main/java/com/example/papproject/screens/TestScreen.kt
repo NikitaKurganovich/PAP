@@ -27,8 +27,10 @@ class TestScreen : Screen {
         val state by testVM.state.collectAsState()
         val isDialogOnNotFullOpen = remember { mutableStateOf(false) }
         val isDialogOnConfirmOpen = remember { mutableStateOf(false) }
+        val isDialogOnRewriteOpen = remember { mutableStateOf(false) }
         ConfirmAnswersDialog(isDialogOnConfirmOpen, testVM)
         NotFullAnswerDialog(isDialogOnNotFullOpen)
+        AlertOnConfirmRewrite(isDialogOnRewriteOpen, testVM)
         Column(
             Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -50,7 +52,12 @@ class TestScreen : Screen {
                     ) {
                         items(data) { text ->
                             DefaultText(text, Modifier.clickable {
-                                testVM.isChosen.update { true }
+                                if (testVM.isResultsExist()) {
+                                    isDialogOnRewriteOpen.value = true
+                                } else {
+                                    testVM.isChosen.update { true }
+                                }
+
                             })
                         }
                     }
@@ -173,6 +180,33 @@ class TestScreen : Screen {
                 },
                 dismissButton = {
                     TextButton(onClick = { isDialogOnConfirmOpen.value = false }) {
+                        Text("Отмена")
+                    }
+                }
+            )
+        }
+    }
+
+    @Composable
+    fun AlertOnConfirmRewrite(
+        isShown: MutableState<Boolean>,
+        testVM: TestScreenViewModel
+    ) {
+        if (isShown.value) {
+            AlertDialog(
+                onDismissRequest = {isShown.value = false},
+                title = { Text("Перепройти тест?") },
+                text = { Text("Вы уверены, что хотите перепройти тест? Вы ранее его проходили") },
+                confirmButton = {
+                    TextButton(onClick = {
+                        testVM.isChosen.update { true }
+                        isShown.value = false
+                    }) {
+                        Text("Да")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { isShown.value = false }) {
                         Text("Отмена")
                     }
                 }

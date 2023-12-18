@@ -68,10 +68,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-
-            // Listen for network changes
-
-
             // Register the callback to listen for network changes
             connectivityManager.registerDefaultNetworkCallback(networkCallback)
 
