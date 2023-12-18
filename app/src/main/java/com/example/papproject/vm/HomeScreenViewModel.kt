@@ -11,7 +11,7 @@ class HomeScreenViewModel : ViewModel() {
     private val loading = MutableStateFlow(false)
     private val modules = repository.getModules()
 
-    private var _results = emptyMap<String, Int>()
+    private var _results = hashMapOf<String, HashMap<String, Int>>()
     val userResults = _results
 
     val state = combine(
@@ -28,7 +28,7 @@ class HomeScreenViewModel : ViewModel() {
         emit(HomeState.Error(it))
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), HomeState.Loading)
 
-    fun getResults(): Map<String, Int> {
+    fun getResults(): HashMap<String, HashMap<String, Int>> {
         repository.getUserResults {
             _results = it
         }

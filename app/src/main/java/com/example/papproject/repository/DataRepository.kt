@@ -64,7 +64,7 @@ object DataRepository : Repository {
         firebaseSource.upsertPersonalResults(testName,results)
     }
 
-    override fun getUserResults(callback: (Map<String, Int>) -> Unit) {
+    override fun getUserResults(callback: (HashMap<String, HashMap<String, Int>>) -> Unit) {
         firebaseSource.getUserResults(callback)
     }
 

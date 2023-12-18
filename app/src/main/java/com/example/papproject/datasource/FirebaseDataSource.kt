@@ -153,11 +153,11 @@ object FirebaseDataSource : DataSource {
         }
     }
 
-    override fun getUserResults(callback: (Map<String, Int>) -> Unit) {
+    override fun getUserResults(callback: (HashMap<String, HashMap<String, Int>>) -> Unit) {
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    val modules = document.data as Map<String, Int>
+                    val modules = document.data as HashMap<String, HashMap<String, Int>>
                     callback(modules)
                 } else {
                     callback(hashMapOf())

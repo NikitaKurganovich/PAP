@@ -13,7 +13,7 @@ interface DataSource {
     fun getModules(): Flow<List<LectureModule>>
     fun getTests(): Flow<List<String>>
     fun getLectureTheory(moduleName: String, submoduleName: String): Flow<String>
-    fun getUserResults(callback: (Map<String, Int>) -> Unit)
+    fun getUserResults(callback: (HashMap<String, HashMap<String, Int>>) -> Unit)
     fun upsertResults(moduleName: String, submoduleName: String, score: Int)
     fun upsertPersonalResults(testName: String, results: Map<String, Int>)
 }
