@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "PAP Project"
+rootProject.name = "Psychology at Pocket"
 include(":app")
  
