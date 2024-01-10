@@ -84,21 +84,7 @@ class TestScreen : Screen {
                         item {
                             CustomButton(
                                 onClick = {
-                                    val map = mutableMapOf<String, Int>()
-                                    data.forEach {
-                                        if (map[it.related_scale] == null) {
-                                            map[it.related_scale] = it.answeredScore
-                                        } else {
-                                            map[it.related_scale] = map[it.related_scale]!! + it.answeredScore
-                                        }
-
-                                        if (!it.isAnswered) {
-                                            isDialogOnNotFullOpen.value = true
-                                        } else {
-                                            testVM.userResults = map
-                                            isDialogOnConfirmOpen.value = true
-                                        }
-                                    }
+                                    testVM.collectResults(data, isDialogOnConfirmOpen, isDialogOnNotFullOpen)
                                 },
                                 modifier = Modifier.fillParentMaxWidth(0.76f)
                             )

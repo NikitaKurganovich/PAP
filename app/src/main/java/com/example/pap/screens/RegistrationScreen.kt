@@ -40,7 +40,7 @@ class RegistrationScreen() : Screen {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Регистрация в PAP",
+                text = "Регистрация в Psychology at Pocket",
                 style = MaterialTheme.typography.h5,
                 color = Color.Black,
                 fontFamily = montserratFontFamily

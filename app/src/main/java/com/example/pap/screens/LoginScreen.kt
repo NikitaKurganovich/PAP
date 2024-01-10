@@ -39,7 +39,7 @@ class LoginScreen : Screen {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Вход в PAP",
+                text = "Вход в Psychology at Pocket",
                 style = MaterialTheme.typography.h5,
                 color = Color.Black,
                 fontFamily = montserratFontFamily

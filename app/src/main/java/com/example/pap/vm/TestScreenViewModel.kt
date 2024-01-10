@@ -1,5 +1,6 @@
 package com.example.pap.vm
 
+import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pap.model.EmotionalIntelligenceQuestion
@@ -35,6 +36,27 @@ class TestScreenViewModel : ViewModel() {
         emit(TestState.Error(it))
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), TestState.Loading)
 
+    fun collectResults(
+        data: List<EmotionalIntelligenceQuestion>,
+        isDialogOnConfirmOpen: MutableState<Boolean>,
+        isDialogOnNotFullOpen: MutableState<Boolean>
+    ){
+        val map = mutableMapOf<String, Int>()
+        data.forEach {
+            if (map[it.related_scale] == null) {
+                map[it.related_scale] = it.answeredScore
+            } else {
+                map[it.related_scale] = map[it.related_scale]!! + it.answeredScore
+            }
+            if (!it.isAnswered) {
+                isDialogOnNotFullOpen.value = true
+                return
+            } else {
+                userResults = map
+                isDialogOnConfirmOpen.value = true
+            }
+        }
+    }
 
     fun upsertTestResult(testName: String) {
         repository.upsertPersonalResults(testName, userResults)
