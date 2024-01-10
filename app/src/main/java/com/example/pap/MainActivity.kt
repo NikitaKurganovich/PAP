@@ -1,7 +1,5 @@
 package com.example.pap
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,7 +22,7 @@ import com.example.pap.tabs.HomeTab
 import com.example.pap.tabs.ProfileTab
 import com.example.pap.tabs.TestsTab
 import com.example.pap.ui.theme.Green40
-import com.example.pap.ui.theme.PAPProjectTheme
+import com.example.pap.ui.theme.PAPTheme
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -35,13 +33,11 @@ class MainActivity : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         Firebase.database.setPersistenceEnabled(true)
         auth = Firebase.auth
         super.onCreate(savedInstanceState)
 
         setContent {
-            val showDialog = remember { mutableStateOf(false) }
             var user by remember { mutableStateOf(auth.currentUser)}
 
             DisposableEffect(Unit) {
@@ -51,7 +47,7 @@ class MainActivity : ComponentActivity() {
                 auth.addAuthStateListener(listener)
                 onDispose { auth.removeAuthStateListener(listener) }
             }
-            PAPProjectTheme {
+            PAPTheme {
                 if(user != null){
                     Content()
                 } else{

@@ -64,9 +64,9 @@ fun CustomButton(
 @Composable
 fun LinkToRegistration(navigator: Navigator) {
     Row {
-        Text("Don't have an account? ", fontFamily = montserratFontFamily)
+        Text("Нет аккаунта? ", fontFamily = montserratFontFamily)
         Text(
-            "Sign up",
+            "Регистрация",
             modifier = Modifier.clickable {
                 navigator.replace(RegistrationScreen())
             },
@@ -79,9 +79,9 @@ fun LinkToRegistration(navigator: Navigator) {
 @Composable
 fun LinkToLogin(navigator: Navigator) {
     Row {
-        Text("Already have account? ", fontFamily = montserratFontFamily)
+        Text("Есть аккаунт? ", fontFamily = montserratFontFamily)
         Text(
-            "Login",
+            "Вход",
             modifier = Modifier.clickable {
                 navigator.replace(LoginScreen())
             },
