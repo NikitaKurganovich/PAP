@@ -59,7 +59,7 @@ object DataRepository : Repository {
         firebaseSource.upsertResults(moduleName, submoduleName, score)
     }
 
-    override fun upsertPersonalResults(testName: String, results: Map<String, Int>) {
+    override fun upsertPersonalResults(testName: String, results: HashMap<String, Int>) {
         firebaseSource.upsertPersonalResults(testName,results)
     }
 

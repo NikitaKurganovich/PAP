@@ -5,7 +5,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material3.*
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,7 +45,6 @@ class ProfileScreen : Screen {
                 }
 
                 is ProfileState.ShowingResults -> {
-
                     val data = (screenState as ProfileState.ShowingResults).data
                     LazyColumn(
                         horizontalAlignment = Alignment.CenterHorizontally

@@ -12,25 +12,26 @@ class HomeScreenViewModel : ViewModel() {
     private val modules = repository.getModules()
 
     private var _results = hashMapOf<String, HashMap<String, Int>>()
-    val userResults = _results
+    val results = MutableStateFlow(getResults())
 
     val state = combine(
+        results,
         modules,
         loading
-    ) { modules, loading ->
-        getResults()
+    ) {results, modules, loading ->
         when {
             loading -> HomeState.Loading
             modules.isEmpty() -> HomeState.Empty
-            else -> HomeState.ShowingModules(modules)
+            else -> HomeState.ShowingModules(modules, results)
         }
     }.catch {
         emit(HomeState.Error(it))
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), HomeState.Loading)
 
-    fun getResults(): HashMap<String, HashMap<String, Int>> {
+    private fun getResults(): HashMap<String, HashMap<String, Int>> {
         repository.getUserResults {
             _results = it
+            results.update { _results }
         }
         return _results
     }
@@ -39,7 +40,8 @@ class HomeScreenViewModel : ViewModel() {
         moduleName: String,
         submoduleName: String,
     ): Boolean {
-        val map = _results[moduleName] as Map<String, Int>
+        if (_results.isEmpty()) return false
+        val map = _results[moduleName] as HashMap<String, Int>
         return map.containsKey(submoduleName)
     }
 }
@@ -47,7 +49,7 @@ class HomeScreenViewModel : ViewModel() {
 
 sealed class HomeState {
     object Loading : HomeState()
-    data class ShowingModules(val data: List<LectureModule>) : HomeState()
+    data class ShowingModules(val data: List<LectureModule>, val results: HashMap<String, HashMap<String, Int>>) : HomeState()
     object Empty : HomeState()
     data class Error(val e: Throwable) : HomeState()
 }

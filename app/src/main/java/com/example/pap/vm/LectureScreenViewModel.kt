@@ -1,11 +1,13 @@
 package com.example.pap.vm
 
+import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.pap.model.LectureQuestion
 import com.example.pap.repository.DataRepository
 import kotlinx.coroutines.flow.*
+import kotlin.properties.Delegates
 
 class LectureScreenViewModel(
     val moduleName: String,
@@ -18,8 +20,27 @@ class LectureScreenViewModel(
     val isResultsSend = MutableStateFlow(false)
     val isTheoryRead = MutableStateFlow(false)
     var score = 0
-
+    var questionNumber by Delegates.notNull<Int>()
     private val theory = repository.getLectureTheory(moduleName,submoduleName)
+
+    fun collectResults(
+        data: List<LectureQuestion>,
+        isDialogOnNotFullOpen: MutableState<Boolean>,
+        isDialogOnConfirmOpen: MutableState<Boolean>
+    ){
+        data.forEach {
+            if (it.isAnsweredCorrectly) {
+                score++
+            }
+            if (!it.isAnswered) {
+                isDialogOnNotFullOpen.value = true
+                return
+            }
+        }
+        if (!isDialogOnNotFullOpen.value) {
+            isDialogOnConfirmOpen.value = true
+        }
+    }
 
     val state = combine(
         theory,
@@ -28,10 +49,11 @@ class LectureScreenViewModel(
         questionsLoading,
         isResultsSend
     ) {theory,isRead, questions, loading, isSend ->
+        questionNumber = questions.size
         when {
             loading -> LectureState.Loading
             theory.isEmpty() || questions.isEmpty() -> LectureState.Empty
-            isSend -> LectureState.ShowingResults(score)
+            isSend -> LectureState.ShowingResults(score, questionNumber)
             isRead -> LectureState.ShowingQuestions(questions)
             else -> {LectureState.ShowingTheory(theory)}
         }
@@ -63,7 +85,7 @@ sealed class LectureState{
     object Loading : LectureState()
     data class ShowingTheory(val data: String) : LectureState()
     data class ShowingQuestions(val data: List<LectureQuestion>) : LectureState()
-    data class ShowingResults(val score: Int): LectureState()
+    data class ShowingResults(val score: Int, val questionNumber: Int): LectureState()
 
     object Empty : LectureState()
     data class Error(val e: Throwable): LectureState()

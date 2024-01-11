@@ -9,16 +9,12 @@ class ProfileScreenViewModel :ViewModel(){
     private var _results = hashMapOf<String, HashMap<String, Int>>()
     private val repository = DataRepository
     private val loading = MutableStateFlow(false)
-    private val results = MutableStateFlow(_results)
-
-
-    val userResults = _results
+    private val results = MutableStateFlow(getResults())
 
     val state = combine(
         results,
         loading
     ) {data, loading ->
-        getResults()
         when {
             loading -> ProfileState.Loading
             data.isEmpty() -> ProfileState.Empty
@@ -28,11 +24,11 @@ class ProfileScreenViewModel :ViewModel(){
         emit(ProfileState.Error(it))
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ProfileState.Loading)
 
-    fun getResults(): HashMap<String, HashMap<String, Int>> {
+    private fun getResults(): HashMap<String, HashMap<String, Int>> {
         repository.getUserResults {
             _results = it
+            results.update { _results }
         }
-        results.update { _results }
         return _results
     }
 }

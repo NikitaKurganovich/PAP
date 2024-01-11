@@ -11,10 +11,11 @@ import compose.icons.TablerIcons
 import compose.icons.tablericons.User
 
 object ProfileTab: Tab {
+    private fun readResolve(): Any = ProfileTab
     override val options: TabOptions
         @Composable
         get() {
-            val title = "Profile"
+            val title = "Ваш профиль"
             val icon = rememberVectorPainter(TablerIcons.User)
             return remember {
                 TabOptions(

@@ -11,10 +11,11 @@ import compose.icons.TablerIcons
 import compose.icons.tablericons.*
 
 object HomeTab: Tab {
+    private fun readResolve(): Any = HomeTab
     override val options: TabOptions
         @Composable
         get() {
-            val title = "Home"
+            val title = "Лекции"
             val icon = rememberVectorPainter(TablerIcons.Home)
             return remember {
                 TabOptions(

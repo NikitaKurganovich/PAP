@@ -23,6 +23,7 @@ import com.example.pap.tabs.ProfileTab
 import com.example.pap.tabs.TestsTab
 import com.example.pap.ui.theme.Green40
 import com.example.pap.ui.theme.PAPTheme
+import com.example.pap.util.DefaultText
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -65,8 +66,9 @@ class MainActivity : ComponentActivity() {
                 topBar = {
                     TopAppBar(
                         title = {
-                            Text(text = it.current.options.title)
-                        }
+                            DefaultText(text = it.current.options.title)
+                        },
+                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(MaterialTheme.colorScheme.primary)
                     )
                 },
                 content = {

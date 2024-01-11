@@ -1,7 +1,5 @@
 package com.example.pap.datasource
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import com.example.pap.model.EmotionalIntelligenceQuestion
 import com.example.pap.model.LectureModule
 import com.example.pap.model.LectureQuestion
@@ -21,7 +19,7 @@ object FirebaseDataSource : DataSource {
 
     override val lectureModules = callbackFlow {
         val questionsReference: DatabaseReference = databaseReference
-            .getReference("lectures")
+            .getReference("rus/lectures")
         val eventListener = object : ValueEventListener {
             override fun onDataChange(data: DataSnapshot) {
                 val lectureModules = data.children.mapNotNull { snapshot ->
@@ -36,7 +34,6 @@ object FirebaseDataSource : DataSource {
                 close()
             }
             override fun onCancelled(p0: DatabaseError) {
-                println(p0.message)
                 close()
             }
         }
@@ -45,7 +42,7 @@ object FirebaseDataSource : DataSource {
     }
     override val personalTests: Flow<List<String>> = callbackFlow {
         val questionsReference: DatabaseReference = databaseReference
-            .getReference("personal_tests")
+            .getReference("rus/personal_tests")
         val eventListener = object : ValueEventListener {
             override fun onDataChange(data: DataSnapshot) {
                 val personalTests = data.children.mapNotNull { snapshot ->
@@ -55,7 +52,6 @@ object FirebaseDataSource : DataSource {
                 close()
             }
             override fun onCancelled(p0: DatabaseError) {
-                println(p0.message)
                 close()
             }
         }
@@ -67,7 +63,7 @@ object FirebaseDataSource : DataSource {
     override fun getLectureQuestions(moduleName: String, submoduleName: String): Flow<List<LectureQuestion>> {
         return callbackFlow {
             val questionsReference: DatabaseReference = databaseReference
-                .getReference("lectures/$moduleName/modules/$submoduleName/questions")
+                .getReference("rus/lectures/$moduleName/modules/$submoduleName/questions")
             val eventListener = object : ValueEventListener {
                 override fun onDataChange(data: DataSnapshot) {
                     val lectureQuestions = data.children.mapNotNull { snapshot ->
@@ -79,12 +75,10 @@ object FirebaseDataSource : DataSource {
                             )
                         }
                     }
-
                     trySend(lectureQuestions).isSuccess
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    println(p0.message)
                     close()
                 }
             }
@@ -96,10 +90,12 @@ object FirebaseDataSource : DataSource {
     override fun getPersonalTestQuestions(testName: String): Flow<List<EmotionalIntelligenceQuestion>> {
         return callbackFlow {
             val testReference: DatabaseReference = databaseReference
-                .getReference("personal_tests/$testName")
+                .getReference("rus/personal_tests/$testName")
             val eventListener = object : ValueEventListener {
                 override fun onDataChange(data: DataSnapshot) {
-                    val answerVariants = data.child("answer_variants").getValue(object : GenericTypeIndicator<HashMap<String, Int>>() {})
+                    val answerVariants = data.child("answer_variants")
+                        .getValue(object : GenericTypeIndicator<HashMap<String, Int>>() {})
+                        ?.toList()?.sortedBy { (_, value) -> value }?.toMap() as HashMap<String, Int>
 
                     val personalQuestions = data.child("questions").children.mapNotNull { snapshot ->
                         val questionText = snapshot.child("question").getValue(String::class.java)
@@ -115,7 +111,6 @@ object FirebaseDataSource : DataSource {
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    println(p0.message)
                     close()
                 }
             }
@@ -136,7 +131,7 @@ object FirebaseDataSource : DataSource {
     override fun getLectureTheory(moduleName: String, submoduleName: String): Flow<String> {
         return callbackFlow {
             val questionsReference: DatabaseReference = databaseReference
-                .getReference("lectures/$moduleName/modules/$submoduleName/theory")
+                .getReference("rus/lectures/$moduleName/modules/$submoduleName/theory")
             val eventListener = object : ValueEventListener {
                 override fun onDataChange(data: DataSnapshot) {
                     val lectureTheory = data.getValue(String::class.java) ?: ""
@@ -144,7 +139,6 @@ object FirebaseDataSource : DataSource {
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    println(p0.message)
                     close()
                 }
             }
@@ -163,11 +157,12 @@ object FirebaseDataSource : DataSource {
                     callback(hashMapOf())
                 }
             }
-            .addOnFailureListener { exception ->
+            .addOnFailureListener {
                 callback(hashMapOf())
-                Log.d(TAG, "get failed with ", exception)
             }
     }
+
+
 
     override fun upsertResults(moduleName: String, submoduleName: String, score: Int) {
         val nestedMap = hashMapOf(
@@ -179,9 +174,9 @@ object FirebaseDataSource : DataSource {
         docRef.set(docData, SetOptions.merge())
     }
 
-    override fun upsertPersonalResults(testName: String, results: Map<String,Int>) {
+    override fun upsertPersonalResults(testName: String, results: HashMap<String,Int>) {
         val docData = hashMapOf(
-            testName to results as HashMap<String, Int>
+            testName to results
         )
         docRef.set(docData, SetOptions.merge())
     }

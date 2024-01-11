@@ -40,8 +40,8 @@ class HomeScreen : Screen {
                 }
 
                 is HomeState.ShowingModules -> {
-
                     val data = (screenState as HomeState.ShowingModules).data
+                    val results = (screenState as HomeState.ShowingModules).results
                     LazyColumn(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -50,7 +50,7 @@ class HomeScreen : Screen {
                             Spacer(Modifier.height(10.dp))
                         }
                         items(data) {
-                            it.LectureElement(navigator = navigator, viewModel = homeVM)
+                            it.LectureElement(navigator = navigator, viewModel = homeVM, results = results)
                         }
                     }
                 }

@@ -16,18 +16,19 @@ class TestScreenViewModel : ViewModel() {
     val isChosen = MutableStateFlow(false)
     val isResultsSend = MutableStateFlow(false)
 
-    var userResults = emptyMap<String, Int>()
+    private var _results = hashMapOf<String, Int>()
+    var userResults = MutableStateFlow(getResults())
 
     val state = combine(
         tests,
         loading,
         isChosen,
         questions,
-        isResultsSend
+        isResultsSend,
     ) { tests, loading, isChosen, que, isSend ->
         when {
             loading -> TestState.Loading
-            isSend -> TestState.ShowingResults(userResults)
+            isSend -> TestState.ShowingResults(userResults.value)
             tests.isEmpty() || (que.isEmpty() && isChosen) -> TestState.Empty
             isChosen -> TestState.EmotionalIntelligence(que)
             else -> TestState.ShowingPersonalTests(tests)
@@ -38,33 +39,42 @@ class TestScreenViewModel : ViewModel() {
 
     fun collectResults(
         data: List<EmotionalIntelligenceQuestion>,
-        isDialogOnConfirmOpen: MutableState<Boolean>,
-        isDialogOnNotFullOpen: MutableState<Boolean>
+        isDialogOnNotFullOpen: MutableState<Boolean>,
+        isDialogOnConfirmOpen: MutableState<Boolean>
     ){
-        val map = mutableMapOf<String, Int>()
-        data.forEach {
-            if (map[it.related_scale] == null) {
-                map[it.related_scale] = it.answeredScore
+        val map = hashMapOf<String, Int>()
+
+        data.forEach { question->
+            if (map[question.related_scale] == null) {
+                map[question.related_scale] = question.answeredScore
             } else {
-                map[it.related_scale] = map[it.related_scale]!! + it.answeredScore
+                map[question.related_scale] = map[question.related_scale]!! + question.answeredScore
             }
-            if (!it.isAnswered) {
+            if (!question.isAnswered) {
                 isDialogOnNotFullOpen.value = true
                 return
-            } else {
-                userResults = map
-                isDialogOnConfirmOpen.value = true
             }
+        }
+        if (!isDialogOnNotFullOpen.value) {
+            userResults.update { map }
+            isDialogOnConfirmOpen.value = true
         }
     }
 
     fun upsertTestResult(testName: String) {
-        repository.upsertPersonalResults(testName, userResults)
+        repository.upsertPersonalResults(testName, userResults.value)
     }
 
-    fun isResultsExist(
-    ): Boolean {
-        return userResults.isEmpty()
+    fun isResultsExist(): Boolean {
+        return userResults.value.containsKey("Эмоциональный интеллект")
+    }
+
+    private fun getResults(): HashMap<String, Int>{
+        repository.getUserResults{
+            _results = it["Эмоциональный интеллект"] ?: hashMapOf()
+            userResults.update { _results }
+        }
+        return _results
     }
 }
 
@@ -73,6 +83,6 @@ sealed class TestState {
     data class ShowingPersonalTests(val data: List<String>) : TestState()
     data class EmotionalIntelligence(val data: List<EmotionalIntelligenceQuestion>) : TestState()
     object Empty : TestState()
-    data class ShowingResults(val score: Map<String, Int>) : TestState()
+    data class ShowingResults(val score: HashMap<String, Int>) : TestState()
     data class Error(val e: Throwable) : TestState()
 }

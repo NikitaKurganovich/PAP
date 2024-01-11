@@ -4,10 +4,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,14 +50,24 @@ class TestScreen : Screen {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         items(data) { text ->
-                            DefaultText(text, Modifier.clickable {
-                                if (testVM.isResultsExist()) {
-                                    isDialogOnRewriteOpen.value = true
-                                } else {
-                                    testVM.isChosen.update { true }
+                            Row(
+                                horizontalArrangement = Arrangement.Center,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
+                            ) {
+                                if(testVM.isResultsExist()){
+                                    Icon(Icons.Default.Check, "Passed")
                                 }
+                                DefaultText(text, Modifier.clickable {
+                                    if (testVM.isResultsExist()) {
+                                        isDialogOnRewriteOpen.value = true
+                                    } else {
+                                        testVM.isChosen.update { true }
+                                    }
+                                })
+                            }
 
-                            })
                         }
                     }
                 }
@@ -84,7 +93,7 @@ class TestScreen : Screen {
                         item {
                             CustomButton(
                                 onClick = {
-                                    testVM.collectResults(data, isDialogOnConfirmOpen, isDialogOnNotFullOpen)
+                                    testVM.collectResults(data, isDialogOnNotFullOpen, isDialogOnConfirmOpen)
                                 },
                                 modifier = Modifier.fillParentMaxWidth(0.76f)
                             )

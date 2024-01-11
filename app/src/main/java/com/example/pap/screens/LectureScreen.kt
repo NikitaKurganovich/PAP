@@ -3,13 +3,13 @@ package com.example.pap.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -64,16 +64,7 @@ data class LectureScreen(
                         item {
                             CustomButton(
                                 onClick = {
-                                    data.forEach {
-                                        if (it.isAnsweredCorrectly) {
-                                            currentVM.score++
-                                        }
-                                        if (!it.isAnswered) {
-                                            isDialogOnNotFullOpen.value = true
-                                        } else {
-                                            isDialogOnConfirmOpen.value = true
-                                        }
-                                    }
+                                    currentVM.collectResults(data, isDialogOnNotFullOpen, isDialogOnConfirmOpen)
                                 },
                                 modifier = Modifier.fillParentMaxWidth(0.76f)
                             )
@@ -82,8 +73,50 @@ data class LectureScreen(
                 }
 
                 is LectureState.ShowingResults -> {
-                    val data = (screenState as LectureState.ShowingResults).score
-                    DefaultText("Ваш результат: $data", Modifier.fillMaxWidth(0.8f))
+                    val score = (screenState as LectureState.ShowingResults).score
+                    val questionNumber = (screenState as LectureState.ShowingResults).questionNumber
+
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        DefaultText(
+                            "Ваш результат: $score из $questionNumber",
+                            Modifier.fillMaxWidth(0.8f)
+                        )
+                        Row(
+                            Modifier.fillMaxWidth(0.8f),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ){
+                            TextButton(
+                                onClick = {
+                                    currentVM.isResultsSend.update { false }
+                                    currentVM.isTheoryRead.update { false }
+                                },
+                                modifier = Modifier
+                                    .weight(0.45f),
+                                shape = RoundedCornerShape(CornerSize(10)),
+                                colors = ButtonDefaults.buttonColors(Color(0XFFD0E6E1))
+                            ) {
+                                DefaultText("Перепройти")
+                            }
+                            Spacer(Modifier.weight(0.1f))
+                            TextButton(
+                                onClick = {
+                                    navigator.pop()
+                                },
+                                modifier = Modifier
+                                    .weight(0.45f),
+                                shape = RoundedCornerShape(CornerSize(10)),
+                                colors = ButtonDefaults.buttonColors(Color(0XFFD0E6E1))
+                            ) {
+                                DefaultText("Вернутся")
+                            }
+                        }
+                    }
+
+
                 }
 
                 is LectureState.Empty -> {

@@ -15,5 +15,5 @@ interface DataSource {
     fun getLectureTheory(moduleName: String, submoduleName: String): Flow<String>
     fun getUserResults(callback: (HashMap<String, HashMap<String, Int>>) -> Unit)
     fun upsertResults(moduleName: String, submoduleName: String, score: Int)
-    fun upsertPersonalResults(testName: String, results: Map<String, Int>)
+    fun upsertPersonalResults(testName: String, results: HashMap<String,Int>)
 }

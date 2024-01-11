@@ -19,6 +19,7 @@ import com.example.pap.util.EmailField
 import com.example.pap.util.LinkToLogin
 import com.example.pap.util.PasswordField
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class RegistrationScreen() : Screen {
@@ -26,6 +27,7 @@ class RegistrationScreen() : Screen {
     override fun Content() {
 
         val navigator = LocalNavigator.currentOrThrow
+        val db = Firebase.firestore
         val auth = Firebase.auth
         val emailText = remember { mutableStateOf("") }
         val passwordText = remember { mutableStateOf("") }
@@ -64,6 +66,7 @@ class RegistrationScreen() : Screen {
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
                                     message.value = "Вы успешно зарегистрировались!"
+                                    db.collection("users").document(auth.currentUser!!.uid).set(emptyMap<String,Int>())
                                     auth.currentUser
                                 } else {
                                     message.value = "Почта занята!"
