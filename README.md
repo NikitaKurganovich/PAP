@@ -1,3 +1,4 @@
-# PAP
+# Psychology at Pocket
 
-Android project for Professional Activity Psychology
+Android project for Psychology of Professional Activity.
+Current state: pre-release
