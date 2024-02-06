@@ -1,8 +1,8 @@
 # Psychology at Pocket
 
-Android project for Psychology of Professional Activity.
-Current state: pre-release
-Current limitations:
+My pet-project for Android. Was started as application for Psychology of Professional Activity.
+Current state: pre-release <br>
+Current limitations:<br>
 
 <li>Only russian</li>
 <li>Only one personal test</li>
