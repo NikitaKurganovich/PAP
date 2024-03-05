@@ -12,7 +12,6 @@ class TestScreenViewModel : ViewModel() {
     private val repository = DataRepository
     private val loading = MutableStateFlow(false)
     private val tests = repository.getTests()
-    private val questions = repository.getPersonalTestQuestions("Эмоциональный интеллект")
     val isChosen = MutableStateFlow(false)
     val isResultsSend = MutableStateFlow(false)
 
@@ -22,15 +21,12 @@ class TestScreenViewModel : ViewModel() {
     val state = combine(
         tests,
         loading,
-        isChosen,
-        questions,
         isResultsSend,
-    ) { tests, loading, isChosen, que, isSend ->
+    ) { tests, loading, isSend ->
         when {
             loading -> TestState.Loading
             isSend -> TestState.ShowingResults(userResults.value)
-            tests.isEmpty() || (que.isEmpty() && isChosen) -> TestState.Empty
-            isChosen -> TestState.EmotionalIntelligence(que)
+            tests.isEmpty()-> TestState.Empty
             else -> TestState.ShowingPersonalTests(tests)
         }
     }.catch {

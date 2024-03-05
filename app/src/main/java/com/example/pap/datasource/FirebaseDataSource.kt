@@ -25,8 +25,9 @@ object FirebaseDataSource : DataSource {
                 val lectureModules = data.children.mapNotNull { snapshot ->
                     snapshot.getValue(LectureModule::class.java)?.let {
                         LectureModule(
-                            moduleName = snapshot.key!!,
-                            submodulesNames = snapshot.child("modules").children.map { it.key ?: "" }
+                            moduleName = snapshot.child("module_name").value as String,
+                            submodulesNames = snapshot.child("submodules")
+                                .children.map { it.child("submodule_name").value as String }
                         )
                     }
                 }
@@ -46,7 +47,7 @@ object FirebaseDataSource : DataSource {
         val eventListener = object : ValueEventListener {
             override fun onDataChange(data: DataSnapshot) {
                 val personalTests = data.children.mapNotNull { snapshot ->
-                    snapshot.key
+                    snapshot.child("test_name").value as String
                 }
                 trySend(personalTests).isSuccess
                 close()
