@@ -26,7 +26,7 @@ open class LectureQuestion(
     var isAnswered: Boolean = false
 
     @Composable
-    open fun QuestionElement(modifier: Modifier = Modifier) {
+    fun QuestionElement(modifier: Modifier = Modifier) {
         Card(
             modifier = modifier.fillMaxSize(0.88f),
             shape = RoundedCornerShape(20.dp),

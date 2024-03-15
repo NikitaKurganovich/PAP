@@ -50,8 +50,8 @@ fun CustomButton(
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.White,
-            contentColor = Green50
+            backgroundColor = Green50,
+            contentColor = Color.White
         ),
         border = BorderStroke(1.dp, Green50),
         shape = RoundedCornerShape(20.dp),
@@ -155,8 +155,8 @@ fun CustomButton(prompt: String, onClick: () -> Unit, modifier: Modifier = Modif
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.White,
-            contentColor = MaterialTheme.colors.secondary
+            backgroundColor = MaterialTheme.colors.secondary,
+            contentColor = Color.White
         ),
         border = BorderStroke(1.dp, MaterialTheme.colors.secondary),
         shape = RoundedCornerShape(20.dp),
