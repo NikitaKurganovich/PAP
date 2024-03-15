@@ -14,7 +14,7 @@
             tools:targetApi="34">
 
         <activity
-                android:name="com.example.pap.MainActivity"
+                android:name="dev.babananick.pap.MainActivity"
                 android:exported="true"
                 android:theme="@style/Theme.PAP">
             <intent-filter>

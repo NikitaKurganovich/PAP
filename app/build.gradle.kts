@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.pap"
+    namespace = "dev.babananick.pap"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.pap"
+        applicationId = "dev.babananick.pap"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
