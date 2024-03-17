@@ -24,8 +24,6 @@ tabler-icons = "1.1.0"
 
 voyager = "1.0.0"
 
-detekt = "1.23.3"
-detektCompose = "0.3.3"
 espressoCore = "3.5.1"
 
 firebase-bom = "32.7.4"
@@ -33,20 +31,16 @@ firebase-bom = "32.7.4"
 gradleversions = "0.50.0"
 hilt = "2.49"
 hiltAndroid = "2.49"
-hiltAndroidCompiler = "2.48.1"
-hiltAndroidX = "1.0.0"
+hiltAndroidCompiler = "2.49"
 hiltCompose = "1.2.0"
 junit = "4.13.2"
-jvm = "1.7.20"
 kotest = "5.8.0"
 kotlin = "1.9.22"
-ksp = "1.9.20-1.0.14"
+ksp = "1.9.22-1.0.17"
 leakcanary = "2.12"
-spotless = "6.22.0"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivityCompose" }
-androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidxAnnotation" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom"}
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
@@ -59,7 +53,6 @@ androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-juni
 androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-toolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "androidxConstraintlayout" }
 androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCoreKtx" }
 androidx-datastore-core = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDatastore" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDatastore" }
@@ -98,7 +91,6 @@ hilt-android-v = { module = "com.google.dagger:hilt-android", version.ref = "hil
 hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
 hilt-navigationCompose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-kotest-assertions-core =  { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
 
 voyager-navigator = {group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyager"}
@@ -110,8 +102,6 @@ tabler-icons = {group = "br.com.devsrsouza.compose.icons", name = "tabler-icons"
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-spotless-gradlePlugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
-detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 gradleversions-gradlePlugin = { group = "com.github.ben-manes", name = "gradle-versions-plugin", version.ref = "gradleversions" }
 
 [plugins]

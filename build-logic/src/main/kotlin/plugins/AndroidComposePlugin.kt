@@ -30,7 +30,6 @@ class AndroidComposePlugin : Plugin<Project> {
                 implementation(libs.findLibrary("androidx.compose.ui").get())
                 implementation(libs.findLibrary("androidx.compose.ui.toolingPreview").get())
                 implementation(libs.findLibrary("androidx.compose.material").get())
-                implementation(libs.findLibrary("androidx.compose.material.iconsextended").get())
                 implementation(libs.findLibrary("hilt.navigationCompose").get())
 
                 debugImplementation(libs.findLibrary("androidx.compose.ui.tooling").get())
