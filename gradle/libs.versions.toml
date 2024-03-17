@@ -15,7 +15,7 @@ androidxTest = "1.5.2"
 androidxTestCore = "1.5.0"
 androidxTestExt = "1.1.5"
 
-
+googleServices = "4.4.0"
 appcompat = "1.6.1"
 compose-bom = "2024.02.02"
 coroutines = "1.7.3"
@@ -109,6 +109,7 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 gradleversions = { id = "com.github.ben-manes.versions", version.ref = "gradleversions" }
+google-services = { id ="com.google.gms.google-services", version.ref = "googleServices"}
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

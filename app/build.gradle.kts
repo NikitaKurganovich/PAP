@@ -4,8 +4,7 @@ plugins {
     id(ProjectPlugins.PAP_ANDROID_APPLICATION)
     id(ProjectPlugins.PAP_ANDROID_COMPOSE)
     id(ProjectPlugins.PAP_ANDROID_HILT)
-    id("org.jetbrains.kotlin.android")
-    id("com.google.gms.google-services")
+
 }
 
 android {

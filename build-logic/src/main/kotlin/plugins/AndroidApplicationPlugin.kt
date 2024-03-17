@@ -20,6 +20,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 apply(ProjectPlugins.KAPT)
                 apply(ProjectPlugins.KSP)
                 apply(ProjectPlugins.KOTLIN_PARCELIZE)
+                apply(ProjectPlugins.GOOGLE_SERVICES)
             }
 
             configureKotlinOptions()

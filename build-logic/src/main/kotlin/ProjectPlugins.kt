@@ -7,6 +7,8 @@ object ProjectPlugins {
     const val KOTLIN_PARCELIZE = "kotlin-parcelize"
     const val KSP = "com.google.devtools.ksp"
     const val HILT = "dagger.hilt.android.plugin"
+    const val GOOGLE_SERVICES = "com.google.gms.google-services"
+
 
     const val PAP_ANDROID_APPLICATION = "pap.android.application"
     const val PAP_ANDROID_LIBRARY = "pap.android.library"
@@ -14,4 +16,5 @@ object ProjectPlugins {
     const val PAP_ANDROID_COMPOSE = "pap.android.compose"
     const val PAP_ANDROID_HILT = "pap.android.hilt"
     const val PAP_KOTLIN_LIBRARY = "pap.kotlin.library"
-    const val PAP_GRADLE_VERSIONS = "pap.gradleversions"}
+    const val PAP_GRADLE_VERSIONS = "pap.gradleversions"
+}
