@@ -1,11 +1,10 @@
 [versions]
-accompanist = "0.32.0"
 androidGradlePlugin = "8.3.0"
 androidx-junit = "1.1.5"
 androidxActivityCompose = "1.8.2"
 androidxAnnotation = "1.7.1"
 androidxCompose = "1.6.3"
-androidxComposeCompiler = "1.5.4"
+androidxComposeCompiler = "1.5.10"
 androidxComposeMaterial = "1.6.3"
 androidxConstraintlayout = "1.0.1"
 androidxCoreKtx = "1.12.0"
@@ -28,13 +27,12 @@ voyager = "1.0.0"
 detekt = "1.23.3"
 detektCompose = "0.3.3"
 espressoCore = "3.5.1"
-faker = "1.15.0"
 
 firebase-bom = "32.7.4"
 
 gradleversions = "0.50.0"
-hilt = "2.48.1"
-hiltAndroid = "2.48.1"
+hilt = "2.49"
+hiltAndroid = "2.49"
 hiltAndroidCompiler = "2.48.1"
 hiltAndroidX = "1.0.0"
 hiltCompose = "1.2.0"
@@ -47,11 +45,6 @@ leakcanary = "2.12"
 spotless = "6.22.0"
 
 [libraries]
-accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
-accompanist-navigationAnimation = { group = "com.google.accompanist", name = "accompanist-navigation-animation", version.ref = "accompanist" }
-accompanist-pager-indicators = { group = "com.google.accompanist", name = "accompanist-pager-indicators", version.ref = "accompanist" }
-accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
-accompanist-webview = { group = "com.google.accompanist", name = "accompanist-webview", version.ref = "accompanist" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivityCompose" }
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidxAnnotation" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -59,7 +52,6 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 
-androidx-compose-material-iconsextended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "androidxComposeMaterial" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui"}
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics"}
 
@@ -126,13 +118,10 @@ gradleversions-gradlePlugin = { group = "com.github.ben-manes", name = "gradle-v
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
-detekt =  { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-detekt-compose = { id = "io.nlopez.compose.rules:detekt", version.ref = "detektCompose" }
 gradleversions = { id = "com.github.ben-manes.versions", version.ref = "gradleversions" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 

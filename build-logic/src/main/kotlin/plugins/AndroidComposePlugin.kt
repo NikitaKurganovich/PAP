@@ -1,3 +1,4 @@
+@file:Suppress("UnstableApiUsage")
 package plugins
 
 import org.gradle.api.Plugin
