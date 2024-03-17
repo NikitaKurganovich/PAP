@@ -12,22 +12,6 @@ import org.gradle.kotlin.dsl.project
 fun Project.getLibsVersionCatalog(): VersionCatalog =
     extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-fun DependencyHandler.moshi(libs: VersionCatalog) {
-    implementation(libs.findLibrary("moshi.kotlin").get())
-    ksp(libs.findLibrary("moshi.kotlin.codegen").get())
-}
-
-fun DependencyHandler.paging(libs: VersionCatalog) {
-    implementation(libs.findLibrary("androidx.paging.common").get())
-    implementation(libs.findLibrary("androidx.paging.runtime").get())
-    implementation(libs.findLibrary("androidx.paging.compose").get())
-}
-
-fun DependencyHandler.coil(libs: VersionCatalog) {
-    implementation(libs.findLibrary("coil.core").get())
-    implementation(libs.findLibrary("coil.compose").get())
-}
-
 fun DependencyHandler.test(libs: VersionCatalog) {
     testImplementation(project(":test:shared"))
     testImplementation(project(":test:fixtures"))
