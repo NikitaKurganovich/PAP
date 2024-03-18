@@ -4,7 +4,6 @@ plugins {
     id(ProjectPlugins.PAP_ANDROID_APPLICATION)
     id(ProjectPlugins.PAP_ANDROID_COMPOSE)
     id(ProjectPlugins.PAP_ANDROID_HILT)
-
 }
 
 android {
