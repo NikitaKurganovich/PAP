@@ -1,21 +1,27 @@
 package dev.babananick.pap.screens
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.babananick.pap.model.LectureModule
 import dev.babananick.pap.util.DefaultText
+import dev.babananick.pap.util.LectureElement
 import dev.babananick.pap.vm.HomeScreenViewModel
 import dev.babananick.pap.vm.HomeState
 
@@ -23,7 +29,7 @@ class HomeScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val homeVM : HomeScreenViewModel = viewModel()
+        val homeVM: HomeScreenViewModel = hiltViewModel()
         val screenState by homeVM.state.collectAsState()
 
         Column(
@@ -41,7 +47,6 @@ class HomeScreen : Screen {
 
                 is HomeState.ShowingModules -> {
                     val data = (screenState as HomeState.ShowingModules).data
-                    val results = (screenState as HomeState.ShowingModules).results
                     LazyColumn(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -50,7 +55,10 @@ class HomeScreen : Screen {
                             Spacer(Modifier.height(10.dp))
                         }
                         items(data) {
-                            it.LectureElement(navigator = navigator, viewModel = homeVM, results = results)
+                            it.LectureElement(
+                                navigator = navigator,
+                                viewModel = homeVM
+                            )
                         }
                     }
                 }
@@ -66,4 +74,6 @@ class HomeScreen : Screen {
             }
         }
     }
+
 }
+

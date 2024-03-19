@@ -4,10 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
@@ -30,7 +27,6 @@ class LectureModule(
         modifier: Modifier = Modifier,
         navigator: Navigator,
         viewModel: HomeScreenViewModel,
-        results: HashMap<String, HashMap<String, Int>>
     ) {
         var currentLecture by remember { mutableStateOf("") }
         val isShown = remember { mutableStateOf(false) }
@@ -62,9 +58,9 @@ class LectureModule(
                             }
                         }
                 ) {
-                    if(results[moduleName]?.containsKey(lecture) == true ){
-                        Icon(Icons.Default.Check, "Passed")
-                    }
+//                    if(results[moduleName]?.containsKey(lecture) == true ){
+//                        Icon(Icons.Default.Check, "Passed")
+//                    }
                     DefaultText(lecture)
                 }
             }

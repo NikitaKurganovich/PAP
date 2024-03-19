@@ -21,8 +21,27 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/build-logic" />
-            <option value="$PROJECT_DIR$/firebase" />
-            <option value="$PROJECT_DIR$/model" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/data" />
+            <option value="$PROJECT_DIR$/core/data/firebase" />
+            <option value="$PROJECT_DIR$/core/data/repository" />
+            <option value="$PROJECT_DIR$/core/domain" />
+            <option value="$PROJECT_DIR$/core/usecases" />
+            <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/home" />
+            <option value="$PROJECT_DIR$/feature/home/lecture" />
+            <option value="$PROJECT_DIR$/feature/home/lecturechoose" />
+            <option value="$PROJECT_DIR$/feature/home/lecturetest" />
+            <option value="$PROJECT_DIR$/feature/home/lecturetestresult" />
+            <option value="$PROJECT_DIR$/feature/login" />
+            <option value="$PROJECT_DIR$/feature/personaltests" />
+            <option value="$PROJECT_DIR$/feature/personaltests/test" />
+            <option value="$PROJECT_DIR$/feature/personaltests/testchoose" />
+            <option value="$PROJECT_DIR$/feature/personaltests/testresult" />
+            <option value="$PROJECT_DIR$/feature/profile" />
+            <option value="$PROJECT_DIR$/feature/registration" />
+            <option value="$PROJECT_DIR$/ui" />
+            <option value="$PROJECT_DIR$/ui/components" />
           </set>
         </option>
       </GradleProjectSettings>

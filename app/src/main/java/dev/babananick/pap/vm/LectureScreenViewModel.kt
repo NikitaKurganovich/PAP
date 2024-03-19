@@ -4,6 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.babananick.pap.model.LectureQuestion
 import dev.babananick.pap.repository.DataRepository
 import kotlinx.coroutines.flow.*

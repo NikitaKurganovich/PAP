@@ -1,40 +1,41 @@
 package dev.babananick.pap.vm
 
+import androidx.annotation.AnyThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.babananick.pap.model.LectureModule
-import dev.babananick.pap.repository.DataRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.babananick.pap.LectureChooseInteractor
+import dev.babananick.pap.LectureModule
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
-class HomeScreenViewModel : ViewModel() {
-    private val repository = DataRepository
+@HiltViewModel
+class HomeScreenViewModel @Inject constructor(
+    private val modulesInteractor: LectureChooseInteractor
+) : ViewModel() {
     private val loading = MutableStateFlow(false)
-    private val modules = repository.getModules()
-
     private var _results = hashMapOf<String, HashMap<String, Int>>()
-    val results = MutableStateFlow(getResults())
+
 
     val state = combine(
-        results,
-        modules,
+        lectureModules(),
         loading
-    ) {results, modules, loading ->
+    ) {modules, loading ->
         when {
             loading -> HomeState.Loading
             modules.isEmpty() -> HomeState.Empty
-            else -> HomeState.ShowingModules(modules, results)
+            else -> HomeState.ShowingModules(modules)
         }
     }.catch {
         emit(HomeState.Error(it))
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), HomeState.Loading)
 
-    private fun getResults(): HashMap<String, HashMap<String, Int>> {
-        repository.getUserResults {
-            _results = it
-            results.update { _results }
-        }
-        return _results
-    }
+    @AnyThread
+    private fun lectureModules(): Flow<List<LectureModule>> =
+        modulesInteractor.receiveLectureModules()
+
+
+
 
     fun isResultsExist(
         moduleName: String,
@@ -49,7 +50,7 @@ class HomeScreenViewModel : ViewModel() {
 
 sealed class HomeState {
     object Loading : HomeState()
-    data class ShowingModules(val data: List<LectureModule>, val results: HashMap<String, HashMap<String, Int>>) : HomeState()
+    data class ShowingModules(val data: List<LectureModule>) : HomeState()
     object Empty : HomeState()
     data class Error(val e: Throwable) : HomeState()
 }
