@@ -1,6 +1,5 @@
 plugins {
     id(ProjectPlugins.PAP_ANDROID_LIBRARY)
-    id(ProjectPlugins.GOOGLE_SERVICES)
 }
 
 android {
@@ -8,10 +7,17 @@ android {
 }
 
 dependencies {
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.firestore.ktx)
-    implementation(libs.firebase.auth.ktx)
-    implementation(libs.firebase.database)
-    implementation(libs.firebase.common)
-    implementation(libs.firebase.database.ktx)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.toolingPreview)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.voyager.navigator)
+    implementation(libs.voyager.transitions)
+    implementation(libs.voyager.tab.navigator)
+    implementation(libs.tabler.icons)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(project(":ui:components"))
+
 }

@@ -7,7 +7,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:domain"))
+    implementation(project(":core:model"))
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(platform(libs.firebase.bom))

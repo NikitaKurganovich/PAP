@@ -18,4 +18,7 @@ interface DataSourceModule {
 
     @Binds
     fun provideLectureTestDataSource(lectureTestDataSourceImpl: LectureTestDataSourceImpl): LectureTestDataSource
+
+    @Binds
+    fun provideTestChooseDataSource(personalTestChooseDataSourceImpl: PersonalTestChooseDataSourceImpl): PersonalTestChooseDataSource
 }

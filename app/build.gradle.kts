@@ -15,11 +15,13 @@ kapt {
 }
 
 dependencies {
-    implementation(project(":core:usecases"))
 
-    implementation(libs.hilt.android)
     implementation(project(":core:domain"))
+    implementation(libs.hilt.android)
+    implementation(project(":core:model"))
     implementation(libs.androidx.lifecycle.process)
+    implementation(project(":ui:components"))
+    implementation(project(":core:navigation"))
     kapt(libs.hilt.android.compiler)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore.ktx)

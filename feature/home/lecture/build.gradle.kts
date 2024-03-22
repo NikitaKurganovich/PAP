@@ -1,6 +1,5 @@
 plugins {
     id(ProjectPlugins.PAP_ANDROID_LIBRARY)
-    id(ProjectPlugins.GOOGLE_SERVICES)
 }
 
 android {
@@ -8,10 +7,7 @@ android {
 }
 
 dependencies {
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.firestore.ktx)
-    implementation(libs.firebase.auth.ktx)
-    implementation(libs.firebase.database)
-    implementation(libs.firebase.common)
-    implementation(libs.firebase.database.ktx)
+    implementation(libs.voyager.navigator)
+    implementation(libs.voyager.transitions)
+    implementation(libs.voyager.tab.navigator)
 }

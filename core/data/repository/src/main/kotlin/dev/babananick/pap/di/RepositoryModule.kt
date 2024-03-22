@@ -14,8 +14,11 @@ interface RepositoryModule {
     fun provideLectureChooseRepository(lectureChooseRepositoryImpl: LectureChooseRepositoryImpl): LectureChooseRepository
 
     @Binds
-    fun provideLecturesRepository(lecturesRepositoryImpl: LecturesRepository): LecturesRepository
+    fun provideLecturesRepository(lecturesRepositoryImpl: LecturesRepositoryImpl): LecturesRepository
 
     @Binds
-    fun provideLectureTestRepository(lectureTestRepositoryImpl: LectureTestRepository): LectureTestRepository
+    fun provideLectureTestRepository(lectureTestRepositoryImpl: LectureTestRepositoryImpl): LectureTestRepository
+
+    @Binds
+    fun providePersonalTestChooseRepository(personalTestChooseRepositoryImpl: PersonalTestChooseRepositoryImpl): PersonalTestChooseRepository
 }

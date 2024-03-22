@@ -38,7 +38,10 @@ kotest = "5.8.0"
 kotlin = "1.9.22"
 ksp = "1.9.22-1.0.18"
 leakcanary = "2.12"
-firebaseDatabaseKtx = "20.3.1"
+foundationLayoutAndroid = "1.6.4"
+material3Android = "1.2.1"
+uiTextGoogleFonts = "1.6.4"
+core = "1.12.0"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivityCompose" }
@@ -97,6 +100,7 @@ leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", v
 voyager-navigator = {group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyager"}
 voyager-transitions = {group = "cafe.adriel.voyager", name = "voyager-transitions", version.ref = "voyager"}
 voyager-tab-navigator = {group = "cafe.adriel.voyager", name = "voyager-tab-navigator", version.ref = "voyager"}
+voyager-hilt = { group = "cafe.adriel.voyager", name = "voyager-hilt", version.ref = "voyager"}
 
 tabler-icons = {group = "br.com.devsrsouza.compose.icons", name = "tabler-icons", version.ref = "tabler-icons"}
 
@@ -104,7 +108,11 @@ tabler-icons = {group = "br.com.devsrsouza.compose.icons", name = "tabler-icons"
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 gradleversions-gradlePlugin = { group = "com.github.ben-manes", name = "gradle-versions-plugin", version.ref = "gradleversions" }
-google-firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
+androidx-foundation-layout-android = { group = "androidx.compose.foundation", name = "foundation-layout-android", version.ref = "foundationLayoutAndroid" }
+androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
+ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
+core = { group = "androidx.core", name = "core", version.ref = "core" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
