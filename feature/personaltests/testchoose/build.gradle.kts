@@ -16,4 +16,5 @@ dependencies {
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.transitions)
     implementation(libs.tabler.icons)
+    implementation(libs.androidx.lifecycle.viewmodel)
 }

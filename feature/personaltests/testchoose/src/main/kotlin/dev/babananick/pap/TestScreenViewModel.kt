@@ -3,8 +3,6 @@ package dev.babananick.pap
 import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.babananick.pap.model.EmotionalIntelligenceQuestion
-import dev.babananick.pap.repository.DataRepository
 import kotlinx.coroutines.flow.*
 
 class TestScreenViewModel : ViewModel() {

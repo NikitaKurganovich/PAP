@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.babananick.pap.core.navigation"
+    namespace = "dev.babananick.pap.core.authorization"
 }
 
 dependencies {
@@ -12,8 +12,8 @@ dependencies {
     implementation(libs.voyager.tab.navigator)
     implementation(libs.androidx.foundation.layout.android)
     implementation(libs.androidx.material3.android)
-    implementation(libs.firebase.auth.ktx)
-
-    implementation(project(":core:coordinators:authorization"))
-    implementation(project(":core:coordinators:mainscreenspace"))
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(project(":feature:login"))
+    implementation(project(":feature:registration"))
 }

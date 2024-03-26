@@ -22,7 +22,9 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/core/authorization" />
+            <option value="$PROJECT_DIR$/core/coordinators" />
+            <option value="$PROJECT_DIR$/core/coordinators/authorization" />
+            <option value="$PROJECT_DIR$/core/coordinators/mainscreenspace" />
             <option value="$PROJECT_DIR$/core/data" />
             <option value="$PROJECT_DIR$/core/data/firebase" />
             <option value="$PROJECT_DIR$/core/data/repository" />

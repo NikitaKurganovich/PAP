@@ -13,15 +13,15 @@ class AuthorizationScreen : Screen {
         val currentScreen by viewModel.state.collectAsState()
 
         when (currentScreen) {
-            is AuthorizationViewModel.AuthorizationScreenState.Login -> {
+            is AuthorizationViewModel.ScreenState.Login -> {
                 val onClick =
-                    (currentScreen as AuthorizationViewModel.AuthorizationScreenState.Login).onClick
+                    (currentScreen as AuthorizationViewModel.ScreenState.Login).onClick
                 LoginScreen(onClick)
             }
 
-            is AuthorizationViewModel.AuthorizationScreenState.Registration -> {
+            is AuthorizationViewModel.ScreenState.Registration -> {
                 val onClick =
-                    (currentScreen as AuthorizationViewModel.AuthorizationScreenState.Registration).onClick
+                    (currentScreen as AuthorizationViewModel.ScreenState.Registration).onClick
                 RegistrationScreen(onClick)
             }
         }

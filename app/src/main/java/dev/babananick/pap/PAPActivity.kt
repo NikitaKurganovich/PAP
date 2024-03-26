@@ -36,7 +36,5 @@ class PAPActivity : ComponentActivity() {
             }
         }
     }
-
-
 }
 

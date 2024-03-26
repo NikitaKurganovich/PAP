@@ -28,6 +28,9 @@ include(":core:domain")
 include(":core:model")
 include(":core:navigation")
 
+include(":core:coordinators:authorization")
+include(":core:coordinators:mainscreenspace")
+
 include(":feature:home:lecture")
 include(":feature:home:lecturechoose")
 include(":feature:home:lecturetest")
@@ -43,5 +46,3 @@ include(":feature:personaltests:testresult")
 include(":feature:profile")
 
 include(":ui:components")
-include("core:authorization")
-findProject(":core:authorization")?.name = "authorization"
