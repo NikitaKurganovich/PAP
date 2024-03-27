@@ -26,14 +26,6 @@ class HomeScreen : Screen {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             when (screenState) {
-                is HomeState.Loading -> {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentSize(Alignment.Center)
-                    )
-                }
-
                 is HomeState.ShowingModules -> {
                     val data = (screenState as HomeState.ShowingModules).data
                     LazyColumn(
@@ -51,13 +43,25 @@ class HomeScreen : Screen {
                     }
                 }
 
-                is HomeState.Empty -> {
-                    Text("Пусто")
-                }
+                is HomeState.Base -> {
+                    when (val basicState = (screenState as HomeState.Base).state) {
+                        is ScreenStates.Loading -> {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .wrapContentSize(Alignment.Center)
+                            )
+                        }
 
-                is HomeState.Error -> {
-                    val error = (screenState as HomeState.Error).e
-                    Text("Error: ${error.message}")
+                        is ScreenStates.Empty -> {
+                            Text("Пусто")
+                        }
+
+                        is ScreenStates.Error -> {
+                            val error = basicState.error
+                            Text("Error: ${error.message}")
+                        }
+                    }
                 }
             }
         }

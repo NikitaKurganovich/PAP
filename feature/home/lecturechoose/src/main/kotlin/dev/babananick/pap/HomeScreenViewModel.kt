@@ -20,20 +20,17 @@ class HomeScreenViewModel @Inject constructor(
         loading
     ) {modules, loading ->
         when {
-            loading -> HomeState.Loading
-            modules.isEmpty() -> HomeState.Empty
+            loading -> HomeState.Base(ScreenStates.Loading)
+            modules.isEmpty() -> HomeState.Base(ScreenStates.Empty)
             else -> HomeState.ShowingModules(modules)
         }
     }.catch {
-        emit(HomeState.Error(it))
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), HomeState.Loading)
+        emit(HomeState.Base(ScreenStates.Error(it)))
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), HomeState.Base(ScreenStates.Loading))
 
     @AnyThread
     private fun lectureModules(): Flow<List<LectureModule>> =
         modulesInteractor.receiveLectureModules()
-
-
-
 
     fun isResultsExist(
         moduleName: String,
@@ -46,9 +43,3 @@ class HomeScreenViewModel @Inject constructor(
 }
 
 
-sealed class HomeState {
-    object Loading : HomeState()
-    data class ShowingModules(val data: List<LectureModule>) : HomeState()
-    object Empty : HomeState()
-    data class Error(val e: Throwable) : HomeState()
-}

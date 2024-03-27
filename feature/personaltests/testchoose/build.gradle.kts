@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.babananick.pap"
+    namespace = "dev.babananick.pap.feature.personaltests.testchoose"
 }
 
 dependencies {
@@ -17,4 +17,11 @@ dependencies {
     implementation(libs.voyager.transitions)
     implementation(libs.tabler.icons)
     implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(project(":core:domain"))
+    implementation(project(":core:common"))
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.core)
+    implementation(libs.hilt.navigationCompose)
+    implementation(project(":ui:components"))
 }

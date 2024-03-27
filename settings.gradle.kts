@@ -27,7 +27,7 @@ include(":core:data:repository")
 include(":core:domain")
 include(":core:model")
 include(":core:navigation")
-
+include(":core:common")
 include(":core:coordinators:authorization")
 include(":core:coordinators:mainscreenspace")
 

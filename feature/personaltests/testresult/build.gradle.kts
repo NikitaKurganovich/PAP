@@ -13,4 +13,5 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.common)
     implementation(libs.firebase.database.ktx)
+    implementation(libs.androidx.material3.android)
 }

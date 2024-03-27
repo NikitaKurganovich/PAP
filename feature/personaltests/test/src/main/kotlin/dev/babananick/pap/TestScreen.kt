@@ -1,11 +1,8 @@
 package dev.babananick.pap
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,8 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
-import dev.babananick.pap.util.CustomButton
-import dev.babananick.pap.util.DefaultText
 import kotlinx.coroutines.flow.update
 
 class TestScreen : Screen {
@@ -44,30 +39,7 @@ class TestScreen : Screen {
 
                 is TestState.ShowingPersonalTests -> {
                     val data = (state as TestState.ShowingPersonalTests).data
-                    LazyColumn(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        items(data) { text ->
-                            Row(
-                                horizontalArrangement = Arrangement.Center,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp)
-                            ) {
-                                if(testVM.isResultsExist()){
-                                    Icon(Icons.Default.Check, "Passed")
-                                }
-                                DefaultText(text, Modifier.clickable {
-                                    if (testVM.isResultsExist()) {
-                                        isDialogOnRewriteOpen.value = true
-                                    } else {
-                                        testVM.isChosen.update { true }
-                                    }
-                                })
-                            }
 
-                        }
-                    }
                 }
 
                 is TestState.Empty -> {
