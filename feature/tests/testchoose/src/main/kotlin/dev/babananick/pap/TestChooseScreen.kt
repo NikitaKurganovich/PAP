@@ -41,20 +41,10 @@ class TestChooseScreen: Screen {
                     }
                 }
             }
-            is ScreenStates.Loading -> {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .wrapContentSize(Alignment.Center)
+            is TestChooseState.Base -> {
+                BaseScreenStateValues(
+                    state = (screenState as TestChooseState.Base).state
                 )
-            }
-            is ScreenStates.Empty -> {
-                Text("Пусто")
-            }
-
-            is ScreenStates.Error -> {
-                val error = (screenState as ScreenStates.Error).error
-                Text("Error: ${error.message}")
             }
         }
     }

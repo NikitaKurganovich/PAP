@@ -1,10 +1,10 @@
 [versions]
-androidGradlePlugin = "8.3.0"
+androidGradlePlugin = "8.3.1"
 androidx-junit = "1.1.5"
 androidxActivityCompose = "1.8.2"
 androidxAnnotation = "1.7.1"
-androidxCompose = "1.6.3"
-androidxComposeCompiler = "1.5.10"
+#Used in one of gradle plugins. Need to update, on kotlin version changes
+androidxComposeCompiler = "1.5.11"
 androidxComposeMaterial = "1.6.3"
 androidxConstraintlayout = "1.0.1"
 androidxCoreKtx = "1.12.0"
@@ -17,7 +17,7 @@ androidxTestExt = "1.1.5"
 
 googleServices = "4.4.1"
 appcompat = "1.6.1"
-compose-bom = "2024.02.02"
+compose-bom = "2024.03.00"
 coroutines = "1.8.0"
 
 tabler-icons = "1.1.0"
@@ -26,7 +26,7 @@ voyager = "1.0.0"
 
 espressoCore = "3.5.1"
 
-firebase-bom = "32.7.4"
+firebase-bom = "32.8.0"
 
 gradleversions = "0.50.0"
 hilt = "2.51"
@@ -34,13 +34,9 @@ hiltAndroid = "2.51"
 hiltAndroidCompiler = "2.51"
 hiltCompose = "1.2.0"
 junit = "4.13.2"
-kotest = "5.8.0"
-kotlin = "1.9.22"
-ksp = "1.9.22-1.0.18"
+kotlin = "1.9.23"
+ksp = "1.9.23-1.0.19"
 leakcanary = "2.12"
-foundationLayoutAndroid = "1.6.4"
-material3Android = "1.2.1"
-uiTextGoogleFonts = "1.6.4"
 core = "1.12.0"
 
 [libraries]
@@ -49,11 +45,11 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom"}
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
-
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui"}
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics"}
 
-androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "androidxCompose" }
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-toolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
@@ -75,7 +71,7 @@ androidx-room-testing = { group = "androidx.room", name = "room-testing", versio
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExt" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTest" }
-androidx-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "androidxCompose" }
+androidx-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts"}
 
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
@@ -108,9 +104,9 @@ tabler-icons = {group = "br.com.devsrsouza.compose.icons", name = "tabler-icons"
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 gradleversions-gradlePlugin = { group = "com.github.ben-manes", name = "gradle-versions-plugin", version.ref = "gradleversions" }
-androidx-foundation-layout-android = { group = "androidx.compose.foundation", name = "foundation-layout-android", version.ref = "foundationLayoutAndroid" }
-androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
+androidx-foundation-layout-android = { group = "androidx.compose.foundation", name = "foundation-layout-android"}
+androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android" }
+ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts" }
 core = { group = "androidx.core", name = "core", version.ref = "core" }
 
 

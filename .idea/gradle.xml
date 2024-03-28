@@ -36,15 +36,13 @@
             <option value="$PROJECT_DIR$/feature/home" />
             <option value="$PROJECT_DIR$/feature/home/lecture" />
             <option value="$PROJECT_DIR$/feature/home/lecturechoose" />
-            <option value="$PROJECT_DIR$/feature/home/lecturetest" />
-            <option value="$PROJECT_DIR$/feature/home/lecturetestresult" />
             <option value="$PROJECT_DIR$/feature/login" />
-            <option value="$PROJECT_DIR$/feature/personaltests" />
-            <option value="$PROJECT_DIR$/feature/personaltests/test" />
-            <option value="$PROJECT_DIR$/feature/personaltests/testchoose" />
-            <option value="$PROJECT_DIR$/feature/personaltests/testresult" />
             <option value="$PROJECT_DIR$/feature/profile" />
             <option value="$PROJECT_DIR$/feature/registration" />
+            <option value="$PROJECT_DIR$/feature/tests" />
+            <option value="$PROJECT_DIR$/feature/tests/test" />
+            <option value="$PROJECT_DIR$/feature/tests/testchoose" />
+            <option value="$PROJECT_DIR$/feature/tests/testresult" />
             <option value="$PROJECT_DIR$/ui" />
             <option value="$PROJECT_DIR$/ui/components" />
           </set>

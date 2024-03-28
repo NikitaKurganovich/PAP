@@ -9,15 +9,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import dev.babananick.pap.util.CustomButton
-import dev.babananick.pap.util.DefaultText
+import cafe.adriel.voyager.core.screen.Screen
 import kotlinx.coroutines.flow.update
 
-class TestScreen : Screen {
+class TestResultScreen : Screen {
     @Composable
     override fun Content() {
-        val testVM: TestScreenViewModel = viewModel()
+        val testVM: TestScreenResultViewModel = hiltViewModel()
         val state by testVM.state.collectAsState()
         val isDialogOnNotFullOpen = remember { mutableStateOf(false) }
         val isDialogOnConfirmOpen = remember { mutableStateOf(false) }
@@ -31,49 +31,7 @@ class TestScreen : Screen {
         ) {
 
             when (state) {
-                is TestState.Loading -> {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentSize(Alignment.Center)
-                    )
-                }
-
-                is TestState.ShowingPersonalTests -> {
-                    val data = (state as TestState.ShowingPersonalTests).data
-
-                }
-
-                is TestState.Empty -> {
-                    Text("Пусто")
-                }
-
-                is TestState.Error -> {
-                    val error = (state as TestState.Error).e
-                    Text("Error: ${error.message}")
-                }
-
-                is TestState.EmotionalIntelligence -> {
-                    val data = (state as TestState.EmotionalIntelligence).data
-                    LazyColumn(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        items(data) {
-                            it.QuestionElement()
-                            Spacer(modifier = Modifier.height(20.dp))
-                        }
-                        item {
-                            CustomButton(
-                                onClick = {
-                                    testVM.collectResults(data, isDialogOnNotFullOpen, isDialogOnConfirmOpen)
-                                },
-                                modifier = Modifier.fillParentMaxWidth(0.76f)
-                            )
-                        }
-                    }
-                }
-
-                is TestState.ShowingResults -> {
+                is TestResultState.ShowingResults -> {
                     val data = (state as TestState.ShowingResults).score
                     LazyColumn {
                         items(data.map { it.toPair() }) { element ->
@@ -92,6 +50,8 @@ class TestScreen : Screen {
                     }
 
                 }
+
+                is
             }
         }
     }
@@ -127,7 +87,7 @@ class TestScreen : Screen {
     @Composable
     fun ConfirmAnswersDialog(
         isDialogOnConfirmOpen: MutableState<Boolean>,
-        viewModel: TestScreenViewModel,
+        viewModel: TestScreenResultViewModel,
     ) {
         if (isDialogOnConfirmOpen.value) {
             AlertDialog(
@@ -157,7 +117,7 @@ class TestScreen : Screen {
     @Composable
     fun AlertOnConfirmRewrite(
         isShown: MutableState<Boolean>,
-        testVM: TestScreenViewModel
+        testVM: TestScreenResultViewModel
     ) {
         if (isShown.value) {
             AlertDialog(

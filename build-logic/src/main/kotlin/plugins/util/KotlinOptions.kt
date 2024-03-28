@@ -22,14 +22,14 @@ internal fun Project.configureKotlinOptions() {
                 freeCompilerArgs = freeCompilerArgs + listOf(
                     "-P",
                     "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
-                            project.buildDir.absolutePath + "/compose_compiler",
+                            project.layout.buildDirectory + "/compose_compiler",
                 )
             }
             if (project.findProperty("composeCompilerMetrics") == "true") {
                 freeCompilerArgs = freeCompilerArgs + listOf(
                     "-P",
                     "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" +
-                            project.buildDir.absolutePath + "/compose_compiler",
+                            project.layout.buildDirectory + "/compose_compiler",
                 )
             }
         }

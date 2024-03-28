@@ -1,5 +1,7 @@
 plugins {
     id(ProjectPlugins.PAP_ANDROID_LIBRARY)
+    id(ProjectPlugins.PAP_ANDROID_COMPOSE)
+    id(ProjectPlugins.PAP_ANDROID_HILT)
 }
 
 android {
@@ -7,11 +9,6 @@ android {
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.toolingPreview)
-    implementation(libs.androidx.compose.material3)
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.transitions)
     implementation(libs.voyager.tab.navigator)
@@ -19,5 +16,5 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(project(":ui:components"))
-
+    implementation(project(":core:common"))
 }

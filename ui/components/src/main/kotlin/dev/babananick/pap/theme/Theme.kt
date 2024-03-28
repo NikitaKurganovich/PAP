@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.core.view.WindowCompat
-import dev.babananick.pap.R
+import dev.babananick.pap.ui.components.R
 import dev.babananick.pap.ui.theme.*
 
 private val DarkColorScheme = darkColorScheme(

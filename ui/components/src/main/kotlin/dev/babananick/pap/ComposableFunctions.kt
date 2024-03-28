@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package dev.babananick.pap
 
 import androidx.compose.foundation.BorderStroke
@@ -129,6 +127,8 @@ fun PasswordField(
     )
 }
 
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EmailField(
     email: MutableState<String>,

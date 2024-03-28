@@ -9,17 +9,13 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:domain"))
-    implementation(project(":core:model"))
-    implementation(project(":core:common"))
-    implementation(project(":ui:components"))
-
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-
+    implementation(libs.voyager.tab.navigator)
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.transitions)
-    implementation(libs.voyager.tab.navigator)
-
     implementation(libs.tabler.icons)
-
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(project(":core:common"))
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(project(":core:model"))
+    implementation(project(":ui:components"))
 }

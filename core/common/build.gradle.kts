@@ -1,7 +1,7 @@
 @file:Suppress("PropertyName", "VariableNaming")
 
 plugins {
-    id(ProjectPlugins.PAP_ANDROID_APPLICATION)
+    id(ProjectPlugins.PAP_ANDROID_LIBRARY)
 }
 
 android {
@@ -9,6 +9,8 @@ android {
 }
 
 dependencies {
-
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
     implementation(project(":core:model"))
+    implementation(libs.androidx.material3.android)
 }

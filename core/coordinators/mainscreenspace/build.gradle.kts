@@ -17,7 +17,7 @@ dependencies {
     implementation(project(":feature:login"))
     implementation(project(":feature:registration"))
     implementation(project(":feature:home:lecturechoose"))
-    implementation(project(":feature:personaltests:testchoose"))
+    implementation(project(":feature:tests:testchoose"))
     implementation(project(":feature:profile"))
     implementation(project(":feature:profile"))
     implementation(project(":ui:components"))

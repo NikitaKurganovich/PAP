@@ -16,13 +16,13 @@ class ProfileScreenViewModel :ViewModel(){
         loading
     ) {data, loading ->
         when {
-            loading -> ProfileState.Loading
-            data.isEmpty() -> ProfileState.Empty
+            loading -> ProfileState.Base(ScreenStates.Loading)
+            data.isEmpty() -> ProfileState.Base(ScreenStates.Empty)
             else -> ProfileState.ShowingResults(data)
         }
     }.catch {
-        emit(ProfileState.Error(it))
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ProfileState.Loading)
+        emit(ProfileState.Base(ScreenStates.Error(it)))
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ProfileState.Base(ScreenStates.Loading))
 
     private fun getResults(): HashMap<String, HashMap<String, Int>> {
         repository.getUserResults {
@@ -32,11 +32,5 @@ class ProfileScreenViewModel :ViewModel(){
         return _results
     }
 
-    sealed class ProfileState {
-        data object Loading : ProfileState()
-        data class ShowingResults(val data: HashMap<String, HashMap<String, Int>>) : ProfileState()
-        data object Empty : ProfileState()
-        data class Error(val e: Throwable) : ProfileState()
-    }
-}
 
+}

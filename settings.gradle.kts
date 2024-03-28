@@ -8,9 +8,6 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
-}
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -33,15 +30,13 @@ include(":core:coordinators:mainscreenspace")
 
 include(":feature:home:lecture")
 include(":feature:home:lecturechoose")
-include(":feature:home:lecturetest")
-include(":feature:home:lecturetestresult")
 
 include(":feature:login")
 include(":feature:registration")
 
-include(":feature:personaltests:test")
-include(":feature:personaltests:testchoose")
-include(":feature:personaltests:testresult")
+include(":feature:tests:test")
+include(":feature:tests:testchoose")
+include(":feature:tests:testresult")
 
 include(":feature:profile")
 

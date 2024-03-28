@@ -1,9 +1,10 @@
 plugins {
     id(ProjectPlugins.PAP_ANDROID_LIBRARY)
+    id(ProjectPlugins.PAP_ANDROID_COMPOSE)
 }
 
 android {
-    namespace = "dev.babananick.pap"
+    namespace = "dev.babananick.pap.ui.components"
 }
 
 dependencies {
@@ -12,6 +13,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.toolingPreview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui.toolingPreview)
     implementation(project(":core:model"))
     implementation(libs.voyager.navigator)

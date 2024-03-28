@@ -29,16 +29,8 @@ class ProfileScreen : Screen {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             when (screenState) {
-                is ProfileScreenViewModel.ProfileState.Loading -> {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentSize(Alignment.Center)
-                    )
-                }
-
-                is ProfileScreenViewModel.ProfileState.ShowingResults -> {
-                    val data = (screenState as ProfileScreenViewModel.ProfileState.ShowingResults).data
+                is ProfileState.ShowingResults -> {
+                    val data = (screenState as ProfileState.ShowingResults).data
                     LazyColumn(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -95,22 +87,11 @@ class ProfileScreen : Screen {
                     }
                 }
 
-                is ProfileState.Empty -> {
-                    Text("Пусто")
-                    CustomButton("Выйти", onClick = { isOpen.value = true })
-
-                }
-
-                is ProfileState.Error -> {
-                    val error = (screenState as ProfileState.Error).e
-                    Text("Error: ${error.message}")
+                is ProfileState.Base -> {
+                    BaseScreenStateValues((screenState as ProfileState.Base).state)
                 }
             }
-
-
         }
-
-
     }
 
     @Composable

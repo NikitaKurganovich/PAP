@@ -19,4 +19,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(project(":core:common"))
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(project(":core:model"))
+
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.core)
+    implementation(libs.hilt.navigationCompose)
 }
