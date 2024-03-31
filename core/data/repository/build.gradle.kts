@@ -1,5 +1,7 @@
 plugins {
     id(ProjectPlugins.PAP_ANDROID_LIBRARY)
+    id(ProjectPlugins.PAP_ANDROID_COMPOSE)
+    id(ProjectPlugins.PAP_ANDROID_HILT)
 }
 
 android {
@@ -16,9 +18,5 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.common)
     implementation(libs.firebase.database.ktx)
-    implementation(libs.hilt.core)
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
     implementation(project(":core:model"))
-
 }

@@ -1,4 +1,4 @@
-package dev.babananick.pap.datasource
+package dev.babananick.pap.datasource.lecture
 
 import kotlinx.coroutines.flow.Flow
 

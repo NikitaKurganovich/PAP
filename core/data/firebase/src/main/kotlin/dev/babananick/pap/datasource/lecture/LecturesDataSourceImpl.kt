@@ -1,4 +1,4 @@
-package dev.babananick.pap.datasource
+package dev.babananick.pap.datasource.lecture
 
 import com.google.firebase.database.*
 import kotlinx.coroutines.channels.awaitClose

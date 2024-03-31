@@ -1,6 +1,6 @@
 package dev.babananick.pap
 
-import dev.babananick.pap.datasource.LecturesDataSourceImpl
+import dev.babananick.pap.datasource.lecture.LecturesDataSourceImpl
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

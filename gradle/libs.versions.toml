@@ -19,7 +19,9 @@ googleServices = "4.4.1"
 appcompat = "1.6.1"
 compose-bom = "2024.03.00"
 coroutines = "1.8.0"
-
+mockk = "1.13.10"
+mockito = "5.10.0"
+mockitoKotlin = "5.2.1"
 tabler-icons = "1.1.0"
 
 voyager = "1.0.0"
@@ -38,6 +40,7 @@ kotlin = "1.9.23"
 ksp = "1.9.23-1.0.19"
 leakcanary = "2.12"
 core = "1.12.0"
+coreKtx = "1.5.0"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivityCompose" }
@@ -93,6 +96,9 @@ hilt-navigationCompose = { group = "androidx.hilt", name = "hilt-navigation-comp
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
 
+mockk = { group = "io.mockk", name = "mockk-android", version.ref = "mockk"}
+mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito"}
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin"}
 voyager-navigator = {group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyager"}
 voyager-transitions = {group = "cafe.adriel.voyager", name = "voyager-transitions", version.ref = "voyager"}
 voyager-tab-navigator = {group = "cafe.adriel.voyager", name = "voyager-tab-navigator", version.ref = "voyager"}
@@ -108,6 +114,7 @@ androidx-foundation-layout-android = { group = "androidx.compose.foundation", na
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android" }
 ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts" }
 core = { group = "androidx.core", name = "core", version.ref = "core" }
+androidx-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtx" }
 
 
 [plugins]

@@ -18,11 +18,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.Navigator
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Eye
 import compose.icons.tablericons.EyeOff
+import dev.babananick.pap.questions.Question
+import dev.babananick.pap.questions.QuestionWithScale
+import dev.babananick.pap.questions.QuestionWithVariants
 import dev.babananick.pap.ui.theme.Green50
 import dev.babananick.pap.theme.montserratFontFamily
 
@@ -211,3 +213,14 @@ fun LectureModule.LectureElement(
 
 }
 
+@Composable
+fun DisplayQuestion(question: Question){
+    when(question){
+        is QuestionWithVariants ->{
+
+        }
+        is QuestionWithScale ->{
+
+        }
+    }
+}
