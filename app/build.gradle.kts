@@ -17,12 +17,10 @@ kapt {
 dependencies {
 
     implementation(project(":core:domain"))
-    implementation(libs.hilt.android)
     implementation(project(":core:model"))
-    implementation(libs.androidx.lifecycle.process)
     implementation(project(":ui:components"))
     implementation(project(":core:navigation"))
-    kapt(libs.hilt.android.compiler)
+    implementation(project(":core:coordinators:mainscreenspace"))
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.auth.ktx)
@@ -30,24 +28,12 @@ dependencies {
     implementation(libs.firebase.common)
     implementation(libs.firebase.database.ktx)
 
-    implementation(libs.androidx.core)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.ui.text.google.fonts)
-
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.toolingPreview)
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.material3)
-
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.transitions)
     implementation(libs.voyager.tab.navigator)
     implementation(libs.tabler.icons)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(project(":core:coordinators:authorization"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

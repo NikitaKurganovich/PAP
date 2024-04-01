@@ -1,5 +1,6 @@
 plugins {
     id(ProjectPlugins.PAP_ANDROID_LIBRARY)
+    id(ProjectPlugins.PAP_ANDROID_COMPOSE)
 }
 
 android {
@@ -10,8 +11,6 @@ dependencies {
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.transitions)
     implementation(libs.voyager.tab.navigator)
-    implementation(libs.androidx.foundation.layout.android)
-    implementation(libs.androidx.material3.android)
     implementation(libs.firebase.auth.ktx)
 
     implementation(project(":core:coordinators:authorization"))

@@ -11,7 +11,7 @@ class TestChooseViewModel @Inject constructor(
     availableTests: PersonalTestChooseInteractor
 ): ViewModel(){
     private val testList = availableTests.receivePersonalTestNames()
-    private val loading = MutableStateFlow(true)
+    private val loading = MutableStateFlow(false)
 
     val state = combine(
         testList,

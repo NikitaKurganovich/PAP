@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
-import cafe.adriel.voyager.navigator.Navigator
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -22,17 +21,17 @@ class PAPActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            var user by remember { mutableStateOf(auth.currentUser)}
+            val user = remember { mutableStateOf(auth.currentUser)}
 
             DisposableEffect(Unit) {
                 val listener = FirebaseAuth.AuthStateListener {
-                    user = it.currentUser
+                    user.value = it.currentUser
                 }
                 auth.addAuthStateListener(listener)
                 onDispose { auth.removeAuthStateListener(listener) }
             }
             PAPTheme {
-                Navigator(resolveNavigation(user))
+                ScreenResolver(user)
             }
         }
     }
