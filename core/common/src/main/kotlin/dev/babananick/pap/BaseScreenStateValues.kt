@@ -10,9 +10,8 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun BaseScreenStateValues(
-    state: ScreenStates
-){
-    when (state) {
+    state: ScreenStates,
+) = when (state) {
         is ScreenStates.Loading -> {
             CircularProgressIndicator(
                 modifier = Modifier
@@ -30,4 +29,3 @@ fun BaseScreenStateValues(
             Text("Error: ${error.message}")
         }
     }
-}

@@ -1,8 +1,8 @@
 package dev.babananick.pap.questions
 
-import dev.babananick.pap.AnswerVariant
+import dev.babananick.pap.AnswerVariantWithScale
 
 data class QuestionWithVariants(
-    override val questionText: String,
-    val answerVariants: List<AnswerVariant>
+    override val question: String,
+    val answer_variants: List<AnswerVariantWithScale>
 ): Question

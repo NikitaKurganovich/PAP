@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.babananick.pap.data.repository"
+    namespace = "dev.babananick.pap.core.data.repository"
 }
 
 dependencies {

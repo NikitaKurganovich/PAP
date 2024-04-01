@@ -1,9 +1,9 @@
 package dev.babananick.pap.datasource.tests
 
-import dev.babananick.pap.questions.LectureWithRightAnswer
+import dev.babananick.pap.tests.TestWithRightAnswer
 import kotlinx.coroutines.flow.Flow
 
 interface LectureTestDataSource {
-    fun receiveLectureQuestions(moduleName: String, submoduleName: String): Flow<List<LectureWithRightAnswer>>
+    fun receiveLectureQuestions(moduleName: String, submoduleName: String): Flow<TestWithRightAnswer>
 
 }

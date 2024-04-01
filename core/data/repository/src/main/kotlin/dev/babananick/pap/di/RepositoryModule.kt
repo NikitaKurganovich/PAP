@@ -20,5 +20,8 @@ interface RepositoryModule {
     fun provideLectureTestRepository(lectureTestRepositoryImpl: LectureTestRepositoryImpl): LectureTestRepository
 
     @Binds
+    fun providePersonalTestRepository(personalTestRepository: PersonalTestRepositoryImpl): PersonalTestRepository
+
+    @Binds
     fun providePersonalTestChooseRepository(personalTestChooseRepositoryImpl: PersonalTestChooseRepositoryImpl): PersonalTestChooseRepository
 }

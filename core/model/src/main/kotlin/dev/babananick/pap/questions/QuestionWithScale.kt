@@ -1,6 +1,6 @@
 package dev.babananick.pap.questions
 
 data class QuestionWithScale(
-    override val questionText: String,
-    val relatedScale: String
+    override val question: String,
+    val related_scale: String
 ): Question

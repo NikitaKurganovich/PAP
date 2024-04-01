@@ -30,6 +30,7 @@ class AndroidComposePlugin : Plugin<Project> {
                 implementation(platform(libs.findLibrary("androidx.compose.bom").get()))
                 implementation(libs.findLibrary("androidx.compose.ui").get())
                 implementation(libs.findLibrary("androidx.compose.ui.graphics").get())
+                implementation(libs.findLibrary("ui.text.google.fonts").get())
                 implementation(libs.findLibrary("androidx.compose.ui.toolingPreview").get())
                 implementation(libs.findLibrary("androidx.compose.material").get())
                 implementation(libs.findLibrary("androidx.compose.material3").get())

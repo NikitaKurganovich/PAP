@@ -13,21 +13,15 @@ fun Project.getLibsVersionCatalog(): VersionCatalog =
     extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 fun DependencyHandler.test(libs: VersionCatalog) {
-    testImplementation(project(":test:shared"))
-    testImplementation(project(":test:fixtures"))
 
     testImplementation(libs.findLibrary("junit").get())
-    testImplementation(libs.findLibrary("kotest.assertions.core").get())
     testImplementation(libs.findLibrary("coroutines.test").get())
 }
 
 fun DependencyHandler.androidTest(libs: VersionCatalog) {
-    androidTestImplementation(project(":test:shared"))
-    androidTestImplementation(project(":test:fixtures"))
 
     androidTestImplementation(libs.findLibrary("androidx.test.ext.junit").get())
     androidTestImplementation(libs.findLibrary("androidx.test.core").get())
-    androidTestImplementation(libs.findLibrary("kotest.assertions.core").get())
     androidTestImplementation(libs.findLibrary("coroutines.test").get())
 }
 

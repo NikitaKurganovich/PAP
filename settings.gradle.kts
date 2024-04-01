@@ -28,15 +28,14 @@ include(":core:common")
 include(":core:coordinators:authorization")
 include(":core:coordinators:mainscreenspace")
 
-include(":feature:home:lecture")
-include(":feature:home:lecturechoose")
+include(":feature:academic:lecture")
+include(":feature:academic:lecturechoose")
 
 include(":feature:login")
 include(":feature:registration")
 
 include(":feature:tests:test")
 include(":feature:tests:testchoose")
-include(":feature:tests:testresult")
 
 include(":feature:profile")
 

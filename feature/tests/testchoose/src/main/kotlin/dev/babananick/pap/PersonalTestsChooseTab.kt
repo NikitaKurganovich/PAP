@@ -27,6 +27,6 @@ object TestsTab: Tab {
 
     @Composable
     override fun Content() {
-        Navigator(dev.babananick.pap.TestScreen())
+        Navigator(TestChooseScreen())
     }
 }

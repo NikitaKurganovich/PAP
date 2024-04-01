@@ -1,36 +1,27 @@
 package dev.babananick.pap
 
+import androidx.annotation.AnyThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.babananick.pap.repository.DataRepository
 import kotlinx.coroutines.flow.*
 
-class ProfileScreenViewModel :ViewModel(){
-    private var _results = hashMapOf<String, HashMap<String, Int>>()
-    private val repository = DataRepository
+class ProfileScreenViewModel : ViewModel() {
     private val loading = MutableStateFlow(false)
-    private val results = MutableStateFlow(getResults())
+    val emptyData: HashMap<String, HashMap<String, Int>> = hashMapOf()
 
-    val state = combine(
-        results,
-        loading
-    ) {data, loading ->
+    val state: StateFlow<ProfileState> = loading
+        .map(::fakeStates)
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(),
+            ProfileState.Base(ScreenStates.Loading)
+        )
+
+    @AnyThread
+    private fun fakeStates(loading: Boolean): ProfileState=
         when {
             loading -> ProfileState.Base(ScreenStates.Loading)
-            data.isEmpty() -> ProfileState.Base(ScreenStates.Empty)
-            else -> ProfileState.ShowingResults(data)
+            else -> ProfileState.ShowingResults(emptyData)
         }
-    }.catch {
-        emit(ProfileState.Base(ScreenStates.Error(it)))
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ProfileState.Base(ScreenStates.Loading))
-
-    private fun getResults(): HashMap<String, HashMap<String, Int>> {
-        repository.getUserResults {
-            _results = it
-            results.update { _results }
-        }
-        return _results
-    }
-
 
 }

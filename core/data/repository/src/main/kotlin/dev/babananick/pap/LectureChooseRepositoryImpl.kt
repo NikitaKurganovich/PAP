@@ -7,7 +7,7 @@ import javax.inject.Inject
 class LectureChooseRepositoryImpl @Inject constructor(
    private val dataSource: LectureChooseDataSource
 ): LectureChooseRepository {
-    override fun receiveLectureModules(): Flow<List<LectureModule>> {
-        return dataSource.receiveLectureModules()
-    }
+    override fun receiveLectureModules(): Flow<List<LectureModule>>
+        = dataSource.receiveLectureModules()
+
 }

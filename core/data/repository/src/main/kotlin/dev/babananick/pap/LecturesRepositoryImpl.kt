@@ -7,7 +7,7 @@ import javax.inject.Inject
 class LecturesRepositoryImpl @Inject constructor(
     private val dataSource: LecturesDataSourceImpl,
 ) : LecturesRepository {
-    override fun receiveLectureTheory(moduleName: String, submoduleName: String): Flow<String> {
-        return dataSource.receiveLectureTheory(moduleName, submoduleName)
-    }
+    override fun receiveLectureTheory(moduleName: String, submoduleName: String): Flow<String> =
+        dataSource.receiveLectureTheory(moduleName, submoduleName)
+
 }

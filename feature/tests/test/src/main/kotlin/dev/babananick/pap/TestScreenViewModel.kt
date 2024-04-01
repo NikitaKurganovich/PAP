@@ -1,80 +1,51 @@
 package dev.babananick.pap
 
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import javax.inject.Named
 
-class TestScreenViewModel : ViewModel() {
-
-    private val repository = DataRepository
+class TestScreenViewModel @AssistedInject constructor(
+    testInteractor: PersonalTestInteractor,
+    @Assisted private val test: String
+) : ViewModel() {
     private val loading = MutableStateFlow(false)
-    val isChosen = MutableStateFlow(false)
-    val isResultsSend = MutableStateFlow(false)
-
-    private var _results = hashMapOf<String, Int>()
-    var userResults = MutableStateFlow(getResults())
+    private val isFinished = MutableStateFlow(false)
 
     val state = combine(
         loading,
-        isResultsSend,
-    ) { loading, isSend ->
+        isFinished,
+        testInteractor.receivePersonalTest(test),
+    ) { loading, isFinished, test ->
         when {
-            loading -> TestState.Loading
-            isSend -> TestState.ShowingResults(userResults.value)
-            tests.isEmpty()-> TestState.Empty
-            else -> TestState.ShowingPersonalTests()
+            loading -> TestState.Base(ScreenStates.Loading)
+            test.questions.isEmpty()-> TestState.Base(ScreenStates.Empty)
+            isFinished -> TestState.ShowResults(test.interpretation)
+            else -> TestState.ShowTest(test)
         }
     }.catch {
-        emit(TestState.Error(it))
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), TestState.Loading)
+        emit(TestState.Base(ScreenStates.Error(it)))
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), TestState.Base(ScreenStates.Loading))
 
-    fun collectResults(
-        data: List<EmotionalIntelligenceQuestion>,
-        isDialogOnNotFullOpen: MutableState<Boolean>,
-        isDialogOnConfirmOpen: MutableState<Boolean>
-    ){
-        val map = hashMapOf<String, Int>()
+    @AssistedFactory
+    interface Factory {
+        fun create(@Named("test") test: String): TestScreenViewModel
+    }
 
-        data.forEach { question->
-            if (map[question.related_scale] == null) {
-                map[question.related_scale] = question.answeredScore
-            } else {
-                map[question.related_scale] = map[question.related_scale]!! + question.answeredScore
-            }
-            if (!question.isAnswered) {
-                isDialogOnNotFullOpen.value = true
-                return
+    companion object {
+        fun provideFactory(
+            assistedFactory: Factory,
+            test: String
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return assistedFactory.create(test) as T
             }
         }
-        if (!isDialogOnNotFullOpen.value) {
-            userResults.update { map }
-            isDialogOnConfirmOpen.value = true
-        }
-    }
-
-    fun upsertTestResult(testName: String) {
-        repository.upsertPersonalResults(testName, userResults.value)
-    }
-
-    fun isResultsExist(): Boolean {
-        return userResults.value.containsKey("Эмоциональный интеллект")
-    }
-
-    private fun getResults(): HashMap<String, Int>{
-        repository.getUserResults{
-            _results = it["Эмоциональный интеллект"] ?: hashMapOf()
-            userResults.update { _results }
-        }
-        return _results
     }
 }
 
-sealed class TestState {
-    object Loading : TestState()
-    data class ShowingPersonalTests(val data: List<String>) : TestState()
-    data class EmotionalIntelligence(val data: List<EmotionalIntelligenceQuestion>) : TestState()
-    object Empty : TestState()
-    data class ShowingResults(val score: HashMap<String, Int>) : TestState()
-    data class Error(val e: Throwable) : TestState()
-}

@@ -1,20 +1,14 @@
 plugins {
-    id(ProjectPlugins.PAP_ANDROID_LIBRARY)
-    id(ProjectPlugins.PAP_ANDROID_COMPOSE)
-    id(ProjectPlugins.PAP_ANDROID_HILT)
+    id(ProjectPlugins.PAP_ANDROID_FEATURE)
+
 }
 
 android {
-    namespace = "dev.babananick.pap"
+    namespace = "dev.babananick.pap.feature.profile"
 }
 
 dependencies {
-    implementation(libs.voyager.navigator)
-    implementation(libs.voyager.transitions)
-    implementation(libs.voyager.tab.navigator)
-    implementation(libs.tabler.icons)
-    implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(project(":ui:components"))
-    implementation(project(":core:common"))
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.common.ktx)
+    implementation(libs.firebase.auth.ktx)
 }

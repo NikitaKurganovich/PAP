@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.babananick.pap.core.domain"
+    namespace = "dev.babananick.pap.core.model"
 }
 
 dependencies {

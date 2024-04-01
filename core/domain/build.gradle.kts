@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.babananick.pap.core.usecases"
+    namespace = "dev.babananick.pap.core.domain"
 }
 
 dependencies {

@@ -193,7 +193,7 @@ fun LectureModule.LectureElement(
                 .fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            DefaultText(moduleName)
+            DefaultText(module_name)
         }
         submodulesNames.forEach { lecture ->
             Row(

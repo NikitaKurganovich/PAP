@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.babananick.pap.data.firebase"
+    namespace = "dev.babananick.pap.core.data.firebase"
 }
 
 dependencies {
