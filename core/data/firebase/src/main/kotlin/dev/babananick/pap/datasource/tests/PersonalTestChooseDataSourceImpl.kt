@@ -12,19 +12,20 @@ class PersonalTestChooseDataSourceImpl @Inject constructor(
     override fun receiveTests(): Flow<List<String>> = callbackFlow{
         val questionsReference: DatabaseReference = dataBase
             .getReference("pap/rus/personal_tests")
+
         val eventListener = object : ValueEventListener {
             override fun onDataChange(data: DataSnapshot) {
                 val personalTests = data.children.mapNotNull { snapshot ->
-                    snapshot.child("test_name").value as String
+                    snapshot.child("name").value as? String
                 }
                 trySend(personalTests).isSuccess
-                close()
             }
 
             override fun onCancelled(p0: DatabaseError) {
                 close()
             }
         }
+        questionsReference.addListenerForSingleValueEvent(eventListener)
         questionsReference.addValueEventListener(eventListener)
         awaitClose { questionsReference.removeEventListener(eventListener) }
     }
