@@ -5,10 +5,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.babananick.pap.datasource.lecture.*
-import dev.babananick.pap.datasource.tests.LectureTestDataSource
-import dev.babananick.pap.datasource.tests.LectureTestDataSourceImpl
-import dev.babananick.pap.datasource.tests.PersonalTestChooseDataSource
-import dev.babananick.pap.datasource.tests.PersonalTestChooseDataSourceImpl
+import dev.babananick.pap.datasource.tests.*
 
 
 @Module
@@ -25,4 +22,7 @@ interface DataSourceModule {
 
     @Binds
     fun provideTestChooseDataSource(personalTestChooseDataSourceImpl: PersonalTestChooseDataSourceImpl): PersonalTestChooseDataSource
+
+    @Binds
+    fun provideTestDataSource(personalTestDataSource: PersonalTestDataSourceImpl): PersonalTestDataSource
 }

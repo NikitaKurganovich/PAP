@@ -14,10 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 
 class TestChooseScreen: Screen {
     @Composable
     override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
         val chooseViewModel: TestChooseViewModel = hiltViewModel()
         val screenState by chooseViewModel.state.collectAsState()
 
@@ -35,7 +38,7 @@ class TestChooseScreen: Screen {
                                 .padding(8.dp)
                         ) {
                             DefaultText(text, Modifier.clickable {
-
+                                navigator.push(TestScreen(text))
                             })
                         }
                     }

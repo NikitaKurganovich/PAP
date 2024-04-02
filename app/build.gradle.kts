@@ -19,8 +19,7 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
     implementation(project(":ui:components"))
-    implementation(project(":core:navigation"))
-    implementation(project(":core:coordinators:mainscreenspace"))
+    implementation(project(":feature:navigation"))
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.auth.ktx)
@@ -33,7 +32,6 @@ dependencies {
     implementation(libs.voyager.tab.navigator)
     implementation(libs.tabler.icons)
     implementation(libs.androidx.appcompat)
-    implementation(project(":core:coordinators:authorization"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

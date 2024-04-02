@@ -18,7 +18,9 @@ class PersonalTestChooseDataSourceImpl @Inject constructor(
                 val personalTests = data.children.mapNotNull { snapshot ->
                     snapshot.child("name").value as? String
                 }
-                trySend(personalTests).isSuccess
+                if (trySend(personalTests).isSuccess){
+                    close()
+                }
             }
 
             override fun onCancelled(p0: DatabaseError) {

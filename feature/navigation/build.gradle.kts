@@ -1,6 +1,5 @@
 plugins {
-    id(ProjectPlugins.PAP_ANDROID_LIBRARY)
-    id(ProjectPlugins.PAP_ANDROID_COMPOSE)
+    id(ProjectPlugins.PAP_ANDROID_FEATURE)
 }
 
 android {
@@ -13,6 +12,6 @@ dependencies {
     implementation(libs.voyager.tab.navigator)
     implementation(libs.firebase.auth.ktx)
 
-    implementation(project(":core:coordinators:authorization"))
-    implementation(project(":core:coordinators:mainscreenspace"))
+    implementation(project(":feature:coordinators:authorization"))
+    implementation(project(":feature:coordinators:mainscreenspace"))
 }

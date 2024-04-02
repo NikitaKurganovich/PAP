@@ -7,6 +7,7 @@ import dev.babananick.pap.tests.TestWithSharedVariants
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.catch
 import javax.inject.Inject
 
 class PersonalTestDataSourceImpl @Inject constructor(

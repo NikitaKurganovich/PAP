@@ -1,6 +1,9 @@
 package dev.babananick.pap.questions
 
-interface Question{
-    val question: String
-}
+import com.google.firebase.database.IgnoreExtraProperties
+
+@IgnoreExtraProperties
+open class Question(
+    open val question: String = ""
+)
 
