@@ -1,13 +1,14 @@
 package dev.babananick.pap.datasource.tests
 
+import com.google.firebase.FirebaseException
 import com.google.firebase.database.*
 import dev.babananick.pap.tests.Test
 import dev.babananick.pap.tests.TestWithLeadScale
 import dev.babananick.pap.tests.TestWithSharedVariants
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.catch
 import javax.inject.Inject
 
 class PersonalTestDataSourceImpl @Inject constructor(
@@ -21,7 +22,7 @@ class PersonalTestDataSourceImpl @Inject constructor(
                 data.children.forEach { snapshot ->
                     snapshot.getValue(Test::class.java)?.let { test: Test ->
                         if (test.name == testName) {
-                            val testToReturn = when (test) {
+                            val testToReturn: Test = when (test) {
                                 is TestWithLeadScale -> {
                                     TestWithLeadScale(
                                         questions = test.questions,
@@ -29,6 +30,7 @@ class PersonalTestDataSourceImpl @Inject constructor(
                                         interpretation = test.interpretation
                                     )
                                 }
+
                                 is TestWithSharedVariants -> {
                                     TestWithSharedVariants(
                                         questions = test.questions,
@@ -37,8 +39,9 @@ class PersonalTestDataSourceImpl @Inject constructor(
                                         interpretation = test.interpretation
                                     )
                                 }
+                                //TODO Rewrite to single read
                                 else -> {
-                                    error("Unknown test type")
+                                    error("No such test")
                                 }
                             }
                             trySend(testToReturn)
@@ -49,7 +52,9 @@ class PersonalTestDataSourceImpl @Inject constructor(
             }
 
             override fun onCancelled(p0: DatabaseError) {
+                println("SUS ${p0.message}")
                 close()
+                error("$p0")
             }
         }
         testsReference.addValueEventListener(eventListener)
