@@ -1,6 +1,6 @@
 package dev.babananick.pap.datasource.lecture
 
-import dev.babananick.pap.LectureModule
+import dev.babananick.pap.modules.LectureModule
 import kotlinx.coroutines.flow.Flow
 
 interface LectureChooseDataSource {

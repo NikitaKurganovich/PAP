@@ -5,6 +5,6 @@ import dev.babananick.pap.AnswerVariantWithScale
 
 @IgnoreExtraProperties
 data class QuestionWithVariants(
-    override val question: String,
-    val answer_variants: List<AnswerVariantWithScale>
+    override val question: String? = null,
+    val answer_variants: List<AnswerVariantWithScale>? = null
 ): Question()

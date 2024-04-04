@@ -4,8 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -30,16 +28,19 @@ class TestChooseScreen: Screen {
                 LazyColumn(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    items(data) { text ->
-                        Row(
-                            horizontalArrangement = Arrangement.Center,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp)
-                        ) {
-                            DefaultText(text, Modifier.clickable {
-                                navigator.push(TestScreen(text))
-                            })
+                    items(data) { testModule ->
+                        testModule.test_module?.let { DefaultText(it) }
+                        testModule.tests?.forEach { text ->
+                            Row(
+                                horizontalArrangement = Arrangement.Center,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
+                            ) {
+                                DefaultText(text, Modifier.clickable {
+                                    navigator.push(TestScreen(text))
+                                })
+                            }
                         }
                     }
                 }

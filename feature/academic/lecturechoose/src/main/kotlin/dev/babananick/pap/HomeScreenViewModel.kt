@@ -4,6 +4,7 @@ import androidx.annotation.AnyThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.babananick.pap.modules.LectureModule
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

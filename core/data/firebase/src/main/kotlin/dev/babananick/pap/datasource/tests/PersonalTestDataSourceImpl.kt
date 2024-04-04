@@ -1,63 +1,49 @@
 package dev.babananick.pap.datasource.tests
 
-import com.google.firebase.FirebaseException
 import com.google.firebase.database.*
 import dev.babananick.pap.tests.Test
 import dev.babananick.pap.tests.TestWithLeadScale
 import dev.babananick.pap.tests.TestWithSharedVariants
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class PersonalTestDataSourceImpl @Inject constructor(
     private val dataBase: FirebaseDatabase,
 ) : PersonalTestDataSource {
-    override fun receiveTest(testName: String): Flow<Test> = callbackFlow {
+    override fun receiveTest(testName: String): Flow<Test> = flow {
         val testsReference: DatabaseReference = dataBase
-            .getReference("pap/rus/personal_tests")
-        val eventListener = object : ValueEventListener {
-            override fun onDataChange(data: DataSnapshot) {
-                data.children.forEach { snapshot ->
-                    snapshot.getValue(Test::class.java)?.let { test: Test ->
-                        if (test.name == testName) {
-                            val testToReturn: Test = when (test) {
-                                is TestWithLeadScale -> {
-                                    TestWithLeadScale(
-                                        questions = test.questions,
-                                        name = testName,
-                                        interpretation = test.interpretation
-                                    )
-                                }
+            .getReference("pap/rus/personal_tests/$testName")
 
-                                is TestWithSharedVariants -> {
-                                    TestWithSharedVariants(
-                                        questions = test.questions,
-                                        name = testName,
-                                        answer_variants = test.answer_variants,
-                                        interpretation = test.interpretation
-                                    )
-                                }
-                                //TODO Rewrite to single read
-                                else -> {
-                                    error("No such test")
-                                }
-                            }
-                            trySend(testToReturn)
-                        }
-                    }
+        val snapshot = suspendCoroutine { continuation ->
+            val eventListener = object : ValueEventListener {
+                override fun onDataChange(data: DataSnapshot) {
+                    continuation.resume(data)
                 }
-                close()
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    continuation.resumeWithException(databaseError.toException())
+                }
+            }
+            testsReference.addListenerForSingleValueEvent(eventListener)
+        }
+        val testType: String = snapshot.child("test_type").getValue<String>() ?: "null"
+        val testToReturn: Test = when (testType) {
+            "SHARED_VARIANTS" -> {
+                snapshot.getValue<TestWithSharedVariants>()!!
             }
 
-            override fun onCancelled(p0: DatabaseError) {
-                println("SUS ${p0.message}")
-                close()
-                error("$p0")
+            "LEAD_SCALE" -> {
+                snapshot.getValue<TestWithLeadScale>()!!
+            }
+
+            else -> {
+                error("No such test type $testType. Testing: $testing")
             }
         }
-        testsReference.addValueEventListener(eventListener)
-        awaitClose { testsReference.removeEventListener(eventListener) }
+
+        emit(testToReturn)
     }
 }

@@ -22,6 +22,7 @@ import cafe.adriel.voyager.navigator.Navigator
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Eye
 import compose.icons.tablericons.EyeOff
+import dev.babananick.pap.modules.LectureModule
 import dev.babananick.pap.questions.Question
 import dev.babananick.pap.questions.QuestionWithScale
 import dev.babananick.pap.questions.QuestionWithVariants
@@ -193,9 +194,9 @@ fun LectureModule.LectureElement(
                 .fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            DefaultText(module_name)
+            module_name?.let { DefaultText(it) }
         }
-        submodulesNames.forEach { lecture ->
+        submodules_names?.forEach { lecture ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier

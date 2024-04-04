@@ -16,6 +16,8 @@ androidxTestExt = "1.1.5"
 androidxActivity = "1.8.2"
 fragment = "1.6.2"
 
+coilBOM = "2.6.0"
+
 googleServices = "4.4.1"
 appcompat = "1.6.1"
 compose-bom = "2024.03.00"
@@ -113,6 +115,12 @@ voyager-tab-navigator = {group = "cafe.adriel.voyager", name = "voyager-tab-navi
 voyager-hilt = { group = "cafe.adriel.voyager", name = "voyager-hilt", version.ref = "voyager"}
 
 tabler-icons = {group = "br.com.devsrsouza.compose.icons", name = "tabler-icons", version.ref = "tabler-icons"}
+
+coil-bom = { group = "io.coil-kt", name = "coil-bom", version.ref = "coilBOM" }
+coil-base = { group = "io.coil-kt", name = "coil-base"}
+coil-compose-base = { group = "io.coil-kt", name = "coil-compose-base"}
+coil-svg = { group = "io.coil-kt", name = "coil-svg"}
+
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }

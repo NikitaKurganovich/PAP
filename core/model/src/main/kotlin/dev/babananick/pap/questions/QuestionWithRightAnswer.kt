@@ -4,7 +4,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class QuestionWithRightAnswer(
-    override val question: String,
-    val correct_answer: String,
-    val available_answers: List<String>,
+    override val question: String? = null,
+    val correct_answer: String? = null,
+    val available_answers: List<String>? = null,
 ): Question()

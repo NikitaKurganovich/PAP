@@ -1,5 +1,6 @@
 package dev.babananick.pap
 
+import dev.babananick.pap.interpretation.Interpretation
 import dev.babananick.pap.tests.Test
 
 sealed class TestState {

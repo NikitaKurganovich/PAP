@@ -1,7 +1,7 @@
 package dev.babananick.pap.datasource.lecture
 
 import com.google.firebase.database.*
-import dev.babananick.pap.LectureModule
+import dev.babananick.pap.modules.LectureModule
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -12,15 +12,16 @@ class LectureChooseDataSourceImpl @Inject constructor(
 ) : LectureChooseDataSource {
 
     override fun receiveLectureModules(): Flow<List<LectureModule>> = callbackFlow {
-        val questionsReference: DatabaseReference = dataBase.getReference("pap/rus/lectures")
+        val questionsReference: DatabaseReference = dataBase
+            .getReference("pap/rus/academic_material")
         val eventListener = object : ValueEventListener {
             override fun onDataChange(data: DataSnapshot) {
                 val lectureModules = data.children.mapNotNull { snapshot ->
                     snapshot.getValue(LectureModule::class.java)?.let { module ->
                         LectureModule(
                             module_name = module.module_name,
-                            submodulesNames = snapshot.child("submodules")
-                                .children.map { it.child("submodule_name").value as String }
+                            submodules_names = snapshot.child("modules")
+                                .children.map { it.key as String }
                         )
                     }
                 }

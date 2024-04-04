@@ -1,7 +1,6 @@
 package dev.babananick.pap.datasource.tests
 
 import com.google.firebase.database.*
-import dev.babananick.pap.questions.QuestionWithRightAnswer
 import dev.babananick.pap.tests.TestWithRightAnswer
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -14,24 +13,12 @@ class LectureTestDataSourceImpl @Inject constructor(
     override fun receiveLectureQuestions(moduleName: String, submoduleName: String):
             Flow<TestWithRightAnswer> = callbackFlow {
         val questionsReference: DatabaseReference = dataBase
-            .getReference("pap/rus/lectures/$moduleName/modules/$submoduleName/questions")
+            .getReference("pap/rus/academic_material/$moduleName/modules/$submoduleName/questions")
         val eventListener = object : ValueEventListener {
             override fun onDataChange(data: DataSnapshot) {
-                val lectureQuestions = data.children.mapNotNull { snapshot ->
-                    snapshot.getValue(QuestionWithRightAnswer::class.java)?.let { question ->
-                        QuestionWithRightAnswer(
-                            question = question.question,
-                            correct_answer = question.correct_answer,
-                            available_answers = question.available_answers
-                        )
-                    }
-                }
+                val lectureTest = data.getValue<TestWithRightAnswer>()!!
                 trySend(
-                    TestWithRightAnswer(
-                        questions = lectureQuestions,
-                        name = submoduleName,
-                        interpretation = listOf()
-                    )
+                    lectureTest
                 ).isSuccess
             }
 

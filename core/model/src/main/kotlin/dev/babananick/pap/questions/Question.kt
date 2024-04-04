@@ -4,6 +4,6 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 open class Question(
-    open val question: String = ""
+    open val question: String? = null
 )
 

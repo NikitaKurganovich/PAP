@@ -1,5 +1,6 @@
 package dev.babananick.pap
 
+import dev.babananick.pap.modules.LectureModule
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

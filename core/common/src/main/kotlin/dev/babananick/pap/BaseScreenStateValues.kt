@@ -12,20 +12,20 @@ import androidx.compose.ui.Modifier
 fun BaseScreenStateValues(
     state: ScreenStates,
 ) = when (state) {
-        is ScreenStates.Loading -> {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentSize(Alignment.Center)
-            )
-        }
-
-        is ScreenStates.Empty -> {
-            Text("Пусто")
-        }
-
-        is ScreenStates.Error -> {
-            val error = state.error
-            Text("Error: ${error.message}")
-        }
+    is ScreenStates.Error -> {
+        val error = state.error
+        Text("Error: ${error.message}")
     }
+
+    is ScreenStates.Loading -> {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentSize(Alignment.Center)
+        )
+    }
+
+    is ScreenStates.Empty -> {
+        Text("Пусто")
+    }
+}

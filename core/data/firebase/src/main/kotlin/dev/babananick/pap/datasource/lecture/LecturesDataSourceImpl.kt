@@ -12,7 +12,7 @@ class LecturesDataSourceImpl @Inject constructor(
     override fun receiveLectureTheory(moduleName: String, submoduleName: String): Flow<String> {
         return callbackFlow {
             val questionsReference: DatabaseReference = dataBase
-                .getReference("pap/rus/lectures/$moduleName/modules/$submoduleName/theory")
+                .getReference("pap/rus/academic_material/$moduleName/modules/$submoduleName/theory")
             val eventListener = object : ValueEventListener {
                 override fun onDataChange(data: DataSnapshot) {
                     val lectureTheory = data.getValue(String::class.java) ?: ""
