@@ -40,7 +40,7 @@ class PersonalTestDataSourceImpl @Inject constructor(
             }
 
             else -> {
-                error("No such test type $testType. Testing: $testing")
+                error("No such test type $testType")
             }
         }
 
