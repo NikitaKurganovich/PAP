@@ -2,33 +2,37 @@ package dev.babananick.pap.datasource.tests
 
 import com.google.firebase.database.*
 import dev.babananick.pap.modules.TestModule
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class PersonalTestChooseDataSourceImpl @Inject constructor(
     private val dataBase: FirebaseDatabase
 ) : PersonalTestChooseDataSource {
-    override fun receiveTests(): Flow<List<TestModule>> = callbackFlow{
+    override fun receiveTests(): Flow<List<TestModule>> = flow{
         val questionsReference: DatabaseReference = dataBase
             .getReference("pap/rus/test_groups")
-        val eventListener = object : ValueEventListener {
-            override fun onDataChange(data: DataSnapshot) {
-                val modules = data.getValue<List<TestModule>>()!!
 
-                if (trySend(modules).isSuccess){
-                    close()
+        val snapshot = suspendCoroutine { continuation ->
+            val eventListener = object : ValueEventListener {
+                override fun onDataChange(data: DataSnapshot) {
+                    continuation.resume(data)
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    continuation.resumeWithException(p0.toException())
                 }
             }
-
-            override fun onCancelled(p0: DatabaseError) {
-                close()
-            }
+            questionsReference.addListenerForSingleValueEvent(eventListener)
         }
-        questionsReference.addListenerForSingleValueEvent(eventListener)
-        questionsReference.addValueEventListener(eventListener)
-        awaitClose { questionsReference.removeEventListener(eventListener) }
+
+        val testModules: List<TestModule> = snapshot.getValue<List<TestModule>>()
+            ?: error("Failed to download tests")
+
+        emit(testModules)
     }
 
 }

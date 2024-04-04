@@ -1,30 +1,36 @@
 package dev.babananick.pap.datasource.lecture
 
 import com.google.firebase.database.*
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class LecturesDataSourceImpl @Inject constructor(
     private val dataBase: FirebaseDatabase,
 ) : LecturesDataSource {
-    override fun receiveLectureTheory(moduleName: String, submoduleName: String): Flow<String> {
-        return callbackFlow {
+    override fun receiveLectureTheory(submoduleName: String): Flow<String> =
+        flow {
             val questionsReference: DatabaseReference = dataBase
-                .getReference("pap/rus/academic_material/$moduleName/modules/$submoduleName/theory")
-            val eventListener = object : ValueEventListener {
-                override fun onDataChange(data: DataSnapshot) {
-                    val lectureTheory = data.getValue(String::class.java) ?: ""
-                    trySend(lectureTheory).isSuccess
-                }
+                .getReference("pap/rus/lectures/$submoduleName/theory")
 
-                override fun onCancelled(p0: DatabaseError) {
-                    close()
+            val snapshot = suspendCoroutine { continuation ->
+                val eventListener = object : ValueEventListener {
+                    override fun onDataChange(data: DataSnapshot) {
+                        continuation.resume(data)
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {
+                        continuation.resumeWithException(p0.toException())
+                    }
                 }
+                questionsReference.addListenerForSingleValueEvent(eventListener)
+
             }
-            questionsReference.addValueEventListener(eventListener)
-            awaitClose { questionsReference.removeEventListener(eventListener) }
+            val lectureTheory = snapshot.getValue(String::class.java) ?: error("Failed to download theory")
+            emit(lectureTheory)
         }
-    }
+
 }

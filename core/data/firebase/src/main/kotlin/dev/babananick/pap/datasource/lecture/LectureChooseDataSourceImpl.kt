@@ -2,38 +2,35 @@ package dev.babananick.pap.datasource.lecture
 
 import com.google.firebase.database.*
 import dev.babananick.pap.modules.LectureModule
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class LectureChooseDataSourceImpl @Inject constructor(
     private val dataBase: FirebaseDatabase,
 ) : LectureChooseDataSource {
 
-    override fun receiveLectureModules(): Flow<List<LectureModule>> = callbackFlow {
+    override fun receiveLectureModules(): Flow<List<LectureModule>> = flow {
         val questionsReference: DatabaseReference = dataBase
-            .getReference("pap/rus/academic_material")
-        val eventListener = object : ValueEventListener {
-            override fun onDataChange(data: DataSnapshot) {
-                val lectureModules = data.children.mapNotNull { snapshot ->
-                    snapshot.getValue(LectureModule::class.java)?.let { module ->
-                        LectureModule(
-                            module_name = module.module_name,
-                            submodules_names = snapshot.child("modules")
-                                .children.map { it.key as String }
-                        )
-                    }
-                }
-                trySend(lectureModules).isSuccess
-                close()
-            }
+            .getReference("pap/rus/academic_modules")
 
-            override fun onCancelled(p0: DatabaseError) {
-                close()
+        val snapshot = suspendCoroutine { continuation ->
+            val eventListener = object : ValueEventListener {
+                override fun onDataChange(data: DataSnapshot) {
+                    continuation.resume(data)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    continuation.resumeWithException(databaseError.toException())
+                }
             }
+            questionsReference.addListenerForSingleValueEvent(eventListener)
         }
-        questionsReference.addValueEventListener(eventListener)
-        awaitClose { questionsReference.removeEventListener(eventListener) }
+
+        val lectures: List<LectureModule> = snapshot.getValue<List<LectureModule>>()!!
+        emit(lectures)
     }
 }

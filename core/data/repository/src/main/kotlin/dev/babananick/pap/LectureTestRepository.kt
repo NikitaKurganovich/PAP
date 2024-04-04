@@ -4,6 +4,6 @@ import dev.babananick.pap.tests.TestWithRightAnswer
 import kotlinx.coroutines.flow.Flow
 
 interface LectureTestRepository {
-    fun receiveLectureQuestions(moduleName: String, submoduleName: String): Flow<TestWithRightAnswer>
+    fun receiveLectureQuestions( submoduleName: String): Flow<TestWithRightAnswer>
 
 }

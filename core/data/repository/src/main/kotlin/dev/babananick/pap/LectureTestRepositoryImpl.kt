@@ -8,8 +8,8 @@ import javax.inject.Inject
 class LectureTestRepositoryImpl @Inject constructor(
     private val dataSource: LectureTestDataSourceImpl
 ) : LectureTestRepository {
-    override fun receiveLectureQuestions(moduleName: String, submoduleName: String): Flow<TestWithRightAnswer> {
-        return dataSource.receiveLectureQuestions(moduleName, submoduleName)
+    override fun receiveLectureQuestions(submoduleName: String): Flow<TestWithRightAnswer> {
+        return dataSource.receiveLectureQuestions( submoduleName)
     }
 
 }

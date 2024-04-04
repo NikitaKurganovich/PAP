@@ -30,15 +30,15 @@ class TestChooseScreen: Screen {
                 ) {
                     items(data) { testModule ->
                         testModule.test_module?.let { DefaultText(it) }
-                        testModule.tests?.forEach { text ->
+                        testModule.tests?.forEach { test ->
                             Row(
                                 horizontalArrangement = Arrangement.Center,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(8.dp)
                             ) {
-                                DefaultText(text, Modifier.clickable {
-                                    navigator.push(TestScreen(text))
+                                DefaultText(test.name!!, Modifier.clickable {
+                                    navigator.push(TestScreen(test.name!!))
                                 })
                             }
                         }

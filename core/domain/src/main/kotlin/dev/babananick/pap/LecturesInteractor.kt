@@ -6,7 +6,7 @@ import javax.inject.Inject
 class LecturesInteractor @Inject constructor(
     private val lectures: LecturesRepository
 ) {
-    suspend fun receiveLectureTheory(moduleName: String, submoduleName: String): Flow<String> {
-        return lectures.receiveLectureTheory(moduleName, submoduleName)
+    fun receiveLectureTheory(submoduleName: String): Flow<String> {
+        return lectures.receiveLectureTheory(submoduleName)
     }
 }

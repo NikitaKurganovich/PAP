@@ -3,7 +3,7 @@ package dev.babananick.pap.modules
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
-data class LectureModule(
-    val academic_module: String? = null,
-    val lectures: List<LectureInModule>? = null,
+data class LectureInModule(
+    val name: String? = null,
+    val question_quantity: Long? = null
 )

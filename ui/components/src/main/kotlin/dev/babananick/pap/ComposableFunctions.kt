@@ -194,9 +194,9 @@ fun LectureModule.LectureElement(
                 .fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            module_name?.let { DefaultText(it) }
+            academic_module?.let { DefaultText(it) }
         }
-        submodules_names?.forEach { lecture ->
+        lectures?.forEach { lecture ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
@@ -206,7 +206,7 @@ fun LectureModule.LectureElement(
 
                     }
             ) {
-                DefaultText(lecture)
+                DefaultText(lecture.name!!)
             }
         }
     }

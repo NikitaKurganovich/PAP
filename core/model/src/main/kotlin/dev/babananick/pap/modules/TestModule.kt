@@ -6,5 +6,5 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class TestModule(
     val test_module: String? = null,
    // val module_icon:
-    val tests: List<String>? = null
+    val tests: List<TestInModule>? = null
 )
