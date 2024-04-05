@@ -1,19 +1,15 @@
 package dev.babananick.pap
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.CurrentScreen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.Navigator
-import cafe.adriel.voyager.navigator.currentOrThrow
+import cafe.adriel.voyager.navigator.tab.CurrentTab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
 
 data class TestScreen(
     val testName: String,
@@ -36,23 +32,29 @@ data class TestScreen(
             when (state) {
                 is TestState.ShowTest -> {
                     val data = (state as TestState.ShowTest).data
-                    var currentQuestion by remember { mutableStateOf(data.questions!![testVM.currentQuestionPosition] ) }
-                    Navigator(QuestionScreen(currentQuestion)) {
-                        val navigator = LocalNavigator.currentOrThrow
-                        CurrentScreen()
-                        Row {
-                            Button(onClick = {
-                                navigator.pop()
-                                testVM.updateQuestionPosition()
-                            }){
-                                Text("Previews")
-                            }
-                            Button(onClick = {
-                                navigator.push(QuestionScreen(testVM.toNextQuestion()))
-                            }){
-                                Text("Next")
-                            }
-                        }
+                    TabNavigator(
+                        QuestionTab(data, 0)
+                    ) {
+                        val isPreviousEnabled by testVM.isNotInBegging.collectAsState()
+                        val isNextEnabled by testVM.isNotInEnd.collectAsState()
+                        val currentQuestion by testVM.currentQuestionPosition.collectAsState()
+                        InnerTabNavigation(
+                            data,
+                            testVM.fetchPosition()
+                        )
+                        CurrentTab()
+                        NextAndPrevious(
+                            onNext = {
+                                testVM.increasePosition()
+                            },
+                            onPrevious = {
+                                testVM.decreasePosition()
+                            },
+                            isPreviousEnabled = isPreviousEnabled,
+                            isNextEnabled = isNextEnabled,
+                            currentQuestion = currentQuestion,
+                            test = data
+                        )
                     }
                 }
 

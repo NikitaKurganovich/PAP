@@ -6,10 +6,8 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.babananick.pap.questions.Question
 import dev.babananick.pap.tests.Test
 import kotlinx.coroutines.flow.*
-import kotlin.properties.Delegates
 
 @HiltViewModel(assistedFactory = TestScreenViewModel.TestScreenViewModelFactory::class)
 class TestScreenViewModel @AssistedInject constructor(
@@ -19,9 +17,15 @@ class TestScreenViewModel @AssistedInject constructor(
     private val loading = MutableStateFlow(false)
     private val isFinished = MutableStateFlow(false)
 
-    lateinit var localTest: Test
-    var currentQuestionPosition by Delegates.notNull<Int>()
+    private lateinit var localTest: Test
+    private val _currentQuestionPosition = MutableStateFlow(0)
+    val currentQuestionPosition: StateFlow<Int> = _currentQuestionPosition
 
+    private val _isNotInBegging = MutableStateFlow(false)
+    val isNotInBegging: StateFlow<Boolean> = _isNotInBegging
+
+    private val _isNotInEnd = MutableStateFlow(true)
+    val isNotInEnd: StateFlow<Boolean> = _isNotInEnd
 
     var state: StateFlow<TestState> = combine(
         testInteractor.receivePersonalTest(testName),
@@ -32,10 +36,9 @@ class TestScreenViewModel @AssistedInject constructor(
             loading -> TestState.Base(ScreenStates.Loading)
             test.questions.isNullOrEmpty() -> TestState.Base(ScreenStates.Empty)
             isFinished -> TestState.ShowResults(test.interpretation!!)
-            else ->{
+            else -> {
                 TestState.ShowTest(test).also {
                     localTest = test
-                    currentQuestionPosition = 0
                 }
             }
         }
@@ -44,27 +47,34 @@ class TestScreenViewModel @AssistedInject constructor(
         emit(TestState.Base(ScreenStates.Error(it)))
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), TestState.Base(ScreenStates.Loading))
 
+    fun isNotInBegging(): Boolean =
+        _currentQuestionPosition.value != 0
 
-    fun toNextQuestion(): Question =
-        localTest.toNextQuestion()
+    fun isNotInEnd(): Boolean =
+        _currentQuestionPosition.value != localTest.questions!!.size
 
-
-    private fun Test.toNextQuestion(): Question{
-        return if (currentQuestionPosition == questions!!.size - 1){
-            questions!![currentQuestionPosition]
-        } else {
-            currentQuestionPosition++
-            questions!![currentQuestionPosition]
+    fun decreasePosition() {
+        renewPositions()
+        if (isNotInBegging()) {
+            _currentQuestionPosition.value -= 1
         }
     }
 
-    fun updateQuestionPosition() =
-        if (currentQuestionPosition > 0){
-            currentQuestionPosition--
-        } else {
-            currentQuestionPosition
+    fun increasePosition() {
+        renewPositions()
+        if (isNotInEnd()) {
+            _currentQuestionPosition.value += 1
         }
+    }
 
+    private fun renewPositions() {
+        _isNotInEnd.update { isNotInEnd() }
+        _isNotInBegging.update { isNotInBegging() }
+    }
+
+    fun fetchPosition(): MutableStateFlow<Int> {
+        return _currentQuestionPosition
+    }
 
     @AssistedFactory
     interface TestScreenViewModelFactory {
