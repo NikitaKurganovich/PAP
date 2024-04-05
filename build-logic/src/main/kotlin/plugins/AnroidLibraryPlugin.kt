@@ -7,8 +7,11 @@ import com.android.build.gradle.TestedExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 import plugins.util.configureAndroid
 import plugins.util.configureKotlinOptions
+import plugins.util.getLibsVersionCatalog
+import plugins.util.implementation
 
 class AndroidLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -30,6 +33,10 @@ class AndroidLibraryPlugin : Plugin<Project> {
                 (project.findProperty("testBuildType") as? String)?.let {
                     testBuildType = it
                 }
+            }
+            val libs = getLibsVersionCatalog()
+            dependencies {
+                implementation(libs.findLibrary("kotlinx.collections.immutable").get())
             }
         }
     }

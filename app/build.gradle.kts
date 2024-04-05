@@ -27,10 +27,6 @@ dependencies {
     implementation(libs.firebase.common)
     implementation(libs.firebase.database.ktx)
 
-    implementation(libs.voyager.navigator)
-    implementation(libs.voyager.transitions)
-    implementation(libs.voyager.tab.navigator)
-    implementation(libs.tabler.icons)
     implementation(libs.androidx.appcompat)
 
     testImplementation(libs.junit)
