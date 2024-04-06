@@ -1,23 +1,25 @@
 package dev.babananick.pap
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.babananick.pap.tests.Test
 import kotlinx.coroutines.flow.*
+import java.util.*
 
 @HiltViewModel(assistedFactory = TestScreenViewModel.TestScreenViewModelFactory::class)
 class TestScreenViewModel @AssistedInject constructor(
     testInteractor: PersonalTestInteractor,
     @Assisted("testName") private val testName: String,
 ) : ViewModel() {
-    private val loading = MutableStateFlow(false)
     private val isFinished = MutableStateFlow(false)
+    val questionsStack = Stack<Int>()
+    private var questionQuantity = 1
 
-    private lateinit var localTest: Test
     private val _currentQuestionPosition = MutableStateFlow(0)
     val currentQuestionPosition: StateFlow<Int> = _currentQuestionPosition
 
@@ -27,18 +29,56 @@ class TestScreenViewModel @AssistedInject constructor(
     private val _isNotInEnd = MutableStateFlow(true)
     val isNotInEnd: StateFlow<Boolean> = _isNotInEnd
 
+    private val _previousQuestionPosition = MutableStateFlow(0)
+    val previousQuestionPosition: StateFlow<Int> = _previousQuestionPosition
+
+    private val _nextQuestionPosition = MutableStateFlow(0)
+    val nextQuestionPosition: StateFlow<Int> = _nextQuestionPosition
+
+    val fetcher = {
+            newPosition: Int,
+            onFetch: () -> Unit ->
+        updateState(newPosition, onFetch)
+    }
+
+    fun peekScreen(): Int {
+       return if (questionsStack.isNotEmpty()){
+           questionsStack.peek()
+       } else{
+           0
+       }
+    }
+
+    fun pushScreen(questionPosition: Int) {
+        when{
+            questionsStack.isEmpty() ->{
+                questionsStack.push(questionPosition)
+            }
+            questionsStack.peek() != questionPosition ->{
+                questionsStack.push(questionPosition)
+            }
+        }
+    }
+
+    fun popScreen() {
+        if (questionsStack.isNotEmpty()) questionsStack.pop()
+    }
+
     var state: StateFlow<TestState> = combine(
         testInteractor.receivePersonalTest(testName),
-        loading,
         isFinished,
-    ) { test, isFinished, loading ->
+    ) { test, isFinished ->
         when {
-            loading -> TestState.Base(ScreenStates.Loading)
             test.questions.isNullOrEmpty() -> TestState.Base(ScreenStates.Empty)
             isFinished -> TestState.ShowResults(test.interpretation!!)
             else -> {
                 TestState.ShowTest(test).also {
-                    localTest = test
+                    questionQuantity = test.questions!!.size - 1
+                    updateState(
+                        newCurrent = 0,
+                        onUpdate = {
+                            pushScreen(0)
+                        })
                 }
             }
         }
@@ -47,34 +87,44 @@ class TestScreenViewModel @AssistedInject constructor(
         emit(TestState.Base(ScreenStates.Error(it)))
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), TestState.Base(ScreenStates.Loading))
 
-    fun isNotInBegging(): Boolean =
-        _currentQuestionPosition.value != 0
-
-    fun isNotInEnd(): Boolean =
-        _currentQuestionPosition.value != localTest.questions!!.size
-
-    fun decreasePosition() {
-        renewPositions()
-        if (isNotInBegging()) {
-            _currentQuestionPosition.value -= 1
-        }
+    private fun updateState(
+        newCurrent: Int,
+        onUpdate: () -> Unit,
+    ) {
+        updateAllPositions(newCurrent)
+        updateEnables()
+        onUpdate()
+        Log.d(TAG, "Stack: ${questionsStack.toList()}")
     }
 
-    fun increasePosition() {
-        renewPositions()
-        if (isNotInEnd()) {
-            _currentQuestionPosition.value += 1
-        }
-    }
-
-    private fun renewPositions() {
+    private fun updateEnables() {
         _isNotInEnd.update { isNotInEnd() }
         _isNotInBegging.update { isNotInBegging() }
     }
 
-    fun fetchPosition(): MutableStateFlow<Int> {
-        return _currentQuestionPosition
+    private fun updateAllPositions(newCurrent: Int) {
+        _currentQuestionPosition.update { newCurrent }
+        updateNextAndPreviousIndexes()
     }
+
+    private fun updateNextAndPreviousIndexes() {
+        _nextQuestionPosition.update {
+            if (isNotInEnd()) {
+                _currentQuestionPosition.value + 1
+            } else _currentQuestionPosition.value
+        }
+        _previousQuestionPosition.update {
+            if (isNotInBegging()) {
+                _currentQuestionPosition.value - 1
+            } else _currentQuestionPosition.value
+        }
+    }
+
+    private fun isNotInBegging(): Boolean =
+        _currentQuestionPosition.value != 0
+
+    private fun isNotInEnd(): Boolean =
+        _currentQuestionPosition.value != questionQuantity
 
     @AssistedFactory
     interface TestScreenViewModelFactory {

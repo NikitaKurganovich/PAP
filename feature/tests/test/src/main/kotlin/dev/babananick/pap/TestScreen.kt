@@ -3,13 +3,17 @@ package dev.babananick.pap
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.tab.CurrentTab
-import cafe.adriel.voyager.navigator.tab.TabNavigator
+import cafe.adriel.voyager.navigator.CurrentScreen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 
 data class TestScreen(
     val testName: String,
@@ -32,28 +36,56 @@ data class TestScreen(
             when (state) {
                 is TestState.ShowTest -> {
                     val data = (state as TestState.ShowTest).data
-                    TabNavigator(
-                        QuestionTab(data, 0)
+                    Navigator(
+                        QuestionScreen(data, 0),
+                        onBackPressed = {
+                            true.also {
+                                testVM.popScreen()
+                                testVM.fetcher(testVM.peekScreen()){}
+                            }
+                        }
                     ) {
+                        val navigator = LocalNavigator.currentOrThrow
                         val isPreviousEnabled by testVM.isNotInBegging.collectAsState()
                         val isNextEnabled by testVM.isNotInEnd.collectAsState()
-                        val currentQuestion by testVM.currentQuestionPosition.collectAsState()
-                        InnerTabNavigation(
+                        val previous by testVM.previousQuestionPosition.collectAsState()
+                        val next by testVM.nextQuestionPosition.collectAsState()
+                        val currentPosition by testVM.currentQuestionPosition.collectAsState()
+                        InnerNavigation(
+                            currentPosition,
                             data,
-                            testVM.fetchPosition()
-                        )
-                        CurrentTab()
+                            navigator,
+                        ) { int ->
+                            testVM.fetcher(int) {
+                                testVM.pushScreen(int)
+                            }
+                        }
+                        CurrentScreen()
                         NextAndPrevious(
                             onNext = {
-                                testVM.increasePosition()
+                                navigator.push(
+                                    QuestionScreen(
+                                        test = data,
+                                        questionPosition = next
+                                    )
+                                )
+                                testVM.fetcher(next) {
+                                    testVM.pushScreen(next)
+                                }
                             },
                             onPrevious = {
-                                testVM.decreasePosition()
+                                navigator.push(
+                                    QuestionScreen(
+                                        test = data,
+                                        questionPosition = previous
+                                    )
+                                )
+                                testVM.fetcher(previous) {
+                                    testVM.pushScreen(previous)
+                                }
                             },
                             isPreviousEnabled = isPreviousEnabled,
                             isNextEnabled = isNextEnabled,
-                            currentQuestion = currentQuestion,
-                            test = data
                         )
                     }
                 }
