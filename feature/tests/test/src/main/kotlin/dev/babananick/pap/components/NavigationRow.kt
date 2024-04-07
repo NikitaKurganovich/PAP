@@ -30,7 +30,7 @@ fun InnerNavigation(
                 position = index + 1,
                 onClick = {
                     fetcher(index)
-                    navigator.push(QuestionScreen(test, index))
+                    navigator.push(QuestionScreen(test, test.questions!![index]))
                 },
                 onSizeMeasured = { width ->
                     buttonWidth = width

@@ -7,5 +7,8 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 open class Question(
     open val question: String? = null
-)
+){
+    var isAnswered = false
+    var currentSelected: String? = null
+}
 

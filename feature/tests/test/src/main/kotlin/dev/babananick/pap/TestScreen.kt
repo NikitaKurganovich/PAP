@@ -39,7 +39,7 @@ data class TestScreen(
                 is TestState.ShowTest -> {
                     val data = (state as TestState.ShowTest).data
                     Navigator(
-                        QuestionScreen(data, 0),
+                        QuestionScreen(data, data.questions!![0]),
                         onBackPressed = {
                             true.also {
                                 testVM.popScreen()
@@ -68,7 +68,7 @@ data class TestScreen(
                                 navigator.push(
                                     QuestionScreen(
                                         test = data,
-                                        questionPosition = next
+                                        question = data.questions!![next]
                                     )
                                 )
                                 testVM.fetcher(next) {
@@ -79,7 +79,7 @@ data class TestScreen(
                                 navigator.push(
                                     QuestionScreen(
                                         test = data,
-                                        questionPosition = previous
+                                        question = data.questions!![previous]
                                     )
                                 )
                                 testVM.fetcher(previous) {
