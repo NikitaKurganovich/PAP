@@ -23,4 +23,11 @@ val Typography = Typography(
         lineHeight = 17.sp,
         letterSpacing = 0.5.sp
     ),
+    labelMedium = TextStyle(
+        fontFamily = montserratFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp,
+        lineHeight = 17.sp,
+        letterSpacing = 0.5.sp
+    ),
 )

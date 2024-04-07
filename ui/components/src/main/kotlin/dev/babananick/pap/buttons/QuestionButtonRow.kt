@@ -4,22 +4,20 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.babananick.pap.text.ButtonText
 import dev.babananick.pap.ui.theme.Green40
 import dev.babananick.pap.ui.theme.Purple80
-
-
 
 
 @Composable
@@ -55,38 +53,30 @@ fun NavigatorButton(
     }
 }
 
+
 @Composable
-fun NextAndPrevious(
-    isNextEnabled: Boolean,
-    isPreviousEnabled: Boolean,
-    onNext: () -> Unit,
-    onPrevious: () -> Unit,
+fun NavigateFilled(
+    modifier: Modifier = Modifier,
+    isEnabled: Boolean = true,
+    onClick: () -> Unit,
+    text: String,
 ) {
-    Row {
-        Navigate(
-            isEnabled = isPreviousEnabled,
-            onClick = onPrevious,
-            text = "To previous"
-        )
-        Navigate(
-            isEnabled = isNextEnabled,
-            onClick = onNext,
-            text = "To next"
+    val shape by remember { mutableStateOf(RoundedCornerShape(15))}
+    Box(
+        modifier = modifier
+            .size(height = 45.dp, width = 150.dp)
+            .clickable(
+                enabled = isEnabled,
+                onClick = onClick
+            )
+            .background(Color(0xFF31674D),shape),
+        contentAlignment = Alignment.Center
+    ) {
+        ButtonText(
+            text = text,
+            color = Color(0xFFEEFDEF)
         )
     }
 }
 
-@Composable
-fun Navigate(
-    isEnabled: Boolean,
-    onClick: () -> Unit,
-    text: String,
-) {
-    Button(
-        enabled = isEnabled,
-        onClick = onClick,
-        modifier = Modifier.padding(3.dp)
-    ) {
-        Text(text)
-    }
-}
+

@@ -1,9 +1,7 @@
 package dev.babananick.pap
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,6 +55,7 @@ data class QuestionScreen(
                 currentlySelected = remember { { currentlySelected } },
                 onVariantChange = remember {
                     {
+                        question.isAnswered = true
                         currentlySelected = it
                         question.currentSelected = it
                     }
@@ -84,6 +83,7 @@ data class QuestionScreen(
                 currentlySelected = remember { { currentlySelected } },
                 onVariantChange = remember {
                     {
+                        question.isAnswered = true
                         currentlySelected = it
                         question.currentSelected = it
                     }

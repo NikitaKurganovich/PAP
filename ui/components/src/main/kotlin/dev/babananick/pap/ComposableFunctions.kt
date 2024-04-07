@@ -210,18 +210,4 @@ fun LectureModule.LectureElement(
             }
         }
     }
-
-
-}
-
-@Composable
-fun DisplayQuestion(question: Question){
-    when(question){
-        is QuestionWithVariants ->{
-
-        }
-        is QuestionWithScale ->{
-
-        }
-    }
 }

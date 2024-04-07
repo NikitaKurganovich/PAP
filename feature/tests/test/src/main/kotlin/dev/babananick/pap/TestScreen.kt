@@ -1,7 +1,9 @@
 package dev.babananick.pap
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -9,13 +11,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.babananick.pap.buttons.NextAndPrevious
+import dev.babananick.pap.buttons.NavigateBorder
+import dev.babananick.pap.buttons.NavigateFilled
 import dev.babananick.pap.components.InnerNavigation
 
 data class TestScreen(
@@ -63,41 +67,69 @@ data class TestScreen(
                                 testVM.pushScreen(questionPos)
                             }
                         }
-                        LazyColumn {
-                            item{
+                        LazyColumn(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            item {
                                 CurrentScreen()
                             }
-                            item{
-                                NextAndPrevious(
-                                    onNext = {
-                                        navigator.push(
-                                            QuestionScreen(
-                                                test = data,
-                                                question = data.questions!![next]
-                                            )
+                            item {
+                                Row {
+                                    if (isPreviousEnabled) {
+                                        NavigateBorder(
+                                            modifier = Modifier.padding(
+                                                start = 20.dp,
+                                                end = 10.dp
+                                            ),
+                                            onClick = {
+                                                navigator.push(
+                                                    QuestionScreen(
+                                                        test = data,
+                                                        question = data.questions!![previous]
+                                                    )
+                                                )
+                                                testVM.fetcher(previous) {
+                                                    testVM.pushScreen(previous)
+                                                }
+                                            },
+                                            text = "Предыдущий"
                                         )
-                                        testVM.fetcher(next) {
-                                            testVM.pushScreen(next)
-                                        }
-                                    },
-                                    onPrevious = {
-                                        navigator.push(
-                                            QuestionScreen(
-                                                test = data,
-                                                question = data.questions!![previous]
-                                            )
+                                    }
+
+                                    if (isNextEnabled) {
+                                        NavigateFilled(
+                                            modifier = Modifier.padding(
+                                                start = 10.dp,
+                                                end = 20.dp
+                                            ),
+                                            onClick = {
+                                                navigator.push(
+                                                    QuestionScreen(
+                                                        test = data,
+                                                        question = data.questions!![next]
+                                                    )
+                                                )
+                                                testVM.fetcher(next) {
+                                                    testVM.pushScreen(next)
+                                                }
+                                            },
+                                            text = "Следующий"
                                         )
-                                        testVM.fetcher(previous) {
-                                            testVM.pushScreen(previous)
-                                        }
-                                    },
-                                    isPreviousEnabled = isPreviousEnabled,
-                                    isNextEnabled = isNextEnabled,
-                                )
+                                    } else {
+                                        NavigateFilled(
+                                            modifier = Modifier.padding(
+                                                start = 10.dp,
+                                                end = 20.dp
+                                            ),
+                                            onClick = {
+
+                                            },
+                                            text = "Закончить"
+                                        )
+                                    }
+                                }
                             }
                         }
-
-
                     }
                 }
 
