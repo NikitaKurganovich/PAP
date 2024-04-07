@@ -14,6 +14,8 @@ import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.babananick.pap.buttons.NextAndPrevious
+import dev.babananick.pap.components.InnerNavigation
 
 data class TestScreen(
     val testName: String,

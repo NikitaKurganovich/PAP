@@ -17,7 +17,7 @@ class TestScreenViewModel @AssistedInject constructor(
     @Assisted("testName") private val testName: String,
 ) : ViewModel() {
     private val isFinished = MutableStateFlow(false)
-    val questionsStack = Stack<Int>()
+    private val questionsStack = Stack<Int>()
     private var questionQuantity = 1
 
     private val _currentQuestionPosition = MutableStateFlow(0)
@@ -69,11 +69,11 @@ class TestScreenViewModel @AssistedInject constructor(
         isFinished,
     ) { test, isFinished ->
         when {
-            test.questions.isNullOrEmpty() -> TestState.Base(ScreenStates.Empty)
-            isFinished -> TestState.ShowResults(test.interpretation!!)
+            test.questions!!.questions.isNullOrEmpty() -> TestState.Base(ScreenStates.Empty)
+            isFinished -> TestState.ShowResults(test.interpretation!!.interpretation!!)
             else -> {
                 TestState.ShowTest(test).also {
-                    questionQuantity = test.questions!!.size - 1
+                    questionQuantity = test.questions!!.questions!!.size - 1
                     updateState(
                         newCurrent = 0,
                         onUpdate = {
