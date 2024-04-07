@@ -24,7 +24,7 @@ fun InnerNavigation(
     Row(
         modifier = Modifier.padding(16.dp).horizontalScroll(scrollState)
     ) {
-        test.questions!!.questions!!.forEachIndexed { index, _ ->
+        test.questions!!.forEachIndexed { index, _ ->
             NavigatorButton(
                 currentQuestion = currentQuestion,
                 position = index + 1,

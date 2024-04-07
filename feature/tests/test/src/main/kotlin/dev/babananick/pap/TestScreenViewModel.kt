@@ -69,11 +69,11 @@ class TestScreenViewModel @AssistedInject constructor(
         isFinished,
     ) { test, isFinished ->
         when {
-            test.questions!!.questions.isNullOrEmpty() -> TestState.Base(ScreenStates.Empty)
-            isFinished -> TestState.ShowResults(test.interpretation!!.interpretation!!)
+            test.questions!!.isNullOrEmpty() -> TestState.Base(ScreenStates.Empty)
+            isFinished -> TestState.ShowResults(test.interpretation!!)
             else -> {
                 TestState.ShowTest(test).also {
-                    questionQuantity = test.questions!!.questions!!.size - 1
+                    questionQuantity = test.questions!!.size - 1
                     updateState(
                         newCurrent = 0,
                         onUpdate = {
