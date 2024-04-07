@@ -21,7 +21,7 @@ fun RadioButtonGroup(
     ) { 
         question.answer_variants!!.forEach { answer ->
             AnswerRadioButton(
-                modifier = Modifier.padding(21.dp),
+                modifier = Modifier.padding((10.5).dp),
                 onVariantChange = onVariantChange,
                 currentlySelected = currentlySelected,
                 variantText = answer.answer!!
@@ -42,7 +42,7 @@ fun RadioButtonGroup(
     ) {
         test.answer_variants!!.forEach { answer ->
             AnswerRadioButton(
-                modifier = Modifier.padding(21.dp),
+                modifier = Modifier.padding((10.5).dp),
                 onVariantChange = onVariantChange,
                 currentlySelected = currentlySelected,
                 variantText = answer.answer!!

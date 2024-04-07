@@ -9,3 +9,4 @@ data class AnswerVariantWithScore(
     val answer: String? = null,
     val related_score: Long? = null
 )
+

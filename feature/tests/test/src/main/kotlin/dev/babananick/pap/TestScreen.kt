@@ -2,6 +2,7 @@ package dev.babananick.pap
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -39,11 +40,11 @@ data class TestScreen(
                 is TestState.ShowTest -> {
                     val data = (state as TestState.ShowTest).data
                     Navigator(
-                        QuestionScreen(data, data.questions!![0]),
+                        QuestionScreen(data, data.questions!!.first()),
                         onBackPressed = {
                             true.also {
                                 testVM.popScreen()
-                                testVM.fetcher(testVM.peekScreen()){}
+                                testVM.fetcher(testVM.peekScreen()) {}
                             }
                         }
                     ) {
@@ -54,41 +55,49 @@ data class TestScreen(
                         val next by testVM.nextQuestionPosition.collectAsState()
                         val currentPosition by testVM.currentQuestionPosition.collectAsState()
                         InnerNavigation(
-                            currentPosition,
-                            data,
-                            navigator,
-                        ) { int ->
-                            testVM.fetcher(int) {
-                                testVM.pushScreen(int)
+                            currentQuestion = currentPosition,
+                            test = data,
+                            navigator = navigator,
+                        ) { questionPos ->
+                            testVM.fetcher(questionPos) {
+                                testVM.pushScreen(questionPos)
                             }
                         }
-                        CurrentScreen()
-                        NextAndPrevious(
-                            onNext = {
-                                navigator.push(
-                                    QuestionScreen(
-                                        test = data,
-                                        question = data.questions!![next]
-                                    )
+                        LazyColumn {
+                            item{
+                                CurrentScreen()
+                            }
+                            item{
+                                NextAndPrevious(
+                                    onNext = {
+                                        navigator.push(
+                                            QuestionScreen(
+                                                test = data,
+                                                question = data.questions!![next]
+                                            )
+                                        )
+                                        testVM.fetcher(next) {
+                                            testVM.pushScreen(next)
+                                        }
+                                    },
+                                    onPrevious = {
+                                        navigator.push(
+                                            QuestionScreen(
+                                                test = data,
+                                                question = data.questions!![previous]
+                                            )
+                                        )
+                                        testVM.fetcher(previous) {
+                                            testVM.pushScreen(previous)
+                                        }
+                                    },
+                                    isPreviousEnabled = isPreviousEnabled,
+                                    isNextEnabled = isNextEnabled,
                                 )
-                                testVM.fetcher(next) {
-                                    testVM.pushScreen(next)
-                                }
-                            },
-                            onPrevious = {
-                                navigator.push(
-                                    QuestionScreen(
-                                        test = data,
-                                        question = data.questions!![previous]
-                                    )
-                                )
-                                testVM.fetcher(previous) {
-                                    testVM.pushScreen(previous)
-                                }
-                            },
-                            isPreviousEnabled = isPreviousEnabled,
-                            isNextEnabled = isNextEnabled,
-                        )
+                            }
+                        }
+
+
                     }
                 }
 
