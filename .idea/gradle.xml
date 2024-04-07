@@ -44,6 +44,7 @@
             <option value="$PROJECT_DIR$/feature/tests/testchoose" />
             <option value="$PROJECT_DIR$/ui" />
             <option value="$PROJECT_DIR$/ui/components" />
+            <option value="$PROJECT_DIR$/ui/preview" />
           </set>
         </option>
       </GradleProjectSettings>

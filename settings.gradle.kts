@@ -40,3 +40,4 @@ include(":feature:tests:testchoose")
 include(":feature:profile")
 
 include(":ui:components")
+include(":ui:preview")
