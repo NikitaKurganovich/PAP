@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -21,6 +19,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.babananick.pap.buttons.NavigateBorder
 import dev.babananick.pap.buttons.NavigateFilled
 import dev.babananick.pap.components.InnerNavigation
+import dev.babananick.pap.snackbar.TopSnackbar
 
 data class TestScreen(
     val testName: String,
@@ -35,6 +34,7 @@ data class TestScreen(
             )
         }
 
+        var showSnackbar by remember { mutableStateOf(false) }
         val state by testVM.state.collectAsState()
         Column(
             Modifier.fillMaxSize(),
@@ -52,6 +52,13 @@ data class TestScreen(
                             }
                         }
                     ) {
+                        TopSnackbar(
+                            message = "Вы пропустили вопросы!",
+                            show = showSnackbar,
+                            onDismiss = {
+                                showSnackbar = false
+                            }
+                        )
                         val navigator = LocalNavigator.currentOrThrow
                         val isPreviousEnabled by testVM.isNotInBegging.collectAsState()
                         val isNextEnabled by testVM.isNotInEnd.collectAsState()
@@ -122,7 +129,7 @@ data class TestScreen(
                                                 end = 20.dp
                                             ),
                                             onClick = {
-
+                                                showSnackbar = !testVM.proceedTest(data)
                                             },
                                             text = "Закончить"
                                         )
@@ -134,8 +141,12 @@ data class TestScreen(
                 }
 
                 is TestState.ShowResults -> {
-                    val results = (state as TestState.ShowResults).interpretation
-                    Text("results")
+                    val results = (state as TestState.ShowResults).analyzer
+                    val interpretation = results.prepareInterpretation()
+                    interpretation.forEach {
+                        Text(it.message)
+                        Text(it.result)
+                    }
                 }
 
                 is TestState.Base -> {

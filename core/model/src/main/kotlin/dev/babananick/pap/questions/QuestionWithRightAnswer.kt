@@ -9,4 +9,6 @@ data class QuestionWithRightAnswer(
     override val question: String? = null,
     val correct_answer: String? = null,
     val available_answers: List<String>? = null,
-): Question()
+): Question() {
+    var isAnsweredCorrectly: Boolean = false
+}

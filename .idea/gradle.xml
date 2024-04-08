@@ -28,6 +28,7 @@
             <option value="$PROJECT_DIR$/core/data/repository" />
             <option value="$PROJECT_DIR$/core/domain" />
             <option value="$PROJECT_DIR$/core/model" />
+            <option value="$PROJECT_DIR$/core/util" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/academic" />
             <option value="$PROJECT_DIR$/feature/academic/lecture" />

@@ -23,8 +23,10 @@ include(":core:data:firebase")
 include(":core:data:repository")
 include(":core:domain")
 include(":core:model")
-include(":feature:navigation")
 include(":core:common")
+include(":core:util")
+
+include(":feature:navigation")
 include(":feature:coordinators:authorization")
 include(":feature:coordinators:mainscreenspace")
 

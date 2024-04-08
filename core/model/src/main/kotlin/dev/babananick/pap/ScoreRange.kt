@@ -8,4 +8,8 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class ScoreRange(
     val from: Long? = null,
     val to: Long? = null
-)
+){
+    fun isInRange(score: Long): Boolean {
+        return score >= from!! && score <= to!!
+    }
+}

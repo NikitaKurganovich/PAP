@@ -8,6 +8,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.babananick.pap.tests.Test
 import kotlinx.coroutines.flow.*
 import java.util.*
 
@@ -34,6 +35,29 @@ class TestScreenViewModel @AssistedInject constructor(
 
     private val _nextQuestionPosition = MutableStateFlow(0)
     val nextQuestionPosition: StateFlow<Int> = _nextQuestionPosition
+
+    var state: StateFlow<TestState> = combine(
+        testInteractor.receivePersonalTest(testName),
+        isFinished,
+    ) { test, isFinished ->
+        when {
+            test.questions.isNullOrEmpty() -> TestState.Base(ScreenStates.Empty)
+            isFinished -> TestState.ShowResults(TestAnalyzer(test))
+            else -> {
+                TestState.ShowTest(test).also {
+                    questionQuantity = test.questions!!.size - 1
+                    updateState(
+                        newCurrent = 0,
+                        onUpdate = {
+                            pushScreen(0)
+                        })
+                }
+            }
+        }
+    }.catch {
+        println("ME HERE ${it.message}")
+        emit(TestState.Base(ScreenStates.Error(it)))
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), TestState.Base(ScreenStates.Loading))
 
     val fetcher = {
             newPosition: Int,
@@ -64,28 +88,25 @@ class TestScreenViewModel @AssistedInject constructor(
         if (questionsStack.isNotEmpty()) questionsStack.pop()
     }
 
-    var state: StateFlow<TestState> = combine(
-        testInteractor.receivePersonalTest(testName),
-        isFinished,
-    ) { test, isFinished ->
-        when {
-            test.questions.isNullOrEmpty() -> TestState.Base(ScreenStates.Empty)
-            isFinished -> TestState.ShowResults(test.interpretation!!)
-            else -> {
-                TestState.ShowTest(test).also {
-                    questionQuantity = test.questions!!.size - 1
-                    updateState(
-                        newCurrent = 0,
-                        onUpdate = {
-                            pushScreen(0)
-                        })
-                }
+
+
+    fun proceedTest(test: Test): Boolean {
+        if (isAllQuestionsAnswered(test)){
+            isFinished.update { true }
+            return true
+        } else {
+            return false
+        }
+    }
+
+    private fun isAllQuestionsAnswered(test: Test): Boolean{
+        test.questions!!.forEach {question ->
+            if (!question.isAnswered){
+                return false
             }
         }
-    }.catch {
-        println("ME HERE ${it.message}")
-        emit(TestState.Base(ScreenStates.Error(it)))
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), TestState.Base(ScreenStates.Loading))
+        return true
+    }
 
     private fun updateState(
         newCurrent: Int,
@@ -94,7 +115,6 @@ class TestScreenViewModel @AssistedInject constructor(
         updateAllPositions(newCurrent)
         updateEnables()
         onUpdate()
-        Log.d(TAG, "Stack: ${questionsStack.toList()}")
     }
 
     private fun updateEnables() {

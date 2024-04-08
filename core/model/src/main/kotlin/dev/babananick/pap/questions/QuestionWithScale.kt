@@ -9,3 +9,4 @@ data class QuestionWithScale(
     override val question: String? = null,
     val related_scale: String? = null
 ): Question()
+
