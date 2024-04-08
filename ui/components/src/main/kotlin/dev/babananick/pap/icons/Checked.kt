@@ -1,7 +1,5 @@
 package dev.babananick.pap.icons
 
-import androidx.compose.runtime.Composable
-import androidx.compose.foundation.Image
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
@@ -10,7 +8,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.tooling.preview.Preview
 
 private var _Checked: ImageVector? = null
 

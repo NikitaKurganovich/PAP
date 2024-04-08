@@ -19,7 +19,6 @@ fun DependencyHandler.test(libs: VersionCatalog) {
 }
 
 fun DependencyHandler.androidTest(libs: VersionCatalog) {
-
     androidTestImplementation(libs.findLibrary("androidx.test.ext.junit").get())
     androidTestImplementation(libs.findLibrary("androidx.test.core").get())
     androidTestImplementation(libs.findLibrary("coroutines.test").get())
@@ -43,6 +42,13 @@ internal fun DependencyHandler.ksp(dependencyNotation: Any) {
 
 internal fun DependencyHandler.api(dependencyNotation: Any) {
     add("api", dependencyNotation)
+}
+
+fun DependencyHandler.coil(libs: VersionCatalog) {
+    implementation(platform(libs.findLibrary("coil.bom").get()))
+    implementation(libs.findLibrary("coil.base").get())
+    implementation(libs.findLibrary("coil.compose.base").get())
+    implementation(libs.findLibrary("coil.svg").get())
 }
 
 internal fun DependencyHandler.testImplementation(dependencyNotation: Any) {

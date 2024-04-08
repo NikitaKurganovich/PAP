@@ -48,6 +48,7 @@ firebaseCommonKtx = "20.4.3"
 uiTextGoogleFonts = "1.6.4"
 firebaseDatabaseKtx = "20.3.1"
 firebaseCrashlyticsBuildtools = "2.9.9"
+volley = "1.2.1"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivityCompose" }
@@ -138,6 +139,7 @@ firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-k
 androidx-compose-ui-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 google-firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
 firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtools" }
+volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
 
 
 [plugins]

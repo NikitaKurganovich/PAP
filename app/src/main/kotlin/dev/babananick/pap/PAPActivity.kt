@@ -4,15 +4,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
+import coil.ImageLoader
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import dagger.hilt.android.AndroidEntryPoint
 import dev.babananick.pap.theme.PAPTheme
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PAPActivity : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //Firebase.database.setPersistenceEnabled(true)
@@ -30,7 +34,7 @@ class PAPActivity : ComponentActivity() {
                 onDispose { auth.removeAuthStateListener(listener) }
             }
             PAPTheme {
-                ScreenResolver(user)
+                ScreenResolver(user, imageLoader)
             }
         }
     }

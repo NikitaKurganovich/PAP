@@ -1,5 +1,9 @@
 @file:Suppress("PropertyName", "VariableNaming")
 
+import plugins.util.coil
+import plugins.util.getLibsVersionCatalog
+
+
 plugins {
     id(ProjectPlugins.PAP_ANDROID_APPLICATION)
     id(ProjectPlugins.PAP_ANDROID_COMPOSE)
@@ -15,6 +19,8 @@ kapt {
 }
 
 dependencies {
+    val versionCatalog = getLibsVersionCatalog()
+    coil(versionCatalog)
 
     implementation(project(":core:domain"))
     implementation(project(":core:model"))

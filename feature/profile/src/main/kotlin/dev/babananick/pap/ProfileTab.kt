@@ -6,11 +6,15 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
+import coil.ImageLoader
 import compose.icons.TablerIcons
 import compose.icons.tablericons.User
+import javax.inject.Inject
 
-object ProfileTab: Tab {
-    private fun readResolve(): Any = ProfileTab
+data class ProfileTab @Inject constructor(
+    private val imageLoader: ImageLoader,
+): Tab {
+    private fun readResolve(): Any = ProfileTab(imageLoader)
     override val options: TabOptions
         @Composable
         get() {
@@ -28,6 +32,6 @@ object ProfileTab: Tab {
     @Composable
 
     override fun Content() {
-        Navigator(ProfileScreen())
+        Navigator(ProfileScreen(imageLoader))
     }
 }

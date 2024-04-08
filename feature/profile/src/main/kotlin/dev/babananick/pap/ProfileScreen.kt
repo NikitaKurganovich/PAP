@@ -12,10 +12,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
+import coil.ImageLoader
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import javax.inject.Inject
 
-class ProfileScreen : Screen {
+data class ProfileScreen @Inject constructor(
+    private val imageLoader: ImageLoader,
+) : Screen {
     @Composable
     override fun Content() {
 

@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import dev.babananick.pap.ui.theme.PAPTypo
 
 @Composable
 fun QuestionText(
@@ -19,6 +20,6 @@ fun QuestionText(
             .height(100.dp)
             .verticalScroll(rememberScrollState()),
         text = question,
-        style = MaterialTheme.typography.bodyLarge
+        style = PAPTypo.questionTextStyle
     )
 }

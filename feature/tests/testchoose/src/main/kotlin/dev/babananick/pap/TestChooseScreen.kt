@@ -14,14 +14,18 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import coil.ImageLoader
+import dev.babananick.pap.testmodules.TestModule
+import javax.inject.Inject
 
-class TestChooseScreen: Screen {
+class TestChooseScreen@Inject constructor(
+    private val imageLoader: ImageLoader,
+): Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val chooseViewModel: TestChooseViewModel = hiltViewModel()
         val screenState by chooseViewModel.state.collectAsState()
-
         when(screenState){
             is TestChooseState.ShowingTestsChoose ->{
                 val data = (screenState as TestChooseState.ShowingTestsChoose).tests
@@ -29,19 +33,18 @@ class TestChooseScreen: Screen {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     items(data) { testModule ->
-                        testModule.test_module?.let { DefaultText(it) }
-                        testModule.tests?.forEach { test ->
-                            Row(
-                                horizontalArrangement = Arrangement.Center,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp)
-                            ) {
-                                DefaultText(test.name!!, Modifier.clickable {
-                                    navigator.push(TestScreen(test.name!!))
-                                })
-                            }
-                        }
+                        TestModule(
+                            modifier = Modifier
+                                .padding(
+                                    horizontal = 20.dp,
+                                    vertical = 7.dp
+                                ),
+                            module = testModule,
+                            onClick = { testName->
+                                navigator.push(TestScreen(testName))
+                            },
+                            imageLoader = imageLoader
+                        )
                     }
                 }
             }

@@ -6,11 +6,15 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
+import coil.ImageLoader
 import compose.icons.TablerIcons
 import compose.icons.tablericons.ClipboardList
+import javax.inject.Inject
 
-object TestsTab: Tab {
-    private fun readResolve(): Any = TestsTab
+data class TestsTab @Inject constructor(
+    private val imageLoader: ImageLoader,
+): Tab {
+    private fun readResolve(): Any = TestsTab(imageLoader)
     override val options: TabOptions
         @Composable
         get() {
@@ -27,6 +31,6 @@ object TestsTab: Tab {
 
     @Composable
     override fun Content() {
-        Navigator(TestChooseScreen())
+        Navigator(TestChooseScreen(imageLoader))
     }
 }

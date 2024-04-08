@@ -21,6 +21,7 @@ class AndroidFeaturePlugin : Plugin<Project> {
 
             val libs = getLibsVersionCatalog()
             dependencies {
+                coil(libs)
                 test(libs)
                 androidTest(libs)
                 implementation(project(":core:domain"))
