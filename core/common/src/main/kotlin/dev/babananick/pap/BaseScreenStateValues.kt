@@ -14,7 +14,7 @@ fun BaseScreenStateValues(
 ) = when (state) {
     is ScreenStates.Error -> {
         val error = state.error
-        Text("Error: ${error.message}")
+        Text("Error: ${error.localizedMessage}")
     }
 
     is ScreenStates.Loading -> {

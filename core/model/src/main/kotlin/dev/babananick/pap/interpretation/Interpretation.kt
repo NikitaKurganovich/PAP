@@ -1,3 +1,3 @@
 package dev.babananick.pap.interpretation
 
-interface Interpretation
+open class Interpretation

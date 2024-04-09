@@ -30,20 +30,19 @@ class PersonalTestDataSourceImpl @Inject constructor(
             testsReference.addListenerForSingleValueEvent(eventListener)
         }
         val testType: String = snapshot.child("test_type").getValue<String>() ?: "null"
-        val testToReturn: Test = when (testType) {
-            "SHARED_VARIANTS" -> {
-                snapshot.getValue<TestWithSharedVariants>()!!
-            }
-
+        val testToReturn = when (testType) {
             "LEAD_SCALE" -> {
                 snapshot.getValue<TestWithLeadScale>()!!
             }
 
+            "SHARED_VARIANTS" -> {
+                snapshot.getValue<TestWithSharedVariants>()!!
+            }
+
             else -> {
-                error("No such test type $testType")
+                error("No such test!")
             }
         }
-
         emit(testToReturn)
     }
 }

@@ -8,4 +8,4 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class InterpretationWithStringResult(
     val lead_scale: String? = null,
     val result: String? = null
-): Interpretation
+): Interpretation()

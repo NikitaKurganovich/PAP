@@ -47,8 +47,8 @@ fun TestModuleButton(
         }
         Icon(
             imageVector = if (expanded)
-                Icons.Filled.KeyboardArrowDown
-            else Icons.Filled.KeyboardArrowUp,
+                Icons.Filled.KeyboardArrowUp
+            else Icons.Filled.KeyboardArrowDown,
             contentDescription = null
         )
     }

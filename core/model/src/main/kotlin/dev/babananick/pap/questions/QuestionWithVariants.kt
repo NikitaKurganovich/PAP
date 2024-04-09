@@ -7,11 +7,11 @@ import dev.babananick.pap.AnswerVariantWithScale
 @Immutable
 @IgnoreExtraProperties
 data class QuestionWithVariants(
+    val answer_variants: List<AnswerVariantWithScale>? = null,
     override val question: String? = null,
-    val answer_variants: List<AnswerVariantWithScale>? = null
-): Question(){
+) : Question() {
     var scale: String? = null
-    val answerMap: Map<String,String> = answer_variants!!.associate {
+    val answerMap: Map<String, String> = answer_variants!!.associate {
         it.answer!! to it.related_scale!!
     }
 }

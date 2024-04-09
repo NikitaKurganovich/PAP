@@ -12,7 +12,4 @@ class PersonalTestRepositoryImpl @Inject constructor(
         dataSource.receiveTest(
             testName = testName
         )
-
-
-
 }

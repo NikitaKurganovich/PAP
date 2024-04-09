@@ -9,4 +9,4 @@ import dev.babananick.pap.tests.ResultWithRange
 data class InterpretationWithRanges(
     val lead_scale: String? = null,
     val results: List<ResultWithRange>? = null
-): Interpretation
+): Interpretation()

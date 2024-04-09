@@ -54,7 +54,6 @@ class TestScreenViewModel @AssistedInject constructor(
             }
         }
     }.catch {
-        println("ME HERE ${it.message}")
         emit(TestState.Base(ScreenStates.Error(it)))
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), TestState.Base(ScreenStates.Loading))
 

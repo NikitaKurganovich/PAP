@@ -1,7 +1,5 @@
 package dev.babananick.pap
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import dev.babananick.pap.tests.Test
 import dev.babananick.pap.tests.TestWithLeadScale
 import dev.babananick.pap.tests.TestWithRightAnswer
@@ -57,7 +55,6 @@ class TestAnalyzer(
         test.questions!!.forEach {
             leadScalesToScore[it.related_scale!!] =
                 leadScalesToScore[it.related_scale!!]!! + answerMap[it.currentSelected!!]!!
-            Log.d(TAG,"${leadScalesToScore[it.related_scale!!]}")
         }
 
         val interpretations = mutableListOf<PreparedInterpretation>()

@@ -4,7 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -13,11 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import dev.babananick.pap.tabnavigation.TabNavigationItem
+import dev.babananick.pap.theme.PAPTypo
 
 class PAPScreen : Screen {
 
@@ -34,15 +36,30 @@ class PAPScreen : Screen {
         val tabShape = remember {
             RoundedCornerShape(20.dp)
         }
+        val headerShape = remember {
+            RoundedCornerShape(
+                bottomStart = 20.dp,
+                bottomEnd = 20.dp
+            )
+        }
         TabNavigator(AcademicTab) {
             Scaffold(
-                modifier = Modifier.fillMaxSize(),
                 topBar = {
                     TopAppBar(
+                        modifier = Modifier
+                            .shadow(elevation = 4.dp, shape = headerShape)
+                            .clip(headerShape),
                         title = {
-                            DefaultText(text = it.current.options.title)
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = it.current.options.title,
+                                style = PAPTypo.headerTextStyle,
+                                textAlign = TextAlign.Center
+                            )
                         },
-                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(MaterialTheme.colorScheme.primary)
+                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                            containerColor = Color.White
+                        )
                     )
                 },
                 content = {
