@@ -39,7 +39,9 @@ fun InnerNavigation(
                 },
                 onSizeMeasured = { width ->
                     buttonWidth = width
-                }
+                },
+                isAnswered = question.isAnswered,
+                isNeedToAnswer = question.isSkipped
             )
         }
         Spacer(Modifier.width(9.dp))

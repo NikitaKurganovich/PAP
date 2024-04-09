@@ -129,7 +129,15 @@ data class TestScreen(
                                                 end = 20.dp
                                             ),
                                             onClick = {
-                                                showSnackbar = !testVM.proceedTest(data)
+                                                if (!testVM.proceedTest(data)) {
+                                                    showSnackbar = true
+                                                    navigator.push(
+                                                        QuestionScreen(
+                                                            data,
+                                                            testVM.navigateToFirstSkipped(data)
+                                                        )
+                                                    )
+                                                }
                                             },
                                             text = "Закончить"
                                         )

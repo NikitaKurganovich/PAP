@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.babananick.pap.icons.composable.ModuleIcon
 import dev.babananick.pap.modules.TestModule
-import dev.babananick.pap.ui.theme.PAPTypo
+import dev.babananick.pap.theme.PAPTypo
 
 @Composable
 fun TestModuleButton(

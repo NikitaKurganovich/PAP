@@ -11,4 +11,5 @@ data class QuestionWithRightAnswer(
     val available_answers: List<String>? = null,
 ): Question() {
     var isAnsweredCorrectly: Boolean = false
+
 }

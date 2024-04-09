@@ -9,6 +9,8 @@ open class Question(
     open val question: String? = null
 ){
     var isAnswered = false
+    open val isNeedToAnswer = true
     var currentSelected: String? = null
+    var isSkipped = false
 }
 

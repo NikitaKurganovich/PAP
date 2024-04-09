@@ -1,13 +1,12 @@
 package dev.babananick.pap
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.babananick.pap.questions.Question
 import dev.babananick.pap.tests.Test
 import kotlinx.coroutines.flow.*
 import java.util.*
@@ -95,8 +94,25 @@ class TestScreenViewModel @AssistedInject constructor(
             isFinished.update { true }
             return true
         } else {
+            test.questions!!.forEach { question ->
+                if (!question.isAnswered){
+                    question.isSkipped = true
+                }
+            }
             return false
         }
+    }
+
+    fun navigateToFirstSkipped(test: Test): Question{
+        test.questions!!.forEachIndexed { index, question ->
+            if (question.isSkipped){
+                fetcher(index){
+                    pushScreen(index)
+                }
+                return question
+            }
+        }
+        return test.questions!!.first()
     }
 
     private fun isAllQuestionsAnswered(test: Test): Boolean{

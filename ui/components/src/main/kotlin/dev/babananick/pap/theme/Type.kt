@@ -1,12 +1,9 @@
-package dev.babananick.pap.ui.theme
+package dev.babananick.pap.theme
 
-import androidx.compose.material3.Typography
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import dev.babananick.pap.theme.montserratFontFamily
 
 data class PAPTypography(
     val questionTextStyle: TextStyle,
@@ -14,7 +11,8 @@ data class PAPTypography(
     val navigationButtonTextStyle: TextStyle,
     val testNameTextStyle: TextStyle,
     val questionQuantityTextStyle: TextStyle,
-    val moduleNameTextStyle: TextStyle
+    val moduleNameTextStyle: TextStyle,
+    val navigateTextStyle: TextStyle,
 )
 
 val PAPTypo = PAPTypography(
@@ -61,4 +59,11 @@ val PAPTypo = PAPTypography(
         letterSpacing = 0.5.sp,
         color = Color(0xFF31674D)
     ),
+    navigateTextStyle = TextStyle(
+        fontFamily = montserratFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 23.sp,
+        lineHeight = 17.sp,
+        letterSpacing = 0.5.sp,
+    )
 )

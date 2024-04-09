@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.babananick.pap.modules.TestInModule
-import dev.babananick.pap.ui.theme.PAPTypo
+import dev.babananick.pap.theme.PAPTypo
 
 @Composable
 fun TestInModuleButton(
