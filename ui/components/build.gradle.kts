@@ -14,7 +14,8 @@ android {
 dependencies {
     val versionCatalog = getLibsVersionCatalog()
     coil(versionCatalog)
-
+    implementation(libs.voyager.navigator)
+    implementation(libs.voyager.tab.navigator)
     implementation(project(":core:model"))
     implementation(libs.voyager.navigator)
     implementation(libs.tabler.icons)

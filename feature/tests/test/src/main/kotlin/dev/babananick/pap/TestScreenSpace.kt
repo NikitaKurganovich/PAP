@@ -21,7 +21,7 @@ import dev.babananick.pap.buttons.NavigateFilled
 import dev.babananick.pap.components.InnerNavigation
 import dev.babananick.pap.snackbar.TopSnackbar
 
-data class TestScreen(
+data class TestScreenSpace(
     val testName: String,
 ) : Screen {
 
@@ -43,6 +43,7 @@ data class TestScreen(
             when (state) {
                 is TestState.ShowTest -> {
                     val data = (state as TestState.ShowTest).data
+
                     Navigator(
                         QuestionScreen(data, data.questions!!.first()),
                         onBackPressed = {

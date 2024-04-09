@@ -15,5 +15,4 @@ dependencies {
     implementation(project(":feature:academic:lecturechoose"))
     implementation(project(":feature:tests:testchoose"))
     implementation(project(":feature:profile"))
-    implementation(project(":ui:components"))
 }
