@@ -1,4 +1,4 @@
-package dev.babananick.pap.initializers
+package dev.babananick.pap
 
 import android.content.Context
 import coil.ImageLoader
@@ -14,8 +14,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object CoilModule {
-    @Provides
     @Singleton
+    @Provides
     fun provideImageLoader(@ApplicationContext context: Context): ImageLoader {
         return ImageLoader.Builder(context)
             .memoryCache {

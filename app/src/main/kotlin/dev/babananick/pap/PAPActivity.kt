@@ -15,8 +15,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PAPActivity : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
-    @Inject
-    lateinit var imageLoader: ImageLoader
+
+    @Inject lateinit var imageLoader: ImageLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //Firebase.database.setPersistenceEnabled(true)
@@ -33,8 +33,10 @@ class PAPActivity : ComponentActivity() {
                 auth.addAuthStateListener(listener)
                 onDispose { auth.removeAuthStateListener(listener) }
             }
-            PAPTheme {
-                ScreenResolver(user, imageLoader)
+            CompositionLocalProvider(LocalImageLoaderAmbient provides imageLoader) {
+                PAPTheme {
+                    ScreenResolver(user)
+                }
             }
         }
     }

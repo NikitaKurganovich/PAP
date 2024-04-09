@@ -1,6 +1,5 @@
 package dev.babananick.pap
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,13 +13,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import coil.ImageLoader
 import dev.babananick.pap.testmodules.TestModule
-import javax.inject.Inject
 
-class TestChooseScreen@Inject constructor(
-    private val imageLoader: ImageLoader,
-): Screen {
+class TestChooseScreen: Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
@@ -43,7 +38,6 @@ class TestChooseScreen@Inject constructor(
                             onClick = { testName->
                                 navigator.push(TestScreen(testName))
                             },
-                            imageLoader = imageLoader
                         )
                     }
                 }

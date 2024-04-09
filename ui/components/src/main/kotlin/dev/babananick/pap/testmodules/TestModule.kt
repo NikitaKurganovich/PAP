@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import coil.ImageLoader
 import dev.babananick.pap.buttons.TestInModuleButton
 import dev.babananick.pap.buttons.TestModuleButton
 import dev.babananick.pap.modules.TestModule
@@ -15,7 +14,6 @@ import dev.babananick.pap.modules.TestModule
 @Composable
 fun TestModule(
     modifier: Modifier = Modifier,
-    imageLoader: ImageLoader,
     module: TestModule,
     onClick: (String) -> Unit,
 ) {
@@ -28,7 +26,6 @@ fun TestModule(
         TestModuleButton(
             modifier = Modifier,
             module = module,
-            imageLoader = imageLoader,
             expanded = expanded,
             onClick = {
                 expanded = !expanded

@@ -12,17 +12,13 @@ import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import coil.ImageLoader
 import dev.babananick.pap.ui.theme.Green40
-import javax.inject.Inject
 
-class PAPScreen @Inject constructor(
-    private val imageLoader: ImageLoader,
-) : Screen {
+class PAPScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
-        TabNavigator(HomeTab(imageLoader)) {
+        TabNavigator(HomeTab) {
             Scaffold(
                 topBar = {
                     TopAppBar(
@@ -44,9 +40,9 @@ class PAPScreen @Inject constructor(
                     NavigationBar(
                         contentColor = Green40
                     ) {
-                        TabNavigationItem(HomeTab(imageLoader))
-                        TabNavigationItem(TestsTab(imageLoader))
-                        TabNavigationItem(ProfileTab(imageLoader))
+                        TabNavigationItem(HomeTab)
+                        TabNavigationItem(TestsTab)
+                        TabNavigationItem(ProfileTab)
                     }
                 }
             )

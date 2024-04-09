@@ -10,18 +10,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import coil.ImageLoader
 import coil.compose.rememberAsyncImagePainter
+import dev.babananick.pap.LocalImageLoaderAmbient
 
 @Composable
 fun ModuleIcon(
     modifier: Modifier = Modifier,
-    imageLoader: ImageLoader,
     imageUrl: String,
 ) {
     val painter = rememberAsyncImagePainter(
         imageUrl,
-        imageLoader = imageLoader,
+        imageLoader = LocalImageLoaderAmbient.current,
     )
     val shape = RoundedCornerShape(10.dp)
     Box(

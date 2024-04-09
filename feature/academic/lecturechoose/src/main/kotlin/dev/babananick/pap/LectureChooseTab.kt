@@ -6,15 +6,11 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import coil.ImageLoader
 import compose.icons.TablerIcons
 import compose.icons.tablericons.*
-import javax.inject.Inject
 
-data class HomeTab @Inject constructor(
-    private val imageLoader: ImageLoader,
-): Tab {
-    private fun readResolve(): Any = HomeTab(imageLoader)
+object HomeTab : Tab {
+    private fun readResolve(): Any = HomeTab
     override val options: TabOptions
         @Composable
         get() {
