@@ -6,17 +6,15 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import coil.ImageLoader
-import compose.icons.TablerIcons
-import compose.icons.tablericons.*
+import dev.babananick.pap.icons.Mortarboard
 
-object HomeTab : Tab {
-    private fun readResolve(): Any = HomeTab
+object AcademicTab : Tab {
+    private fun readResolve(): Any = AcademicTab
     override val options: TabOptions
         @Composable
         get() {
             val title = "Лекции"
-            val icon = rememberVectorPainter(TablerIcons.Home)
+            val icon = rememberVectorPainter(Mortarboard)
             return remember {
                 TabOptions(
                     index = 0u,
@@ -28,6 +26,6 @@ object HomeTab : Tab {
 
     @Composable
     override fun Content() {
-        Navigator(HomeScreen())
+        Navigator(AcademicScreen())
     }
 }

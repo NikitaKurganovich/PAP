@@ -8,8 +8,7 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import cafe.adriel.voyager.transitions.SlideTransition
-import compose.icons.TablerIcons
-import compose.icons.tablericons.ClipboardList
+import dev.babananick.pap.icons.Desk
 
 class TestsTab(
     @Transient
@@ -20,7 +19,7 @@ class TestsTab(
         @Composable
         get() {
             val title = "Персональные тесты"
-            val icon = rememberVectorPainter(TablerIcons.ClipboardList)
+            val icon = rememberVectorPainter(Desk)
             return remember {
                 TabOptions(
                     index = 1u,

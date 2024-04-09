@@ -6,8 +6,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import compose.icons.TablerIcons
-import compose.icons.tablericons.User
+import dev.babananick.pap.icons.User
 
 object ProfileTab: Tab {
     private fun readResolve(): Any = ProfileTab
@@ -15,7 +14,7 @@ object ProfileTab: Tab {
         @Composable
         get() {
             val title = "Ваш профиль"
-            val icon = rememberVectorPainter(TablerIcons.User)
+            val icon = rememberVectorPainter(User)
             return remember {
                 TabOptions(
                     index = 2u,
