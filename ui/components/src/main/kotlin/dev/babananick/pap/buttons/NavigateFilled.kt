@@ -6,11 +6,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.babananick.pap.text.ButtonText
@@ -22,7 +21,6 @@ fun NavigateFilled(
     onClick: () -> Unit,
     text: String,
 ) {
-    val shape by remember { mutableStateOf(RoundedCornerShape(15)) }
     Box(
         modifier = modifier
             .size(height = 45.dp, width = 150.dp)
@@ -30,7 +28,8 @@ fun NavigateFilled(
                 enabled = isEnabled,
                 onClick = onClick
             )
-            .background(Color(0xFF31674D),shape),
+            .background(Color(0xFF31674D), buttonShape)
+            .clip(buttonShape),
         contentAlignment = Alignment.Center
     ) {
         ButtonText(
@@ -39,3 +38,12 @@ fun NavigateFilled(
         )
     }
 }
+
+val buttonShape: RoundedCornerShape
+    @Composable
+    get() {
+        val shape = RoundedCornerShape(15.dp)
+        return remember {
+            shape
+        }
+    }

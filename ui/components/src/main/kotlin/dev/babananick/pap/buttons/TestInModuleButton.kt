@@ -31,7 +31,7 @@ fun TestInModuleButton(
             .background(Color(0xFFEEFDEF), shape)
             .clickable(
                 onClick = {
-                    onClick(module.name!!)
+                    onClick(module.id!!)
                 }
             )
             .clip(shape),

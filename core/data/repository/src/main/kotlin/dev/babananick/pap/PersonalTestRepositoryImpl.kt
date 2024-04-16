@@ -8,8 +8,8 @@ import javax.inject.Inject
 class PersonalTestRepositoryImpl @Inject constructor(
     private val dataSource: PersonalTestDataSource,
 ) : PersonalTestRepository {
-    override fun receiveTest(testName: String): Flow<Test> =
+    override fun receiveTest(testId: String): Flow<Test> =
         dataSource.receiveTest(
-            testName = testName
+            testId = testId
         )
 }

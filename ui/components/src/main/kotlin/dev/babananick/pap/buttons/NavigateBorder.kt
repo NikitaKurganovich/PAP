@@ -4,13 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.babananick.pap.text.ButtonText
@@ -22,7 +19,6 @@ fun NavigateBorder(
     onClick: () -> Unit,
     text: String,
 ) {
-    val shape by remember { mutableStateOf(RoundedCornerShape(15)) }
     Box(
         modifier = modifier
             .size(height = 45.dp, width = 150.dp)
@@ -30,8 +26,9 @@ fun NavigateBorder(
                 enabled = isEnabled,
                 onClick = onClick
             )
-            .background(Color.White, shape)
-            .border(2.dp, Color(0xFF31674D), shape),
+            .background(Color.White, buttonShape)
+            .border(2.dp, Color(0xFF31674D), buttonShape)
+            .clip(buttonShape),
         contentAlignment = Alignment.Center
         ) {
         ButtonText(

@@ -7,6 +7,6 @@ import javax.inject.Inject
 class PersonalTestChooseInteractor @Inject constructor(
     private val tests: PersonalTestChooseRepository,
 ) {
-    fun receivePersonalTestNames(): Flow<List<TestModule>> =
+    fun receivePersonalTests(): Flow<List<TestModule>> =
         tests.receiveTests()
 }

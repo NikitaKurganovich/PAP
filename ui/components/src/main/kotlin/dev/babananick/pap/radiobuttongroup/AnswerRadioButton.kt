@@ -42,7 +42,6 @@ fun AnswerRadioButton(
                     {
                         onVariantChange(variantText)
                     }
-
                 }
             ),
         verticalAlignment = Alignment.CenterVertically

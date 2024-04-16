@@ -13,9 +13,9 @@ import kotlin.coroutines.suspendCoroutine
 class PersonalTestDataSourceImpl @Inject constructor(
     private val dataBase: FirebaseDatabase,
 ) : PersonalTestDataSource {
-    override fun receiveTest(testName: String): Flow<Test> = flow {
+    override fun receiveTest(testId: String): Flow<Test> = flow {
         val testsReference: DatabaseReference = dataBase
-            .getReference("pap/rus/personal_tests/$testName")
+            .getReference("pap/rus/personal_tests/$testId")
 
         val snapshot = suspendCoroutine { continuation ->
             val eventListener = object : ValueEventListener {

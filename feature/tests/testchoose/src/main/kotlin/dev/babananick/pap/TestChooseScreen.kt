@@ -13,7 +13,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import cafe.adriel.voyager.navigator.tab.TabNavigator
 import dev.babananick.pap.testmodules.TestModule
 
 class TestChooseScreen: Screen {
@@ -36,8 +35,8 @@ class TestChooseScreen: Screen {
                                     vertical = 7.dp
                                 ),
                             module = testModule,
-                            onClick = { testName->
-                                navigator.push(TestScreenSpace(testName))
+                            onClick = { id->
+                                navigator.push(TestScreenSpace(id))
                             },
                         )
                     }

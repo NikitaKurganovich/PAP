@@ -7,6 +7,6 @@ import javax.inject.Inject
 class PersonalTestInteractor @Inject constructor(
     private val repository: PersonalTestRepository,
 ) {
-    fun receivePersonalTest(testName: String): Flow<Test> =
-        repository.receiveTest(testName)
+    fun receivePersonalTest(testId: String): Flow<Test> =
+        repository.receiveTest(testId)
 }

@@ -11,7 +11,4 @@ data class QuestionWithVariants(
     override val question: String? = null,
 ) : Question() {
     var scale: String? = null
-    val answerMap: Map<String, String> = answer_variants!!.associate {
-        it.answer!! to it.related_scale!!
-    }
 }

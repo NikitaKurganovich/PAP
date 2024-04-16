@@ -1,14 +1,16 @@
 package dev.babananick.pap
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
@@ -19,31 +21,36 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.babananick.pap.buttons.NavigateBorder
 import dev.babananick.pap.buttons.NavigateFilled
 import dev.babananick.pap.components.InnerNavigation
+import dev.babananick.pap.results.ResultsPrimary
+import dev.babananick.pap.results.ResultsSecondary
 import dev.babananick.pap.snackbar.TopSnackbar
+import dev.babananick.pap.tests.Test
+import dev.babananick.pap.theme.PAPTypo
 
 data class TestScreenSpace(
-    val testName: String,
+    val testId: String,
 ) : Screen {
+
+    private lateinit var testVM: TestScreenViewModel
 
     @Composable
     override fun Content() {
-        val testVM = hiltViewModel<TestScreenViewModel,
+        testVM = hiltViewModel<TestScreenViewModel,
                 TestScreenViewModel.TestScreenViewModelFactory> { factory ->
             factory.create(
-                testName = testName
+                testId = testId
             )
         }
-
+        val topNavigator = LocalNavigator.currentOrThrow
         var showSnackbar by remember { mutableStateOf(false) }
         val state by testVM.state.collectAsState()
         Column(
-            Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             when (state) {
                 is TestState.ShowTest -> {
                     val data = (state as TestState.ShowTest).data
-
                     Navigator(
                         QuestionScreen(data, data.questions!!.first()),
                         onBackPressed = {
@@ -61,6 +68,7 @@ data class TestScreenSpace(
                             }
                         )
                         val navigator = LocalNavigator.currentOrThrow
+
                         val isPreviousEnabled by testVM.isNotInBegging.collectAsState()
                         val isNextEnabled by testVM.isNotInEnd.collectAsState()
                         val previous by testVM.previousQuestionPosition.collectAsState()
@@ -82,66 +90,15 @@ data class TestScreenSpace(
                                 CurrentScreen()
                             }
                             item {
-                                Row {
-                                    if (isPreviousEnabled) {
-                                        NavigateBorder(
-                                            modifier = Modifier.padding(
-                                                start = 20.dp,
-                                                end = 10.dp
-                                            ),
-                                            onClick = {
-                                                navigator.push(
-                                                    QuestionScreen(
-                                                        test = data,
-                                                        question = data.questions!![previous]
-                                                    )
-                                                )
-                                                testVM.fetcher(previous) {
-                                                    testVM.pushScreen(previous)
-                                                }
-                                            },
-                                            text = "Предыдущий"
-                                        )
-                                    }
-
-                                    if (isNextEnabled) {
-                                        NavigateFilled(
-                                            modifier = Modifier.padding(
-                                                start = 10.dp,
-                                                end = 20.dp
-                                            ),
-                                            onClick = {
-                                                navigator.push(
-                                                    QuestionScreen(
-                                                        test = data,
-                                                        question = data.questions!![next]
-                                                    )
-                                                )
-                                                testVM.fetcher(next) {
-                                                    testVM.pushScreen(next)
-                                                }
-                                            },
-                                            text = "Следующий"
-                                        )
-                                    } else {
-                                        NavigateFilled(
-                                            modifier = Modifier.padding(
-                                                start = 10.dp,
-                                                end = 20.dp
-                                            ),
-                                            onClick = {
-                                                if (!testVM.proceedTest(data)) {
-                                                    showSnackbar = true
-                                                    navigator.push(
-                                                        QuestionScreen(
-                                                            data,
-                                                            testVM.navigateToFirstSkipped(data)
-                                                        )
-                                                    )
-                                                }
-                                            },
-                                            text = "Закончить"
-                                        )
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 20.dp),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    LeftButton(isPreviousEnabled, navigator, data, previous)
+                                    RightButton(isNextEnabled, navigator, data, next){ isShow ->
+                                        showSnackbar = isShow
                                     }
                                 }
                             }
@@ -152,9 +109,68 @@ data class TestScreenSpace(
                 is TestState.ShowResults -> {
                     val results = (state as TestState.ShowResults).analyzer
                     val interpretation = results.prepareInterpretation()
-                    interpretation.forEach {
-                        Text(it.message)
-                        Text(it.result)
+                    Column(
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState()),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        val indices = interpretation.indices.drop(1).dropLast(1)
+                        interpretation.forEachIndexed { index, preparedInterpretation ->
+                            if (index % 2 == 0) {
+                                ResultsPrimary {
+                                    Column {
+                                        Text(
+                                            text = preparedInterpretation.result,
+                                            style = PAPTypo.resultsTextStyle,
+                                            color = Color(0xFF434743),
+                                            textAlign = TextAlign.Center
+                                        )
+                                        Text(
+                                            text = preparedInterpretation.message,
+                                            style = PAPTypo.resultsTextStyle,
+                                            color = Color(0xFF434743),
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
+                                }
+                            } else {
+                                ResultsSecondary {
+                                    Column {
+                                        Text(
+                                            text = preparedInterpretation.result,
+                                            style = PAPTypo.resultsTextStyle,
+                                            color = Color(0xFFEEFDEF),
+                                            textAlign = TextAlign.Center
+                                        )
+                                        Text(
+                                            text = preparedInterpretation.message,
+                                            style = PAPTypo.resultsTextStyle,
+                                            color = Color(0xFFEEFDEF),
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
+                                }
+                            }
+                            if (index in indices) {
+                                Box(
+                                    Modifier
+                                        .size(5.dp)
+                                        .background(Color.Red)
+                                )
+                            }
+                        }
+                        NavigateFilled(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    horizontal = 20.dp,
+                                    vertical = 15.dp
+                                ),
+                            onClick = {
+                            topNavigator.pop()
+                        },
+                            text = "На главную"
+                        )
                     }
                 }
 
@@ -162,6 +178,74 @@ data class TestScreenSpace(
                     BaseScreenStateValues((state as TestState.Base).states)
                 }
             }
+        }
+    }
+
+    @Composable
+    private fun RightButton(
+        isNextEnabled: Boolean,
+        navigator: Navigator,
+        data: Test,
+        next: Int,
+        showSnackbar: (Boolean)->Unit,
+    ) {
+        if (isNextEnabled) {
+            NavigateFilled(
+                onClick = {
+                    navigator.push(
+                        QuestionScreen(
+                            test = data,
+                            question = data.questions!![next]
+                        )
+                    )
+                    testVM.fetcher(next) {
+                        testVM.pushScreen(next)
+                    }
+                },
+                text = "Следующий"
+            )
+        } else {
+            NavigateFilled(
+                onClick = {
+                    if (!testVM.proceedTest(data)) {
+                        showSnackbar(true)
+                        navigator.push(
+                            QuestionScreen(
+                                data,
+                                testVM.navigateToFirstSkipped(data)
+                            )
+                        )
+                    }
+                },
+                text = "Закончить"
+            )
+        }
+    }
+
+    @Composable
+    private fun RowScope.LeftButton(
+        isPreviousEnabled: Boolean,
+        navigator: Navigator,
+        data: Test,
+        previous: Int,
+    ) {
+        if (isPreviousEnabled) {
+            NavigateBorder(
+                onClick = {
+                    navigator.push(
+                        QuestionScreen(
+                            test = data,
+                            question = data.questions!![previous]
+                        )
+                    )
+                    testVM.fetcher(previous) {
+                        testVM.pushScreen(previous)
+                    }
+                },
+                text = "Предыдущий"
+            )
+        } else {
+            Spacer(Modifier.Companion.weight(1f, true))
         }
     }
 

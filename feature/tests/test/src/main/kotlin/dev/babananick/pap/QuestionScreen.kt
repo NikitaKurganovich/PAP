@@ -1,7 +1,5 @@
 package dev.babananick.pap
 
-import android.content.ContentValues
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.*
@@ -56,11 +54,13 @@ data class QuestionScreen(
                 question = question,
                 currentlySelected = remember { { currentlySelected } },
                 onVariantChange = remember {
-                    {
-                        question.scale = question.answerMap[it]
+                    { localAnswer ->
+                        question.scale = question.answer_variants!!.find {
+                            it.answer == localAnswer
+                        }!!.related_scale
                         question.isAnswered = true
-                        currentlySelected = it
-                        question.currentSelected = it
+                        currentlySelected = localAnswer
+                        question.currentSelected = localAnswer
                     }
                 }
             )

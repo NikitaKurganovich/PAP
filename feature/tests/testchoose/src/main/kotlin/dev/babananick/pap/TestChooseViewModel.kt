@@ -10,7 +10,7 @@ import javax.inject.Inject
 class TestChooseViewModel @Inject constructor(
     availableTests: PersonalTestChooseInteractor
 ): ViewModel(){
-    private val testList = availableTests.receivePersonalTestNames()
+    private val testList = availableTests.receivePersonalTests()
     private val loading = MutableStateFlow(false)
 
     val state = combine(

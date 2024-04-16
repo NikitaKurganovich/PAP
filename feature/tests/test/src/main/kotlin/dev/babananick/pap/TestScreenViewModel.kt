@@ -14,7 +14,7 @@ import java.util.*
 @HiltViewModel(assistedFactory = TestScreenViewModel.TestScreenViewModelFactory::class)
 class TestScreenViewModel @AssistedInject constructor(
     testInteractor: PersonalTestInteractor,
-    @Assisted("testName") private val testName: String,
+    @Assisted("testId") private val testId: String,
 ) : ViewModel() {
     private val isFinished = MutableStateFlow(false)
     private val questionsStack = Stack<Int>()
@@ -36,7 +36,7 @@ class TestScreenViewModel @AssistedInject constructor(
     val nextQuestionPosition: StateFlow<Int> = _nextQuestionPosition
 
     var state: StateFlow<TestState> = combine(
-        testInteractor.receivePersonalTest(testName),
+        testInteractor.receivePersonalTest(testId),
         isFinished,
     ) { test, isFinished ->
         when {
@@ -85,8 +85,6 @@ class TestScreenViewModel @AssistedInject constructor(
     fun popScreen() {
         if (questionsStack.isNotEmpty()) questionsStack.pop()
     }
-
-
 
     fun proceedTest(test: Test): Boolean {
         if (isAllQuestionsAnswered(test)){
@@ -164,7 +162,7 @@ class TestScreenViewModel @AssistedInject constructor(
     @AssistedFactory
     interface TestScreenViewModelFactory {
         fun create(
-            @Assisted("testName") testName: String,
+            @Assisted("testId") testId: String,
         ): TestScreenViewModel
     }
 
