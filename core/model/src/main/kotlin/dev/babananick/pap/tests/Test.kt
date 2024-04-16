@@ -11,4 +11,5 @@ open class Test(
     open val name: String? = null,
     open val questions: List<Question>? = null,
     open val interpretation: List<Interpretation>? = null,
+    open val description: String? = null
 )
