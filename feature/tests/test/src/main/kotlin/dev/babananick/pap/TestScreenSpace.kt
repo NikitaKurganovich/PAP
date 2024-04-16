@@ -2,13 +2,15 @@ package dev.babananick.pap
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -18,6 +20,8 @@ import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import compose.icons.TablerIcons
+import compose.icons.tablericons.ArrowLeft
 import dev.babananick.pap.buttons.NavigateBorder
 import dev.babananick.pap.buttons.NavigateFilled
 import dev.babananick.pap.components.InnerNavigation
@@ -33,6 +37,7 @@ data class TestScreenSpace(
 
     private lateinit var testVM: TestScreenViewModel
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         testVM = hiltViewModel<TestScreenViewModel,
@@ -60,47 +65,88 @@ data class TestScreenSpace(
                             }
                         }
                     ) {
-                        TopSnackbar(
-                            message = "Вы пропустили вопросы!",
-                            show = showSnackbar,
-                            onDismiss = {
-                                showSnackbar = false
-                            }
-                        )
                         val navigator = LocalNavigator.currentOrThrow
-
+                        val headerShape = remember {
+                            RoundedCornerShape(
+                                bottomStart = 20.dp,
+                                bottomEnd = 20.dp
+                            )
+                        }
                         val isPreviousEnabled by testVM.isNotInBegging.collectAsState()
                         val isNextEnabled by testVM.isNotInEnd.collectAsState()
                         val previous by testVM.previousQuestionPosition.collectAsState()
                         val next by testVM.nextQuestionPosition.collectAsState()
                         val currentPosition by testVM.currentQuestionPosition.collectAsState()
-                        InnerNavigation(
-                            currentQuestion = currentPosition,
-                            test = data,
-                            navigator = navigator,
-                        ) { questionPos ->
-                            testVM.fetcher(questionPos) {
-                                testVM.pushScreen(questionPos)
-                            }
-                        }
-                        LazyColumn(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            item {
-                                CurrentScreen()
-                            }
-                            item {
+                        Scaffold(
+                            topBar = {
+                                TopAppBar(
+                                    modifier = Modifier
+                                        .shadow(elevation = 4.dp, shape = headerShape)
+                                        .clip(headerShape),
+                                    navigationIcon = {
+                                        IconButton(onClick = remember {
+                                            {
+                                                topNavigator.pop()
+                                            }
+                                        }) {
+                                            Icon(
+                                                imageVector = TablerIcons.ArrowLeft,
+                                                contentDescription = null
+                                            )
+                                        }
+                                    },
+                                    title = {
+                                        Text(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            text = data.name!!,
+                                            style = PAPTypo.headerInTestTextStyle,
+                                            textAlign = TextAlign.Center
+                                        )
+                                    },
+                                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                        containerColor = Color.White
+                                    )
+                                )
+                            },
+                            bottomBar = {
                                 Row(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(horizontal = 20.dp),
+                                        .padding(
+                                            horizontal = 20.dp,
+                                            vertical = 15.dp
+                                        ),
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     LeftButton(isPreviousEnabled, navigator, data, previous)
-                                    RightButton(isNextEnabled, navigator, data, next){ isShow ->
+                                    RightButton(isNextEnabled, navigator, data, next) { isShow ->
                                         showSnackbar = isShow
                                     }
                                 }
+                            }
+                        ) { padding ->
+                            Column(
+                                modifier = Modifier
+                                    .padding(padding),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                TopSnackbar(
+                                    message = "Вы пропустили вопросы!",
+                                    show = showSnackbar,
+                                    onDismiss = {
+                                        showSnackbar = false
+                                    }
+                                )
+                                InnerNavigation(
+                                    currentQuestion = currentPosition,
+                                    test = data,
+                                    navigator = navigator,
+                                ) { questionPos ->
+                                    testVM.fetcher(questionPos) {
+                                        testVM.pushScreen(questionPos)
+                                    }
+                                }
+                                CurrentScreen()
                             }
                         }
                     }
@@ -120,13 +166,13 @@ data class TestScreenSpace(
                                 ResultsPrimary {
                                     Column {
                                         Text(
-                                            text = preparedInterpretation.result,
+                                            text = preparedInterpretation.message,
                                             style = PAPTypo.resultsTextStyle,
                                             color = Color(0xFF434743),
                                             textAlign = TextAlign.Center
                                         )
                                         Text(
-                                            text = preparedInterpretation.message,
+                                            text = preparedInterpretation.result,
                                             style = PAPTypo.resultsTextStyle,
                                             color = Color(0xFF434743),
                                             textAlign = TextAlign.Center
@@ -137,13 +183,13 @@ data class TestScreenSpace(
                                 ResultsSecondary {
                                     Column {
                                         Text(
-                                            text = preparedInterpretation.result,
+                                            text = preparedInterpretation.message,
                                             style = PAPTypo.resultsTextStyle,
                                             color = Color(0xFFEEFDEF),
                                             textAlign = TextAlign.Center
                                         )
                                         Text(
-                                            text = preparedInterpretation.message,
+                                            text = preparedInterpretation.result,
                                             style = PAPTypo.resultsTextStyle,
                                             color = Color(0xFFEEFDEF),
                                             textAlign = TextAlign.Center
@@ -167,8 +213,8 @@ data class TestScreenSpace(
                                     vertical = 15.dp
                                 ),
                             onClick = {
-                            topNavigator.pop()
-                        },
+                                topNavigator.pop()
+                            },
                             text = "На главную"
                         )
                     }
@@ -187,7 +233,7 @@ data class TestScreenSpace(
         navigator: Navigator,
         data: Test,
         next: Int,
-        showSnackbar: (Boolean)->Unit,
+        showSnackbar: (Boolean) -> Unit,
     ) {
         if (isNextEnabled) {
             NavigateFilled(

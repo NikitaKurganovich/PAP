@@ -2,6 +2,8 @@ package dev.babananick.pap
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,7 +42,8 @@ data class QuestionScreen(
     fun QuestionWithVariantsContent() {
         question as QuestionWithVariants
         Column(
-            modifier = Modifier,
+            modifier = Modifier
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             var currentlySelected: String? by remember(key) {
@@ -71,7 +74,8 @@ data class QuestionScreen(
     fun QuestionWithScaleContent() {
         test as TestWithSharedVariants
         Column(
-            modifier = Modifier,
+            modifier = Modifier
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             var currentlySelected: String? by remember(key) {

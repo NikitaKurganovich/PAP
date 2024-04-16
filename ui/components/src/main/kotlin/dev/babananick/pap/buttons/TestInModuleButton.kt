@@ -29,12 +29,12 @@ fun TestInModuleButton(
             .height(50.dp)
             .fillMaxWidth()
             .background(Color(0xFFEEFDEF), shape)
+            .clip(shape)
             .clickable(
                 onClick = {
                     onClick(module.id!!)
                 }
-            )
-            .clip(shape),
+            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

@@ -45,22 +45,31 @@ class PAPScreen : Screen {
         TabNavigator(AcademicTab) {
             Scaffold(
                 topBar = {
-                    TopAppBar(
-                        modifier = Modifier
-                            .shadow(elevation = 4.dp, shape = headerShape)
-                            .clip(headerShape),
-                        title = {
-                            Text(
-                                modifier = Modifier.fillMaxWidth(),
-                                text = it.current.options.title,
-                                style = PAPTypo.headerTextStyle,
-                                textAlign = TextAlign.Center
-                            )
+                    AnimatedVisibility(
+                        visible = isVisible,
+                        enter = slideInVertically { height ->
+                            -height
                         },
-                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                            containerColor = Color.White
+                        exit = slideOutVertically { height ->
+                            -height
+                        }) {
+                        TopAppBar(
+                            modifier = Modifier
+                                .shadow(elevation = 4.dp, shape = headerShape)
+                                .clip(headerShape),
+                            title = {
+                                Text(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    text = it.current.options.title,
+                                    style = PAPTypo.headerTextStyle,
+                                    textAlign = TextAlign.Center
+                                )
+                            },
+                            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                containerColor = Color.White
+                            )
                         )
-                    )
+                    }
                 },
                 content = {
                     Column(

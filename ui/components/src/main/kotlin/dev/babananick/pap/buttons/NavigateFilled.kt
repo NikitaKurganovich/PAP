@@ -24,12 +24,12 @@ fun NavigateFilled(
     Box(
         modifier = modifier
             .size(height = 45.dp, width = 150.dp)
+            .clip(buttonShape)
             .clickable(
                 enabled = isEnabled,
                 onClick = onClick
             )
-            .background(Color(0xFF31674D), buttonShape)
-            .clip(buttonShape),
+            .background(Color(0xFF31674D), buttonShape),
         contentAlignment = Alignment.Center
     ) {
         ButtonText(

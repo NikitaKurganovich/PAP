@@ -14,7 +14,8 @@ data class PAPTypography(
     val moduleNameTextStyle: TextStyle,
     val navigateTextStyle: TextStyle,
     val headerTextStyle: TextStyle,
-    val resultsTextStyle: TextStyle
+    val resultsTextStyle: TextStyle,
+    val headerInTestTextStyle: TextStyle
 )
 
 val PAPTypo = PAPTypography(
@@ -80,6 +81,13 @@ val PAPTypo = PAPTypography(
         fontWeight = FontWeight.Medium,
         fontSize = 11.sp,
         lineHeight = 17.sp,
+        letterSpacing = 0.5.sp,
+    ),
+    headerInTestTextStyle = TextStyle(
+        fontFamily = montserratFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp,
+        lineHeight = 16.sp,
         letterSpacing = 0.5.sp,
     ),
 )

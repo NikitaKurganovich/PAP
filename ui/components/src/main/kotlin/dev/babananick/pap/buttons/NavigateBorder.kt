@@ -22,13 +22,13 @@ fun NavigateBorder(
     Box(
         modifier = modifier
             .size(height = 45.dp, width = 150.dp)
+            .clip(buttonShape)
             .clickable(
                 enabled = isEnabled,
                 onClick = onClick
             )
             .background(Color.White, buttonShape)
-            .border(2.dp, Color(0xFF31674D), buttonShape)
-            .clip(buttonShape),
+            .border(2.dp, Color(0xFF31674D), buttonShape),
         contentAlignment = Alignment.Center
         ) {
         ButtonText(
