@@ -138,6 +138,8 @@ data class TestScreenSpace(
                                     }
                                 )
                                 InnerNavigation(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
                                     currentQuestion = currentPosition,
                                     test = data,
                                     navigator = navigator,

@@ -1,13 +1,15 @@
 package dev.babananick.pap.components
 
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.times
 import cafe.adriel.voyager.navigator.Navigator
 import dev.babananick.pap.QuestionScreen
 import dev.babananick.pap.buttons.NavigatorButton
@@ -21,14 +23,26 @@ fun InnerNavigation(
     navigator: Navigator,
     fetcher: (Int) -> Unit,
 ) {
-    val scrollState = rememberScrollState()
-    var buttonWidth by remember { mutableIntStateOf(0) }
-    Row(
-        modifier = modifier
-            .horizontalScroll(scrollState)
+    val listState = rememberLazyListState()
+    var buttonWidth by remember { mutableStateOf(0.dp) }
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp
+    LaunchedEffect(currentQuestion) {
+        val offsetDp = screenWidth.div(2) + buttonWidth.div(2) + 9.dp + 2 * 7.dp + 4.5.dp
+        val offset = offsetDp.value.toInt()
+        listState.animateScrollToItem(
+            index = currentQuestion,
+            scrollOffset = -offset
+        )
+    }
+    LazyRow(
+        state = listState,
+        modifier = modifier,
     ) {
-        Spacer(Modifier.width(9.dp))
-        test.questions!!.forEachIndexed { index, question ->
+        item {
+            Spacer(Modifier.width(9.dp))
+        }
+        itemsIndexed(test.questions!!) { index, question ->
             NavigatorButton(
                 modifier = Modifier,
                 currentQuestion = currentQuestion,
@@ -44,9 +58,8 @@ fun InnerNavigation(
                 isNeedToAnswer = question.isSkipped
             )
         }
-        Spacer(Modifier.width(9.dp))
-    }
-    LaunchedEffect(currentQuestion) {
-        scrollState.animateScrollTo(buttonWidth * currentQuestion)
+        item {
+            Spacer(Modifier.width(9.dp))
+        }
     }
 }

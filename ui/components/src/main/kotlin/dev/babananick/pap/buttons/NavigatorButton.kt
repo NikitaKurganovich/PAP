@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.babananick.pap.theme.PAPTypo
 
@@ -25,7 +26,7 @@ fun NavigatorButton(
     onClick: (() -> Unit),
     isAnswered: Boolean,
     isNeedToAnswer: Boolean = false,
-    onSizeMeasured: (Int) -> Unit,
+    onSizeMeasured: (Dp) -> Unit,
 ) {
     val currentBackgroundColor by rememberBackgroundColor(currentQuestion, position)
     val currentBorderColor by rememberBorderColor(currentQuestion, isAnswered,position,isNeedToAnswer)
@@ -39,10 +40,10 @@ fun NavigatorButton(
             .border(4.dp,currentBorderColor, shape)
             .size(48.dp)
             .clip(shape)
+            .clickable(onClick = onClick)
             .onGloballyPositioned { coordinates ->
-                onSizeMeasured(coordinates.size.width)
-            }
-            .clickable(onClick = onClick),
+                onSizeMeasured(coordinates.size.width.dp)
+            },
         contentAlignment = Alignment.Center
     ) {
         Text(
