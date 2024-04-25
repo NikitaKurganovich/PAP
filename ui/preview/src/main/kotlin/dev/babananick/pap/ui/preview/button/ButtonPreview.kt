@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.babananick.pap.buttons.NavigateBorder
-import dev.babananick.pap.buttons.NavigateFilled
+import dev.babananick.pap.ui.components.buttons.NavigateBorder
+import dev.babananick.pap.ui.components.buttons.NavigateFilled
 
 @Preview
 @Composable
