@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.babananick.pap.core.authorization"
+    namespace = "dev.babananick.pap.feature.coordinators.authorization"
 }
 
 dependencies {

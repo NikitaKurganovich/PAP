@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.babananick.pap.core.navigation"
+    namespace = "dev.babananick.pap.feature.navigation"
 }
 
 dependencies {

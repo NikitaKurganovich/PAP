@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.babananick.pap.core.mainscreenspace"
+    namespace = "dev.babananick.pap.feature.coordinators.mainscreenspace"
 }
 
 dependencies {

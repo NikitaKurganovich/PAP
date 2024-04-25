@@ -8,6 +8,5 @@ android {
 }
 
 dependencies {
-
     implementation(project(":core:util"))
 }

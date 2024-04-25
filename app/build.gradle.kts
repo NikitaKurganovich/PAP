@@ -19,9 +19,9 @@ kapt {
 }
 
 dependencies {
+    implementation(project(":ui:theme"))
     val versionCatalog = getLibsVersionCatalog()
     coil(versionCatalog)
-
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
     implementation(project(":ui:components"))

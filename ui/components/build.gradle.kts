@@ -16,8 +16,8 @@ dependencies {
     coil(versionCatalog)
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.tab.navigator)
+    implementation(project(":ui:theme"))
     implementation(project(":core:model"))
     implementation(libs.voyager.navigator)
     implementation(libs.tabler.icons)
-
 }

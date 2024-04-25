@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.babananick.pap.academic.lecturechoose"
+    namespace = "dev.babananick.pap.feature.academic.lecturechoose"
 }
 
 dependencies {

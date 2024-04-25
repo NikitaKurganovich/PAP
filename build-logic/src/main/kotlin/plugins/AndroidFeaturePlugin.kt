@@ -27,6 +27,7 @@ class AndroidFeaturePlugin : Plugin<Project> {
                 implementation(project(":core:domain"))
                 implementation(project(":core:model"))
                 implementation(project(":core:common"))
+                implementation(project(":ui:theme"))
                 implementation(project(":ui:components"))
                 implementation(libs.findLibrary("voyager.navigator").get())
                 implementation(libs.findLibrary("voyager.transitions").get())
