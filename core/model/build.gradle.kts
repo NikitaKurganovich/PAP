@@ -10,6 +10,4 @@ android {
 dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.database.ktx)
-    implementation(libs.firebase.crashlytics.buildtools)
-    implementation(libs.kotlinx.collections.immutable)
 }

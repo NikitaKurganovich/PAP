@@ -1,26 +1,26 @@
 [versions]
-androidGradlePlugin = "8.3.1"
+androidGradlePlugin = "8.2.0"
 androidx-junit = "1.1.5"
-androidxActivityCompose = "1.8.2"
+androidxActivityCompose = "1.9.0"
 androidxAnnotation = "1.7.1"
 #Used in one of gradle plugins. Need to update, on kotlin version changes
 androidxComposeCompiler = "1.5.11"
-androidxCoreKtx = "1.12.0"
-androidxDatastore = "1.0.0"
+androidxCoreKtx = "1.13.0"
+androidxDatastore = "1.1.0"
 androidxLifecycle = "2.7.0"
 androidxRoom = "2.6.1"
 androidxTest = "1.5.2"
 androidxTestCore = "1.5.0"
 androidxTestExt = "1.1.5"
 
-androidxActivity = "1.8.2"
+androidxActivity = "1.9.0"
 fragment = "1.6.2"
 
 coilBOM = "2.6.0"
 kotlinxImmutable = "0.3.7"
 googleServices = "4.4.1"
 appcompat = "1.6.1"
-compose-bom = "2024.03.00"
+compose-bom = "2024.04.01"
 coroutines = "1.8.0"
 mockk = "1.13.10"
 mockito = "5.10.0"
@@ -31,7 +31,7 @@ voyager = "1.0.0"
 
 espressoCore = "3.5.1"
 
-firebase-bom = "32.8.0"
+firebase-bom = "32.8.1"
 
 gradleversions = "0.50.0"
 hilt = "2.51"
@@ -42,12 +42,8 @@ junit = "4.13.2"
 kotlin = "1.9.23"
 ksp = "1.9.23-1.0.19"
 leakcanary = "2.12"
-core = "1.12.0"
+core = "1.13.0"
 coreKtx = "1.5.0"
-firebaseCommonKtx = "20.4.3"
-uiTextGoogleFonts = "1.6.4"
-firebaseDatabaseKtx = "20.3.1"
-firebaseCrashlyticsBuildtools = "2.9.9"
 volley = "1.2.1"
 
 [libraries]
@@ -135,10 +131,10 @@ androidx-material3-android = { group = "androidx.compose.material3", name = "mat
 ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts" }
 core = { group = "androidx.core", name = "core", version.ref = "core" }
 androidx-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtx" }
-firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx", version.ref = "firebaseCommonKtx" }
-androidx-compose-ui-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
-google-firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
-firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtools" }
+firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx" }
+androidx-compose-ui-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts" }
+google-firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
 
 

@@ -9,7 +9,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.times
 import cafe.adriel.voyager.navigator.Navigator
 import dev.babananick.pap.QuestionScreen
 import dev.babananick.pap.buttons.NavigatorButton
@@ -28,7 +27,8 @@ fun InnerNavigation(
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
     LaunchedEffect(currentQuestion) {
-        val offsetDp = screenWidth.div(2) + buttonWidth.div(2) + 9.dp + 2 * 7.dp + 4.5.dp
+        val offsetDp = screenWidth.div(2) - buttonWidth.div(2) +
+                18.dp + 14.dp + 3.dp
         val offset = offsetDp.value.toInt()
         listState.animateScrollToItem(
             index = currentQuestion,
