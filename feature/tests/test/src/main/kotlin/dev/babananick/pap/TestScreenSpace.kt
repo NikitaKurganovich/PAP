@@ -162,7 +162,7 @@ data class TestScreenSpace(
                             .verticalScroll(rememberScrollState()),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        val indices = interpretation.indices.drop(1).dropLast(1)
+                        val indices = interpretation.indices.drop(0).dropLast(1)
                         interpretation.forEachIndexed { index, preparedInterpretation ->
                             if (index % 2 == 0) {
                                 ResultsPrimary {
