@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.babananick.pap.results.ResultsPrimary
-import dev.babananick.pap.results.ResultsSecondary
+import dev.babananick.pap.ui.components.results.ResultsPrimary
+import dev.babananick.pap.ui.components.results.ResultsSecondary
 
 @Preview
 @Composable

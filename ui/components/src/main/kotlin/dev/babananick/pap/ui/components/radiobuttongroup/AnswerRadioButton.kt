@@ -53,7 +53,6 @@ fun AnswerRadioButton(
         VariantText(
             variant = variantText,
             color = textColor
-
         )
     }
 }

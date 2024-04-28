@@ -9,5 +9,6 @@ android {
 
 dependencies {
     implementation(project(":ui:components"))
+    implementation(project(":ui:theme"))
     implementation(project(":core:model"))
 }

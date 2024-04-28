@@ -8,7 +8,7 @@ import org.gradle.kotlin.dsl.dependencies
 
 
 internal fun Project.configureAndroid(
-    commonExtension: CommonExtension<*, *, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
     commonExtension.apply {
         compileSdk = ApplicationConfig.COMPILE_SDK_VERSION

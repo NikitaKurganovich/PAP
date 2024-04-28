@@ -8,11 +8,10 @@ import androidx.compose.ui.unit.dp
 import dev.babananick.pap.core.model.questions.QuestionWithVariants
 import dev.babananick.pap.core.model.tests.TestWithSharedVariants
 
-
 @Composable
 fun RadioButtonGroup(
     modifier: Modifier = Modifier,
-    question: dev.babananick.pap.core.model.questions.QuestionWithVariants,
+    question: QuestionWithVariants,
     currentlySelected: () -> String?,
     onVariantChange: (String) -> Unit
 ) {
@@ -33,7 +32,7 @@ fun RadioButtonGroup(
 @Composable
 fun RadioButtonGroup(
     modifier: Modifier = Modifier,
-    test: dev.babananick.pap.core.model.tests.TestWithSharedVariants,
+    test: TestWithSharedVariants,
     currentlySelected: () -> String?,
     onVariantChange: (String) -> Unit
 ) {
