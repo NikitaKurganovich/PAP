@@ -79,9 +79,9 @@ private fun rememberBackgroundColor(
     val color by remember(checked) {
         derivedStateOf {
             if (checked()) {
-                onSecondaryContainerDark
-            } else {
                 secondaryDark
+            } else {
+                onSecondaryContainerDark
             }
         }
     }
