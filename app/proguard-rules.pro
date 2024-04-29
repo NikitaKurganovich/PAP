@@ -20,9 +20,11 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-    -keepattributes Signature
+-keepattributes Signature
 
-
-    -keepclassmembers class dev.babananick.pap.core.model.** {
+-keepclassmembers class com.google.firebase.database.GenericTypeIndicator{*;}
+-keep class * extends com.google.firebase.database.GenericTypeIndicator{*;}
+-keep class com.google.firebase.database.GenericTypeIndicator{*;}
+-keepclassmembers class dev.babananick.pap.core.model.** {
       *;
     }

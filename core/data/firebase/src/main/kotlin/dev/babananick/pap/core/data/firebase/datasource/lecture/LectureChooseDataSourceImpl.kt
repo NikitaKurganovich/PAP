@@ -30,7 +30,8 @@ class LectureChooseDataSourceImpl @Inject constructor(
             questionsReference.addListenerForSingleValueEvent(eventListener)
         }
 
-        val lectures: List<LectureModule> = snapshot.getValue<List<LectureModule>>()!!
+        val lectures: List<LectureModule> = snapshot.getValue<List<LectureModule>>() ?:
+            error("Failed to download lectures")
         emit(lectures)
     }
 }
