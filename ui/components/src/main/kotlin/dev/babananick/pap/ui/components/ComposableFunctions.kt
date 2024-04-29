@@ -22,7 +22,6 @@ import cafe.adriel.voyager.navigator.Navigator
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Eye
 import compose.icons.tablericons.EyeOff
-import dev.babananick.pap.core.model.modules.LectureModule
 
 @Composable
 fun DefaultText(
@@ -48,10 +47,10 @@ fun CustomButton(
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            containerColor = dev.babananick.pap.ui.theme.Green50,
+            containerColor = MaterialTheme.colorScheme.primary,
             contentColor = Color.White
         ),
-        border = BorderStroke(1.dp, dev.babananick.pap.ui.theme.Green50),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
         shape = RoundedCornerShape(20.dp),
         modifier = modifier
     ) {

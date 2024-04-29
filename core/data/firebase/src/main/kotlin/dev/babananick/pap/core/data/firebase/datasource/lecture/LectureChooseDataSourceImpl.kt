@@ -1,6 +1,7 @@
 package dev.babananick.pap.core.data.firebase.datasource.lecture
 
 import com.google.firebase.database.*
+import dev.babananick.pap.core.model.modules.LectureModule
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -12,7 +13,7 @@ class LectureChooseDataSourceImpl @Inject constructor(
     private val dataBase: FirebaseDatabase,
 ) : LectureChooseDataSource {
 
-    override fun receiveLectureModules(): Flow<List<dev.babananick.pap.core.model.modules.LectureModule>> = flow {
+    override fun receiveLectureModules(): Flow<List<LectureModule>> = flow {
         val questionsReference: DatabaseReference = dataBase
             .getReference("pap/rus/academic_modules")
 
@@ -29,7 +30,7 @@ class LectureChooseDataSourceImpl @Inject constructor(
             questionsReference.addListenerForSingleValueEvent(eventListener)
         }
 
-        val lectures: List<dev.babananick.pap.core.model.modules.LectureModule> = snapshot.getValue<List<dev.babananick.pap.core.model.modules.LectureModule>>()!!
+        val lectures: List<LectureModule> = snapshot.getValue<List<LectureModule>>()!!
         emit(lectures)
     }
 }
