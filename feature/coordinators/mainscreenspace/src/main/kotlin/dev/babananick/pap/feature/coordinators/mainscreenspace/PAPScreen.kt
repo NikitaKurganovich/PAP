@@ -22,7 +22,6 @@ import dev.babananick.pap.feature.academic.lecturechoose.AcademicTab
 import dev.babananick.pap.feature.profile.ProfileTab
 import dev.babananick.pap.feature.tests.testchoose.TestsTab
 import dev.babananick.pap.ui.components.tabnavigation.TabNavigationItem
-import dev.babananick.pap.ui.theme.PAPTypo
 
 class PAPScreen : Screen {
 
@@ -64,7 +63,6 @@ class PAPScreen : Screen {
                                 Text(
                                     modifier = Modifier.fillMaxWidth(),
                                     text = it.current.options.title,
-                                    style = PAPTypo.headerTextStyle,
                                     textAlign = TextAlign.Center
                                 )
                             },

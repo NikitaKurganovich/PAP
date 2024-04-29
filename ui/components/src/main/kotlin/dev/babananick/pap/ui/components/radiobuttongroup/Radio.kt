@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
@@ -17,7 +18,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import dev.babananick.pap.ui.components.R
 import dev.babananick.pap.ui.components.icons.Checked
-import dev.babananick.pap.ui.components.util.Shapes.radioShape
+import dev.babananick.pap.ui.theme.onSecondaryContainerLight
+import dev.babananick.pap.ui.theme.secondaryContainerDark
 
 @Composable
 fun Radio(
@@ -29,13 +31,13 @@ fun Radio(
     Icon(
         modifier = modifier
             .size(dimensionResource(R.dimen.radio_size))
-            .background(Color.Transparent, radioShape)
+            .background(Color.Transparent, MaterialTheme.shapes.extraLarge)
             .border(
                 width = dimensionResource(R.dimen.radio_border_stroke),
                 color = borderColor,
-                shape = radioShape
+                shape = MaterialTheme.shapes.extraLarge
             )
-            .clip(radioShape),
+            .clip(MaterialTheme.shapes.extraLarge),
         imageVector = Checked,
         contentDescription = null,
         tint = iconTint
@@ -49,13 +51,16 @@ private fun rememberBorderColor(
     val color by remember(checked) {
         derivedStateOf {
             if (checked()) {
-                Color(0xFF31674D)
+                onSecondaryContainerLight
             } else {
-                Color(0xFFBBDACB)
+                secondaryContainerDark
             }
         }
     }
-    return animateColorAsState(color)
+    return animateColorAsState(
+        targetValue = color,
+        label = stringResource(R.string.border_color_label)
+    )
 }
 
 
@@ -66,7 +71,7 @@ private fun rememberIconTint(
     val color by remember(checked) {
         derivedStateOf {
             if (checked()) {
-                Color(0xFF31674D)
+                onSecondaryContainerLight
             } else {
                 Color.Transparent
             }

@@ -4,9 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
 import dev.babananick.pap.core.model.questions.QuestionWithVariants
 import dev.babananick.pap.core.model.tests.TestWithSharedVariants
+import dev.babananick.pap.ui.components.R
 
 @Composable
 fun RadioButtonGroup(
@@ -20,7 +21,7 @@ fun RadioButtonGroup(
     ) { 
         question.answer_variants!!.forEach { answer ->
             AnswerRadioButton(
-                modifier = Modifier.padding((10.5).dp),
+                modifier = Modifier.padding(dimensionResource(R.dimen.answer_radio_button_padding)),
                 onVariantChange = onVariantChange,
                 currentlySelected = currentlySelected,
                 variantText = answer.answer!!
@@ -41,7 +42,7 @@ fun RadioButtonGroup(
     ) {
         test.answer_variants!!.forEach { answer ->
             AnswerRadioButton(
-                modifier = Modifier.padding((10.5).dp),
+                modifier = Modifier.padding(dimensionResource(R.dimen.answer_radio_button_padding)),
                 onVariantChange = onVariantChange,
                 currentlySelected = currentlySelected,
                 variantText = answer.answer!!

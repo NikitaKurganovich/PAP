@@ -15,12 +15,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.babananick.pap.core.model.modules.TestInModule
-import dev.babananick.pap.ui.theme.PAPTypo
 
 @Composable
 fun TestInModuleButton(
     modifier: Modifier = Modifier,
-    module: dev.babananick.pap.core.model.modules.TestInModule,
+    module: TestInModule,
     onClick: (String) -> Unit,
 ) {
     val shape = RoundedCornerShape(15.dp)
@@ -45,11 +44,9 @@ fun TestInModuleButton(
         ) {
             Text(
                 text = module.name!!,
-                style = dev.babananick.pap.ui.theme.PAPTypo.testNameTextStyle
             )
             Text(
                 text = "${module.question_quantity!!} вопросов",
-                style = dev.babananick.pap.ui.theme.PAPTypo.questionQuantityTextStyle
             )
         }
         Icon(

@@ -45,7 +45,6 @@ fun TestModuleButton(
                 modifier = Modifier
                     .padding(start = 15.dp),
                 text = module.test_module!!,
-                style = dev.babananick.pap.ui.theme.PAPTypo.moduleNameTextStyle
             )
         }
         Icon(

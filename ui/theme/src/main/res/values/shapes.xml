@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="extra_small_rounding">4dp</dimen>
+    <dimen name="small_rounding">8dp</dimen>
+    <dimen name="medium_rounding">12dp</dimen>
+    <dimen name="large_rounding">16dp</dimen>
+    <dimen name="extra_large_rounding">20dp</dimen>
+</resources>

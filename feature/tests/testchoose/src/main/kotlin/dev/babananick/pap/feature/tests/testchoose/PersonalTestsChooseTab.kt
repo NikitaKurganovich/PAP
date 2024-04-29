@@ -18,7 +18,7 @@ class TestsTab(
     override val options: TabOptions
         @Composable
         get() {
-            val title = "Персональные тесты"
+            val title = "Тесты"
             val icon = rememberVectorPainter(Desk)
             return remember {
                 TabOptions(

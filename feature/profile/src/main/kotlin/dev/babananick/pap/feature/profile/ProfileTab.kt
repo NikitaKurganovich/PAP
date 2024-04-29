@@ -13,7 +13,7 @@ object ProfileTab: Tab {
     override val options: TabOptions
         @Composable
         get() {
-            val title = "Ваш профиль"
+            val title = "Профиль"
             val icon = rememberVectorPainter(User)
             return remember {
                 TabOptions(

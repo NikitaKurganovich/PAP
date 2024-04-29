@@ -29,7 +29,6 @@ import dev.babananick.pap.ui.components.buttons.NavigateFilled
 import dev.babananick.pap.ui.components.results.ResultsPrimary
 import dev.babananick.pap.ui.components.results.ResultsSecondary
 import dev.babananick.pap.ui.components.snackbar.TopSnackbar
-import dev.babananick.pap.ui.theme.PAPTypo
 
 data class TestScreenSpace(
     val testId: String,
@@ -99,7 +98,6 @@ data class TestScreenSpace(
                                         Text(
                                             modifier = Modifier.fillMaxWidth(),
                                             text = data.name!!,
-                                            style = PAPTypo.headerInTestTextStyle,
                                             textAlign = TextAlign.Center
                                         )
                                     },
@@ -169,13 +167,11 @@ data class TestScreenSpace(
                                     Column {
                                         Text(
                                             text = preparedInterpretation.message,
-                                            style = PAPTypo.resultsTextStyle,
                                             color = Color(0xFF434743),
                                             textAlign = TextAlign.Center
                                         )
                                         Text(
                                             text = preparedInterpretation.result,
-                                            style = PAPTypo.resultsTextStyle,
                                             color = Color(0xFF434743),
                                             textAlign = TextAlign.Center
                                         )
@@ -186,13 +182,11 @@ data class TestScreenSpace(
                                     Column {
                                         Text(
                                             text = preparedInterpretation.message,
-                                            style = PAPTypo.resultsTextStyle,
                                             color = Color(0xFFEEFDEF),
                                             textAlign = TextAlign.Center
                                         )
                                         Text(
                                             text = preparedInterpretation.result,
-                                            style = PAPTypo.resultsTextStyle,
                                             color = Color(0xFFEEFDEF),
                                             textAlign = TextAlign.Center
                                         )

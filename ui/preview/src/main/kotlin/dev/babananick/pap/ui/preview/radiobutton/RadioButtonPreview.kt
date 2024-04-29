@@ -43,7 +43,7 @@ fun RadioRowPreview() {
         )
         AnswerRadioButton(
             modifier = mod,
-            variantText = "Test\nTest\nTest",
+            variantText = "Test\nTest\nTest\nTest",
             onVariantChange = {
                 currentVariant = it
             },

@@ -1,20 +1,19 @@
 package dev.babananick.pap.ui.components.tabnavigation
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemColors
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 
@@ -28,49 +27,67 @@ fun RowScope.TabNavigationItem(
             tabNavigator.current.key == tab.key
         }
     }
-    val shape = remember { RoundedCornerShape(10.dp) }
-    val backgroundColor by rememberBackgroundColor(selected)
+    val tabTextStyle by rememberTextStyle(selected)
     NavigationBarItem(
         selected = selected,
         onClick = { tabNavigator.current = tab },
         icon = {
-            Box(
-                modifier = Modifier
-                    .size(55.dp)
-                    .background(backgroundColor,shape),
-                contentAlignment = Alignment.Center
-            ){
-                Icon(
-                    painter = tab.options.icon!!,
-                    contentDescription = tab.options.title,
-                )
-            }
-
+            Icon(
+                painter = tab.options.icon!!,
+                contentDescription = tab.options.title,
+            )
+        },
+        label = {
+            Text(
+                text = tab.options.title,
+                style = tabTextStyle
+            )
         },
         colors = NavigationBarItemColors(
-            selectedIconColor = Color(0xFF31674D),
-            selectedTextColor = Color(0xFF31674D),
-            selectedIndicatorColor = Color.Transparent,
-            unselectedIconColor = Color(0x3CBBDACB),
-            unselectedTextColor = Color(0x3CBBDACB),
-            disabledIconColor = Color.Transparent,
-            disabledTextColor = Color.Transparent,
+            selectedIconColor = MaterialTheme.colorScheme.onSurface,
+            selectedTextColor = MaterialTheme.colorScheme.onSurface,
+            selectedIndicatorColor = MaterialTheme.colorScheme.secondaryContainer,
+            unselectedIconColor = MaterialTheme.colorScheme.onSurface,
+            unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+            disabledIconColor = MaterialTheme.colorScheme.onSurface,
+            disabledTextColor = MaterialTheme.colorScheme.onSurface,
         )
     )
 }
 
 @Composable
-fun rememberBackgroundColor(
+fun rememberTextStyle(
     selected: Boolean
-): State<Color> {
-    val color by remember(selected) {
+): State<TextStyle> {
+    val selectedTabTextStyle = selectedTabTextStyle
+    val tabTextStyle = tabTextStyle
+    val textStyle by remember(selected) {
         derivedStateOf {
-            if(selected){
-                Color(0x3CBBDACB)
-            } else{
-                Color.Transparent
+            if (selected) {
+                selectedTabTextStyle
+            } else {
+                tabTextStyle
             }
         }
     }
-    return animateColorAsState(color)
+    return rememberUpdatedState(newValue = textStyle)
 }
+
+private val selectedTabTextStyle: TextStyle
+    @Composable
+    get() {
+        val selectedTabTextStyle = MaterialTheme.typography.labelMedium.copy(
+            fontWeight = FontWeight.W600
+        )
+        return remember {
+            selectedTabTextStyle
+        }
+    }
+private val tabTextStyle: TextStyle
+    @Composable
+    get() {
+        val tabTextStyle = MaterialTheme.typography.labelMedium
+        return remember {
+            tabTextStyle
+        }
+    }

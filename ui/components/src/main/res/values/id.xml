@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="icon_tint_label" translatable="false">Icon tint</string>
+    <string name="icon_tint_label">Icon tint</string>
+    <string name="border_color_label">Border color</string>
+    <string name="text_color_label">Text color</string>
+    <string name="background_color_label">Background color</string>
 </resources>

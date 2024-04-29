@@ -14,7 +14,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import dev.babananick.pap.ui.theme.PAPTypo
 
 @Composable
 fun NavigatorButton(
@@ -43,7 +42,6 @@ fun NavigatorButton(
         Text(
             text = position.toString(),
             textAlign = TextAlign.Center,
-            style = dev.babananick.pap.ui.theme.PAPTypo.navigateTextStyle,
             color = currentTextColor
         )
     }
