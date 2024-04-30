@@ -3,6 +3,11 @@
     <dimen name="radio_size">20dp</dimen>
     <dimen name="radio_border_stroke">2dp</dimen>
     <dimen name="answer_radio_button_height">55dp</dimen>
+    <dimen name="tab_icon_height">32dp</dimen>
+    <dimen name="test_module_height">48dp</dimen>
+    <dimen name="module_icon_container_size">48dp</dimen>
+    <dimen name="module_icon_size">32dp</dimen>
+    <dimen name="test_in_module_icon_size">24dp</dimen>
 
     <!-- Paddings -->
     <dimen name="empty_padding">0dp</dimen>
@@ -10,4 +15,12 @@
     <dimen name="radio_padding">14.5dp</dimen>
     <dimen name="answer_radio_text_vertical_padding">8dp</dimen>
     <dimen name="answer_radio_text_horizontal_padding">20dp</dimen>
+    <dimen name="test_module_text_start_padding">16dp</dimen>
+    <dimen name="test_module_text_vertical_padding">4ddp</dimen>
+
+    <dimen name="test_in_module_horizontal_padding">10dp</dimen>
+    <dimen name="test_in_module_vertical_padding">5dp</dimen>
+    <dimen name="test_in_module_text_start_padding">12dp</dimen>
+    <dimen name="test_in_module_icon_end_padding">12dp</dimen>
+    <dimen name="test_in_module_icon_vertical_padding">8dp</dimen>
 </resources>

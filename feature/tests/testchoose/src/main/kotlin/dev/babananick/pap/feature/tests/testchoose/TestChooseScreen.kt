@@ -8,7 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -16,6 +16,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.babananick.pap.core.common.BaseScreenStateValues
 import dev.babananick.pap.feature.tests.test.TestScreenSpace
 import dev.babananick.pap.ui.components.testmodules.TestModule
+import dev.babananick.pap.ui.theme.R
 
 class TestChooseScreen: Screen {
     @Composable
@@ -33,8 +34,7 @@ class TestChooseScreen: Screen {
                         TestModule(
                             modifier = Modifier
                                 .padding(
-                                    horizontal = 20.dp,
-                                    vertical = 7.dp
+                                    horizontal = dimensionResource(R.dimen.screen_content_horizontal_padding),
                                 ),
                             module = testModule,
                             onClick = { id->

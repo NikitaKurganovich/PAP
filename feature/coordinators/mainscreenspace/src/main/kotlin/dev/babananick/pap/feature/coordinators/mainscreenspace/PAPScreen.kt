@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -24,11 +25,10 @@ import dev.babananick.pap.feature.tests.testchoose.TestsTab
 import dev.babananick.pap.ui.components.tabnavigation.TabNavigationItem
 
 class PAPScreen : Screen {
-
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
-        var isVisible by remember { mutableStateOf(true) }
+        var isVisible by rememberSaveable { mutableStateOf(true) }
         val testTab = remember {
             TestsTab(
                 onNavigator = { isVisible = it }
@@ -72,14 +72,6 @@ class PAPScreen : Screen {
                         )
                     }
                 },
-                content = {
-                    Column(
-                        modifier = Modifier
-                            .padding(it)
-                    ) {
-                        CurrentTab()
-                    }
-                },
                 bottomBar = {
                     AnimatedVisibility(
                         visible = isVisible,
@@ -90,7 +82,7 @@ class PAPScreen : Screen {
                             height
                         }) {
                         NavigationBar(
-                            containerColor = Color(0xFFFFFFFF),
+                            containerColor = MaterialTheme.colorScheme.surfaceContainer,
                             modifier = Modifier
                                 .padding(5.dp)
                                 .shadow(elevation = 4.dp, shape = tabShape)
@@ -101,8 +93,16 @@ class PAPScreen : Screen {
                             TabNavigationItem(ProfileTab)
                         }
                     }
+                },
+                containerColor = MaterialTheme.colorScheme.surface
+            ) { paddingValues ->
+                Column(
+                    modifier = Modifier
+                        .padding(paddingValues)
+                ) {
+                    CurrentTab()
                 }
-            )
+            }
         }
     }
 }

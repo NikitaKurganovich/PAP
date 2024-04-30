@@ -33,7 +33,7 @@ espressoCore = "3.5.1"
 
 firebase-bom = "32.8.1"
 
-gradleversions = "0.50.0"
+gradleversions = "0.51.0"
 hilt = "2.51"
 hiltAndroid = "2.51"
 hiltAndroidCompiler = "2.51"

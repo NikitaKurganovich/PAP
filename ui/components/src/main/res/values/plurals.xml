@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="question_quantity_text" tools:ignore="UnusedQuantity">
+        <item quantity="zero">Нет вопросов</item>
+        <item quantity="one">%1$d вопрос</item>
+        <item quantity="few">%1$d вопроса</item>
+        <item quantity="many">%1$d вопросов</item>
+        <item quantity="other">%1$d вопросов</item>
+    </plurals>
+</resources>

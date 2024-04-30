@@ -1,6 +1,7 @@
 package dev.babananick.pap.ui.components.tabnavigation
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
@@ -12,10 +13,13 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
+import dev.babananick.pap.ui.components.R
 
 @Composable
 fun RowScope.TabNavigationItem(
@@ -33,6 +37,8 @@ fun RowScope.TabNavigationItem(
         onClick = { tabNavigator.current = tab },
         icon = {
             Icon(
+                modifier = Modifier
+                    .height(dimensionResource(R.dimen.tab_icon_height)),
                 painter = tab.options.icon!!,
                 contentDescription = tab.options.title,
             )
