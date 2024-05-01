@@ -1,4 +1,4 @@
-package dev.babananick.pap.ui.components.testmodules
+package dev.babananick.pap.ui.components.modules
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
@@ -8,11 +8,11 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import dev.babananick.pap.core.model.modules.LectureModule
+import dev.babananick.pap.core.model.modules.AcademicModule
 import dev.babananick.pap.core.model.modules.TestModule
 import dev.babananick.pap.ui.components.R
-import dev.babananick.pap.ui.components.buttons.SubmoduleButton
-import dev.babananick.pap.ui.components.buttons.HeadModuleButton
+import dev.babananick.pap.ui.components.modules.components.SubmoduleButton
+import dev.babananick.pap.ui.components.modules.components.HeadModuleButton
 
 @Composable
 fun Module(
@@ -54,7 +54,7 @@ fun Module(
 @Composable
 fun Module(
     modifier: Modifier = Modifier,
-    module: LectureModule,
+    module: AcademicModule,
     onClick: (String) -> Unit,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }

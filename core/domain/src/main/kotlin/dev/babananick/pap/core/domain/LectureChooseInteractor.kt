@@ -7,6 +7,6 @@ import javax.inject.Inject
 class LectureChooseInteractor @Inject constructor(
     private val lectures: LectureChooseRepository,
 ) {
-    fun receiveLectureModules(): Flow<List<dev.babananick.pap.core.model.modules.LectureModule>> =
+    fun receiveLectureModules(): Flow<List<dev.babananick.pap.core.model.modules.AcademicModule>> =
         lectures.receiveLectureModules()
 }

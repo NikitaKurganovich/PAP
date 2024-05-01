@@ -1,4 +1,4 @@
-package dev.babananick.pap.ui.components.buttons
+package dev.babananick.pap.ui.components.modules.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,14 +16,14 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
-import dev.babananick.pap.core.model.modules.LectureInModule
-import dev.babananick.pap.core.model.modules.TestInModule
+import dev.babananick.pap.core.model.modules.AcademicSubmodule
+import dev.babananick.pap.core.model.modules.TestSubmodule
 import dev.babananick.pap.ui.components.R
 
 @Composable
 fun SubmoduleButton(
     modifier: Modifier = Modifier,
-    module: TestInModule,
+    module: TestSubmodule,
     onClick: (String) -> Unit,
 ) {
     Row(
@@ -80,7 +80,7 @@ fun SubmoduleButton(
 @Composable
 fun SubmoduleButton(
     modifier: Modifier = Modifier,
-    module: LectureInModule,
+    module: AcademicSubmodule,
     onClick: (String) -> Unit,
 ) {
     Row(

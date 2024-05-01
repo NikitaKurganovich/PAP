@@ -5,7 +5,8 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @Immutable
 @IgnoreExtraProperties
-data class LectureInModule(
+@Suppress("PropertyName")
+data class AcademicSubmodule(
     val name: String? = null,
     val question_quantity: Long? = null
 )

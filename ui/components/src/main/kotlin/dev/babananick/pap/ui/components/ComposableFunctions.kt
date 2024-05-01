@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Eye
 import compose.icons.tablericons.EyeOff
+import dev.babananick.pap.ui.theme.montserratFontFamily
 
 @Composable
 fun DefaultText(
@@ -30,29 +31,10 @@ fun DefaultText(
         text = text,
         style = MaterialTheme.typography.displaySmall,
         fontWeight = FontWeight.Bold,
-        fontFamily = dev.babananick.pap.ui.theme.montserratFontFamily,
+        fontFamily = montserratFontFamily,
         modifier = modifier,
         textAlign = textAlign
     )
-}
-
-@Composable
-fun CustomButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = Color.White
-        ),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-        shape = RoundedCornerShape(20.dp),
-        modifier = modifier
-    ) {
-        Text("Результаты")
-    }
 }
 
 @Composable
@@ -60,12 +42,12 @@ fun LinkToRegistration(
     onClick: () -> Unit
 ) {
     Row {
-        Text("Нет аккаунта? ", fontFamily = dev.babananick.pap.ui.theme.montserratFontFamily)
+        Text("Нет аккаунта? ", fontFamily = montserratFontFamily)
         Text(
             "Регистрация",
             modifier = Modifier.clickable(onClick = onClick),
             color = Color.Blue,
-            fontFamily = dev.babananick.pap.ui.theme.montserratFontFamily
+            fontFamily = montserratFontFamily
         )
     }
 }
@@ -75,12 +57,12 @@ fun LinkToLogin(
     onClick: () -> Unit
 ) {
     Row {
-        Text("Есть аккаунт? ", fontFamily = dev.babananick.pap.ui.theme.montserratFontFamily)
+        Text("Есть аккаунт? ", fontFamily = montserratFontFamily)
         Text(
             "Вход",
             modifier = Modifier.clickable(onClick = onClick),
             color = Color.Blue,
-            fontFamily = dev.babananick.pap.ui.theme.montserratFontFamily
+            fontFamily = montserratFontFamily
         )
     }
 }
@@ -100,7 +82,7 @@ fun PasswordField(
             message.value = ""
         },
         visualTransformation = if (isVisible) VisualTransformation.None else PasswordVisualTransformation(),
-        label = { Text(prompt, fontFamily = dev.babananick.pap.ui.theme.montserratFontFamily) },
+        label = { Text(prompt, fontFamily = montserratFontFamily) },
         modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         singleLine = true,
@@ -112,7 +94,7 @@ fun PasswordField(
                 )
             }
         },
-        textStyle = TextStyle(fontFamily = dev.babananick.pap.ui.theme.montserratFontFamily),
+        textStyle = TextStyle(fontFamily = montserratFontFamily),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.secondary,
             unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
@@ -120,7 +102,6 @@ fun PasswordField(
         )
     )
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -136,9 +117,9 @@ fun EmailField(
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-        label = { Text("Email", fontFamily = dev.babananick.pap.ui.theme.montserratFontFamily) },
+        label = { Text("Email", fontFamily = montserratFontFamily) },
         modifier = Modifier.fillMaxWidth(),
-        textStyle = TextStyle(fontFamily = dev.babananick.pap.ui.theme.montserratFontFamily),
+        textStyle = TextStyle(fontFamily = montserratFontFamily),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.secondary,
             unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
@@ -163,6 +144,6 @@ fun CustomButton(
         shape = RoundedCornerShape(20.dp),
         modifier = modifier
     ) {
-        Text(prompt, fontFamily = dev.babananick.pap.ui.theme.montserratFontFamily)
+        Text(prompt, fontFamily = montserratFontFamily)
     }
 }

@@ -6,6 +6,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import dev.babananick.pap.ui.components.R
 
 @Composable
 fun TopSnackbar(message: String, show: Boolean, onDismiss: () -> Unit) {
@@ -15,7 +17,7 @@ fun TopSnackbar(message: String, show: Boolean, onDismiss: () -> Unit) {
             modifier = Modifier,
             action = {
                 TextButton(onClick = onDismiss) {
-                    Text(text = "Dismiss")
+                    Text(text = stringResource(R.string.snackbar_dismiss_text))
                 }
             }
         ) {

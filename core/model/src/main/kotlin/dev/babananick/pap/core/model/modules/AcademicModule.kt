@@ -6,8 +6,9 @@ import dev.babananick.pap.core.model.ModuleResources
 
 @Immutable
 @IgnoreExtraProperties
-data class LectureModule(
+@Suppress("PropertyName")
+data class AcademicModule(
     val academic_module: String? = null,
-    val lectures: List<LectureInModule>? = null,
+    val lectures: List<AcademicSubmodule>? = null,
     val resources: ModuleResources? = null,
 )

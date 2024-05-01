@@ -9,14 +9,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.babananick.pap.core.common.BaseScreenStateValues
-import dev.babananick.pap.ui.components.testmodules.Module
-
+import dev.babananick.pap.ui.components.modules.Module
+import dev.babananick.pap.ui.theme.R as theme
 class AcademicScreen : Screen {
     @Composable
     override fun Content() {
@@ -57,10 +58,12 @@ class AcademicScreen : Screen {
                         }
                         items(data) { module ->
                             Module(
+                                modifier = Modifier
+                                .padding(
+                                    horizontal = dimensionResource(theme.dimen.screen_content_horizontal_padding),
+                                ),
                                 module = module,
-                                onClick = {
-                                    isDialogOpened = true
-                                }
+                                onClick = { isDialogOpened = true }
                             )
                         }
                     }

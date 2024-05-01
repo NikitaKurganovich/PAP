@@ -4,10 +4,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.core.screen.ScreenKey
 import dev.babananick.pap.core.model.questions.Question
@@ -16,8 +18,7 @@ import dev.babananick.pap.core.model.questions.QuestionWithVariants
 import dev.babananick.pap.core.model.tests.Test
 import dev.babananick.pap.core.model.tests.TestWithSharedVariants
 import dev.babananick.pap.ui.components.radiobuttongroup.RadioButtonGroup
-import dev.babananick.pap.ui.components.text.QuestionText
-
+import dev.babananick.pap.ui.theme.R as theme
 data class QuestionScreen(
     val test: Test,
     val question: Question,
@@ -49,9 +50,11 @@ data class QuestionScreen(
             var currentlySelected: String? by remember(key) {
                 mutableStateOf(question.currentSelected)
             }
-            QuestionText(
-                modifier = Modifier.padding(horizontal = 20.dp),
-                question = question.question!!
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = dimensionResource(theme.dimen.screen_content_horizontal_padding)),
+                text = question.question!!,
+                style = MaterialTheme.typography.bodyLarge
             )
             RadioButtonGroup(
                 question = question,
@@ -81,9 +84,11 @@ data class QuestionScreen(
             var currentlySelected: String? by remember(key) {
                 mutableStateOf(question.currentSelected)
             }
-            QuestionText(
-                modifier = Modifier.padding(horizontal = 20.dp),
-                question = question.question!!
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = dimensionResource(theme.dimen.screen_content_horizontal_padding)),
+                text = question.question!!,
+                style = MaterialTheme.typography.bodyLarge
             )
             RadioButtonGroup(
                 test = test,

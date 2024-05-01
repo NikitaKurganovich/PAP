@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.babananick.pap.core.domain.LectureChooseInteractor
 import dev.babananick.pap.core.common.ScreenStates
+import dev.babananick.pap.core.model.modules.AcademicModule
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -30,7 +31,7 @@ class HomeScreenViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), HomeState.Base(ScreenStates.Loading))
 
     @AnyThread
-    private fun lectureModules(): Flow<List<dev.babananick.pap.core.model.modules.LectureModule>> =
+    private fun lectureModules(): Flow<List<AcademicModule>> =
         modulesInteractor.receiveLectureModules()
 
     fun isResultsExist(

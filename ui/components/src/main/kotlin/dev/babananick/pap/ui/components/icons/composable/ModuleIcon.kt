@@ -20,7 +20,7 @@ fun ModuleIcon(
     imageUrl: String,
 ) {
     val painter = rememberAsyncImagePainter(
-        imageUrl,
+        model = imageUrl,
         imageLoader = LocalImageLoaderAmbient.current,
     )
     Box(

@@ -1,4 +1,4 @@
-package dev.babananick.pap.ui.components.buttons
+package dev.babananick.pap.ui.components.modules.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
-import dev.babananick.pap.core.model.modules.LectureModule
+import dev.babananick.pap.core.model.modules.AcademicModule
 import dev.babananick.pap.core.model.modules.TestModule
 import dev.babananick.pap.ui.components.R
 import dev.babananick.pap.ui.components.icons.composable.ModuleIcon
@@ -64,7 +64,7 @@ fun HeadModuleButton(
 @Composable
 fun HeadModuleButton(
     modifier: Modifier = Modifier,
-    module: LectureModule,
+    module: AcademicModule,
     onClick: () -> Unit,
     expanded: Boolean,
 ) {

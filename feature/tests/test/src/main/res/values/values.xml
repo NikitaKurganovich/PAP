@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="snakbar_message_missed_question">Вы пропустили вопросы!</string>
+    <string name="button_to_next_text">Следующий</string>
+    <string name="button_to_previous_text">Предыдущий</string>
+    <string name="button_to_main_text">На главную</string>
+    <string name="button_finish_text">Закончить</string>
+    <string name="button_ok_text">ОК</string>
+    <string name="test_description_header">О тесте</string>
+</resources>

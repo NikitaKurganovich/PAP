@@ -1,9 +1,9 @@
 package dev.babananick.pap.core.data.firebase.datasource.lecture
 
-import dev.babananick.pap.core.model.modules.LectureModule
+import dev.babananick.pap.core.model.modules.AcademicModule
 import kotlinx.coroutines.flow.Flow
 
 interface LectureChooseDataSource {
-    fun receiveLectureModules(): Flow<List<LectureModule>>
+    fun receiveLectureModules(): Flow<List<AcademicModule>>
 
 }
