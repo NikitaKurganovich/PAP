@@ -5,6 +5,6 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 @Immutable
-data class TestResources(
+data class ModuleResources(
     val icon: String? = null
 )

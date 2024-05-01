@@ -14,12 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
+import dev.babananick.pap.core.model.modules.LectureModule
 import dev.babananick.pap.core.model.modules.TestModule
 import dev.babananick.pap.ui.components.R
 import dev.babananick.pap.ui.components.icons.composable.ModuleIcon
 
 @Composable
-fun TestModuleButton(
+fun HeadModuleButton(
     modifier: Modifier = Modifier,
     module: TestModule,
     onClick: () -> Unit,
@@ -46,6 +47,48 @@ fun TestModuleButton(
                 modifier = Modifier
                     .padding(start = dimensionResource(R.dimen.test_module_text_start_padding)),
                 text = module.test_module!!,
+                style = MaterialTheme.typography.labelLarge
+                    .copy(fontWeight = FontWeight.W600),
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
+        Icon(
+            imageVector = if (expanded)
+                Icons.Filled.KeyboardArrowUp
+            else Icons.Filled.KeyboardArrowDown,
+            contentDescription = null
+        )
+    }
+}
+
+@Composable
+fun HeadModuleButton(
+    modifier: Modifier = Modifier,
+    module: LectureModule,
+    onClick: () -> Unit,
+    expanded: Boolean,
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(dimensionResource(R.dimen.test_module_height))
+            .clip(MaterialTheme.shapes.medium)
+            .clickable(onClick = onClick),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Row(
+            modifier = Modifier.weight(1f),
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            ModuleIcon(
+                imageUrl = module.resources!!.icon!!
+            )
+            Text(
+                modifier = Modifier
+                    .padding(start = dimensionResource(R.dimen.test_module_text_start_padding)),
+                text = module.academic_module!!,
                 style = MaterialTheme.typography.labelLarge
                     .copy(fontWeight = FontWeight.W600),
                 color = MaterialTheme.colorScheme.primary

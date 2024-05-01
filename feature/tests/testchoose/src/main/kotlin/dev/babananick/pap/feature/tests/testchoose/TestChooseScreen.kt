@@ -15,7 +15,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.babananick.pap.core.common.BaseScreenStateValues
 import dev.babananick.pap.feature.tests.test.TestScreenSpace
-import dev.babananick.pap.ui.components.testmodules.TestModule
+import dev.babananick.pap.ui.components.testmodules.Module
 import dev.babananick.pap.ui.theme.R
 
 class TestChooseScreen: Screen {
@@ -31,7 +31,7 @@ class TestChooseScreen: Screen {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     items(data) { testModule ->
-                        TestModule(
+                        Module(
                             modifier = Modifier
                                 .padding(
                                     horizontal = dimensionResource(R.dimen.screen_content_horizontal_padding),

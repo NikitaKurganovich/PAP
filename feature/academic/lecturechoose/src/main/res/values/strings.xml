@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="academic_tab_text">Лекции</string>
+    <string name="dialog_header">Лекции недоступны!</string>
+    <string name="dialog_content">Приложение находится в активной разработке, в связи с чем отсутствует возможность прохождения лекционного материала. Приносим свои извинения. Следите за обновлениями!</string>
+    <string name="dialog_ok">ОК</string>
 </resources>
