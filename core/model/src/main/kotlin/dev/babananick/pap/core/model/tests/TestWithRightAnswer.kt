@@ -9,6 +9,6 @@ import dev.babananick.pap.core.model.questions.QuestionWithRightAnswer
 @IgnoreExtraProperties
 data class TestWithRightAnswer(
     override val name: String? = null,
-    override val questions: List<dev.babananick.pap.core.model.questions.QuestionWithRightAnswer>? = null,
-    override val interpretation: List<dev.babananick.pap.core.model.interpretation.Interpretation>? = null,
-    ): dev.babananick.pap.core.model.tests.Test()
+    override val questions: List<QuestionWithRightAnswer>? = null,
+    override val interpretation: List<Interpretation>? = null,
+) : Test()

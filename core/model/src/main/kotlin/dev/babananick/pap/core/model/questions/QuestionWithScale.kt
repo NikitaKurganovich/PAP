@@ -8,5 +8,5 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class QuestionWithScale(
     override val question: String? = null,
     val related_scale: String? = null
-): dev.babananick.pap.core.model.questions.Question()
+): Question()
 

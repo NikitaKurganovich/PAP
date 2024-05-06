@@ -8,5 +8,5 @@ import dev.babananick.pap.core.model.tests.ResultWithRange
 @IgnoreExtraProperties
 data class InterpretationWithRanges(
     val lead_scale: String? = null,
-    val results: List<dev.babananick.pap.core.model.tests.ResultWithRange>? = null
-): dev.babananick.pap.core.model.interpretation.Interpretation()
+    val results: List<ResultWithRange>? = null
+): Interpretation()

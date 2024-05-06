@@ -8,7 +8,7 @@ import dev.babananick.pap.core.model.questions.QuestionWithVariants
 @Immutable
 @IgnoreExtraProperties
 data class TestWithLeadScale(
-    override val questions: List<dev.babananick.pap.core.model.questions.QuestionWithVariants>? = null,
+    override val questions: List<QuestionWithVariants>? = null,
     override val name: String? = null,
-    override val interpretation: List<dev.babananick.pap.core.model.interpretation.InterpretationWithStringResult>? = null,
-): dev.babananick.pap.core.model.tests.Test()
+    override val interpretation: List<InterpretationWithStringResult>? = null,
+): Test()

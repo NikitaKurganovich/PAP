@@ -28,12 +28,11 @@ class AcademicScreen : Screen {
             mutableStateOf(false)
         }
         Column(
-            Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             when (screenState) {
                 is HomeState.ShowingModules -> {
-
                     val data = (screenState as HomeState.ShowingModules).data
                     LazyColumn(
                         horizontalAlignment = Alignment.CenterHorizontally

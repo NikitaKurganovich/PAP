@@ -7,8 +7,8 @@ import dev.babananick.pap.core.model.AnswerVariantWithScale
 @Immutable
 @IgnoreExtraProperties
 data class QuestionWithVariants(
-    val answer_variants: List<dev.babananick.pap.core.model.AnswerVariantWithScale>? = null,
+    val answer_variants: List<AnswerVariantWithScale>? = null,
     override val question: String? = null,
-) : dev.babananick.pap.core.model.questions.Question() {
+) : Question() {
     var scale: String? = null
 }

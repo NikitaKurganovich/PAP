@@ -5,7 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @Immutable
 @IgnoreExtraProperties
-data class InterpretationWithStringResult(
-    val lead_scale: String? = null,
-    val result: String? = null
+data class InterpretationMBTI(
+    val description: String,
+    val type: String
 ): Interpretation()

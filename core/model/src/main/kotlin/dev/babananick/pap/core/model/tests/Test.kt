@@ -9,7 +9,7 @@ import dev.babananick.pap.core.model.questions.Question
 @IgnoreExtraProperties
 open class Test(
     open val name: String? = null,
-    open val questions: List<dev.babananick.pap.core.model.questions.Question>? = null,
-    open val interpretation: List<dev.babananick.pap.core.model.interpretation.Interpretation>? = null,
+    open val questions: List<Question>? = null,
+    open val interpretation: List<Interpretation>? = null,
     open val description: String? = null
 )

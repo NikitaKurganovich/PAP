@@ -8,5 +8,5 @@ import dev.babananick.pap.core.model.tests.TestResult
 @IgnoreExtraProperties
 data class LectureResult(
     val lecture_name: String? = null,
-    val test_result: dev.babananick.pap.core.model.tests.TestResult? = null
+    val test_result: TestResult? = null
     )

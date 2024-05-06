@@ -2,15 +2,13 @@ package dev.babananick.pap.core.model.tests
 
 import androidx.compose.runtime.Immutable
 import com.google.firebase.database.IgnoreExtraProperties
-import dev.babananick.pap.core.model.AnswerVariantWithScore
-import dev.babananick.pap.core.model.interpretation.InterpretationWithRanges
+import dev.babananick.pap.core.model.interpretation.InterpretationMBTI
 import dev.babananick.pap.core.model.questions.QuestionWithScale
 
 @Immutable
 @IgnoreExtraProperties
-data class TestWithSharedVariants(
+data class TestMBTI(
     override val questions: List<QuestionWithScale>? = null,
-    val answer_variants: List<AnswerVariantWithScore>? = null,
     override val name: String? = null,
-    override val interpretation: List<InterpretationWithRanges>? = null,
+    override val interpretation: List<InterpretationMBTI>? = null,
 ): Test()
