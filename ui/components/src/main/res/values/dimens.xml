@@ -23,4 +23,23 @@
     <dimen name="test_in_module_text_start_padding">12dp</dimen>
     <dimen name="test_in_module_icon_end_padding">12dp</dimen>
     <dimen name="test_in_module_icon_vertical_padding">8dp</dimen>
+    
+
+    <dimen name="rotate_primary_first">-5.0</dimen>
+    <dimen name="offset_x_primary_first">-6dp</dimen>
+    <dimen name="offset_y_primary_first">16dp</dimen>
+
+    <dimen name="rotate_primary_second">10f</dimen>
+    <dimen name="offset_x_primary_second">-6dp</dimen>
+    <dimen name="offset_y_primary_second">6dp</dimen>
+
+    <dimen name="rotate_secondary_first">-7.0</dimen>
+    <dimen name="offset_x_secondary_first">-6dp</dimen>
+    <dimen name="offset_y_secondary_first">7dp</dimen>
+
+    <dimen name="rotate_secondary_second">10f</dimen>
+    <dimen name="offset_x_secondary_second">-6dp</dimen>
+    <dimen name="offset_y_secondary_second">6dp</dimen>
+
+
 </resources>
