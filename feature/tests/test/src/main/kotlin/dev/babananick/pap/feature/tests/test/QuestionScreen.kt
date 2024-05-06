@@ -15,6 +15,7 @@ import cafe.adriel.voyager.core.screen.ScreenKey
 import dev.babananick.pap.core.model.questions.Question
 import dev.babananick.pap.core.model.questions.QuestionWithScale
 import dev.babananick.pap.core.model.questions.QuestionWithVariants
+import dev.babananick.pap.core.model.tests.MBTIQuestion
 import dev.babananick.pap.core.model.tests.Test
 import dev.babananick.pap.core.model.tests.TestWithSharedVariants
 import dev.babananick.pap.ui.components.radiobuttongroup.RadioButtonGroup
@@ -35,6 +36,10 @@ data class QuestionScreen(
 
             is QuestionWithScale -> {
                 QuestionWithScaleContent()
+            }
+
+            is MBTIQuestion ->{
+                MBTIContent()
             }
         }
     }
@@ -92,6 +97,38 @@ data class QuestionScreen(
             )
             RadioButtonGroup(
                 test = test,
+                currentlySelected = remember { { currentlySelected } },
+                onVariantChange = remember {
+                    {
+                        question.isAnswered = true
+                        currentlySelected = it
+                        question.currentSelected = it
+                    }
+                }
+            )
+        }
+    }
+
+    @Composable
+    fun MBTIContent(){
+
+        question as MBTIQuestion
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            var currentlySelected: String? by remember(key) {
+                mutableStateOf(question.currentSelected)
+            }
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = dimensionResource(theme.dimen.screen_content_horizontal_padding)),
+                text = question.question!!,
+                style = MaterialTheme.typography.bodyLarge
+            )
+            RadioButtonGroup(
+                question = question,
                 currentlySelected = remember { { currentlySelected } },
                 onVariantChange = remember {
                     {

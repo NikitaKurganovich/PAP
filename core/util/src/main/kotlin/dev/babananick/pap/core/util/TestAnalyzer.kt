@@ -1,26 +1,32 @@
 package dev.babananick.pap.core.util
 
+import android.content.res.Resources
 import dev.babananick.pap.core.model.tests.Test
+import dev.babananick.pap.core.model.tests.TestMBTI
 import dev.babananick.pap.core.model.tests.TestWithLeadScale
 import dev.babananick.pap.core.model.tests.TestWithRightAnswer
 import dev.babananick.pap.core.model.tests.TestWithSharedVariants
 
 class TestAnalyzer(
-    private val test: dev.babananick.pap.core.model.tests.Test,
+    private val test: Test,
 ) {
 
     fun prepareInterpretation(): List<PreparedInterpretation> {
         return when (test) {
-            is dev.babananick.pap.core.model.tests.TestWithLeadScale -> {
+            is TestWithLeadScale -> {
                 prepareWithLeadScaleInterpretation()
             }
 
-            is dev.babananick.pap.core.model.tests.TestWithRightAnswer -> {
+            is TestWithRightAnswer -> {
                 listOf(prepareRightInterpretation())
             }
 
-            is dev.babananick.pap.core.model.tests.TestWithSharedVariants -> {
+            is TestWithSharedVariants -> {
                 prepareSharedVariantsInterpretation()
+            }
+
+            is TestMBTI -> {
+                prepareMBTIInterpretation()
             }
 
             else -> {
@@ -31,7 +37,7 @@ class TestAnalyzer(
     }
 
     private fun prepareRightInterpretation(): PreparedInterpretation {
-        test as dev.babananick.pap.core.model.tests.TestWithRightAnswer
+        test as TestWithRightAnswer
         var answeredCorrectly = 0
         test.questions!!.forEach { question ->
             if (question.isAnsweredCorrectly) {
@@ -39,13 +45,15 @@ class TestAnalyzer(
             }
         }
         return PreparedInterpretation(
-            "Всего правильных ответов",
-            "$answeredCorrectly из ${test.questions!!.size}"
+            message = Resources.getSystem().getString(R.string.results_with),
+            result = "$answeredCorrectly ${
+                Resources.getSystem().getString(R.string.result_out)
+            } ${test.questions!!.size}"
         )
     }
 
     private fun prepareSharedVariantsInterpretation(): List<PreparedInterpretation> {
-        test as dev.babananick.pap.core.model.tests.TestWithSharedVariants
+        test as TestWithSharedVariants
         val leadScalesToScore = test.interpretation!!.associate {
             it.lead_scale!! to 0L
         }.toMutableMap()
@@ -76,7 +84,7 @@ class TestAnalyzer(
     }
 
     private fun prepareWithLeadScaleInterpretation(): List<PreparedInterpretation> {
-        test as dev.babananick.pap.core.model.tests.TestWithLeadScale
+        test as TestWithLeadScale
         val leadScalesToScore = test.interpretation!!.associate {
             it.lead_scale!! to 0L
         }.toMutableMap()
@@ -98,4 +106,50 @@ class TestAnalyzer(
         return listOf(interpretations)
     }
 
+    private fun prepareMBTIInterpretation(): List<PreparedInterpretation> {
+        test as TestMBTI
+        val answers = mutableListOf<String>()
+        test.questions!!.forEach {
+            answers.add(it.currentSelected!!)
+        }
+        val targetType = calculateMBTI(answers)
+        val actualType = test.interpretation!!.find {
+            it.type == targetType
+        }
+
+        return listOf(
+            PreparedInterpretation(
+                result = actualType!!.type,
+                message = actualType.description
+            )
+        )
+    }
+
+    private fun calculateMBTI(answers: List<String>): String {
+        var e = 0
+        var i = 0
+        var n = 0
+        var s = 0
+        var t = 0
+        var f = 0
+        var j = 0
+        var p = 0
+
+        for (answer in answers) {
+            when (answer) {
+                "E" -> e++
+                "I" -> i++
+                "N" -> n++
+                "S" -> s++
+                "T" -> t++
+                "F" -> f++
+                "J" -> j++
+                "P" -> p++
+            }
+        }
+
+        val personalityType =
+            "${if (e > i) "E" else "I"}${if (n > s) "N" else "S"}${if (t > f) "T" else "F"}${if (j > p) "J" else "P"}"
+        return personalityType
+    }
 }

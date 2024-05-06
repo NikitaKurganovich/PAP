@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import dev.babananick.pap.core.model.questions.QuestionWithVariants
+import dev.babananick.pap.core.model.tests.MBTIQuestion
 import dev.babananick.pap.core.model.tests.TestWithSharedVariants
 import dev.babananick.pap.ui.components.R
 
@@ -41,6 +42,27 @@ fun RadioButtonGroup(
         modifier = modifier
     ) {
         test.answer_variants!!.forEach { answer ->
+            AnswerRadioButton(
+                modifier = Modifier.padding(dimensionResource(R.dimen.answer_radio_button_padding)),
+                onVariantChange = onVariantChange,
+                currentlySelected = currentlySelected,
+                variantText = answer.answer!!
+            )
+        }
+    }
+}
+
+@Composable
+fun RadioButtonGroup(
+    modifier: Modifier = Modifier,
+    question: MBTIQuestion,
+    currentlySelected: () -> String?,
+    onVariantChange: (String) -> Unit
+) {
+    Column(
+        modifier = modifier
+    ) {
+        question.answer_variants!!.forEach { answer ->
             AnswerRadioButton(
                 modifier = Modifier.padding(dimensionResource(R.dimen.answer_radio_button_padding)),
                 onVariantChange = onVariantChange,

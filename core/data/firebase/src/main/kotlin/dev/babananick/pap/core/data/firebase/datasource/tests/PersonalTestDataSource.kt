@@ -4,6 +4,6 @@ import dev.babananick.pap.core.model.tests.Test
 import kotlinx.coroutines.flow.Flow
 
 interface PersonalTestDataSource {
-    fun receiveTest(testId: String): Flow<dev.babananick.pap.core.model.tests.Test>
+    fun receiveTest(testId: String): Flow<Test>
 
 }

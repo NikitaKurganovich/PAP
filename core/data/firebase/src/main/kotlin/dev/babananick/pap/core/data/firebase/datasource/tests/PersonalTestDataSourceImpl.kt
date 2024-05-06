@@ -1,6 +1,10 @@
 package dev.babananick.pap.core.data.firebase.datasource.tests
 
 import com.google.firebase.database.*
+import dev.babananick.pap.core.model.tests.Test
+import dev.babananick.pap.core.model.tests.TestMBTI
+import dev.babananick.pap.core.model.tests.TestWithLeadScale
+import dev.babananick.pap.core.model.tests.TestWithSharedVariants
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import kotlin.coroutines.resume
@@ -10,7 +14,7 @@ import kotlin.coroutines.suspendCoroutine
 class PersonalTestDataSourceImpl @Inject constructor(
     private val dataBase: FirebaseDatabase,
 ) : PersonalTestDataSource {
-    override fun receiveTest(testId: String): Flow<dev.babananick.pap.core.model.tests.Test> = flow {
+    override fun receiveTest(testId: String): Flow<Test> = flow {
         val testsReference: DatabaseReference = dataBase
             .getReference("pap/rus/personal_tests/$testId")
 
@@ -29,11 +33,15 @@ class PersonalTestDataSourceImpl @Inject constructor(
         val testType: String = snapshot.child("test_type").getValue<String>() ?: "null"
         val testToReturn = when (testType) {
             "LEAD_SCALE" -> {
-                snapshot.getValue<dev.babananick.pap.core.model.tests.TestWithLeadScale>()!!
+                snapshot.getValue<TestWithLeadScale>()!!
             }
 
             "SHARED_VARIANTS" -> {
-                snapshot.getValue<dev.babananick.pap.core.model.tests.TestWithSharedVariants>()!!
+                snapshot.getValue<TestWithSharedVariants>()!!
+            }
+
+            "SCALE_SUM" -> {
+                snapshot.getValue<TestMBTI>()!!
             }
 
             else -> {
