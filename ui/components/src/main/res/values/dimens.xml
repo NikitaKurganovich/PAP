@@ -3,7 +3,7 @@
     <dimen name="radio_size">20dp</dimen>
     <dimen name="radio_border_stroke">2dp</dimen>
     <dimen name="answer_radio_button_height">55dp</dimen>
-    <dimen name="tab_icon_height">32dp</dimen>
+    <dimen name="tab_icon_height">24dp</dimen>
     <dimen name="test_module_height">48dp</dimen>
     <dimen name="module_icon_container_size">48dp</dimen>
     <dimen name="module_icon_size">32dp</dimen>

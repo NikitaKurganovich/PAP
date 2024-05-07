@@ -1,25 +1,20 @@
 package dev.babananick.pap.feature.profile
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dev.babananick.pap.core.common.BaseScreenStateValues
-import dev.babananick.pap.ui.components.CustomButton
-import dev.babananick.pap.ui.components.DefaultText
 
 class ProfileScreen : Screen {
     @Composable
@@ -35,59 +30,22 @@ class ProfileScreen : Screen {
         ) {
             when (screenState) {
                 is ProfileState.ShowingResults -> {
-                    val data = (screenState as ProfileState.ShowingResults).data
-                    LazyColumn(
-                        horizontalAlignment = Alignment.CenterHorizontally
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(20.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
                     ) {
-                        item {
-                            DefaultText(
-                                "Ваши результаты, ${Firebase.auth.currentUser?.email}",
-                                textAlign = TextAlign.Center
+                        Button(
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = {
+                                Firebase.auth.signOut()
+                            }) {
+                            Text(
+                                text = "Выйти",
+                                style = MaterialTheme.typography.labelLarge
                             )
-                            Spacer(Modifier.height(20.dp))
-                        }
-                        items(data.map { it.toPair() }) { item ->
-                            if (item.first != "Эмоциональный интеллект") {
-                                Box(
-                                    modifier = Modifier
-                                        .background(MaterialTheme.colorScheme.secondary)
-                                        .fillMaxWidth(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    DefaultText("Модуль ${item.first}", textAlign = TextAlign.Center)
-                                }
-
-                                Spacer(Modifier.height(10.dp))
-                                item.second.forEach { (s, i) ->
-                                    DefaultText("$s \n $i балл(-ов)", textAlign = TextAlign.Center)
-                                }
-                                Spacer(Modifier.height(20.dp))
-                            } else {
-                                Box(
-                                    modifier = Modifier
-                                        .background(MaterialTheme.colorScheme.secondary)
-                                        .fillMaxWidth(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    DefaultText(item.first)
-                                }
-                                Spacer(Modifier.height(10.dp))
-                                item.second.forEach { element ->
-                                    DefaultText(
-                                        "${element.key} \n ${element.value} балл(-ов) (${
-                                            if (element.value > 13) "Высокий"
-                                            else if (element.value > 7) "Средний" else "Низкий"
-                                        })",
-                                        textAlign = TextAlign.Center
-                                    )
-                                    Spacer(Modifier.height(20.dp))
-                                }
-
-                            }
-                        }
-                        item {
-                            CustomButton("Выйти", onClick = { isOpen.value = true })
-
                         }
                     }
                 }

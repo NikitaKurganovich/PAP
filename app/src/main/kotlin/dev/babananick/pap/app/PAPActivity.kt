@@ -3,6 +3,7 @@ package dev.babananick.pap.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.*
 import coil.ImageLoader
 import com.google.firebase.Firebase
@@ -19,12 +20,11 @@ class PAPActivity : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
 
     @Inject lateinit var imageLoader: ImageLoader
-
     override fun onCreate(savedInstanceState: Bundle?) {
         //Firebase.database.setPersistenceEnabled(true)
         auth = Firebase.auth
         super.onCreate(savedInstanceState)
-
+        enableEdgeToEdge()
         setContent {
             val user = remember { mutableStateOf(auth.currentUser)}
             DisposableEffect(Unit) {

@@ -1,6 +1,8 @@
 package dev.babananick.pap
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -10,11 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import dev.babananick.pap.ui.components.CustomButton
 import dev.babananick.pap.ui.components.EmailField
 import dev.babananick.pap.ui.components.LinkToLogin
 import dev.babananick.pap.ui.components.PasswordField
@@ -22,7 +21,7 @@ import dev.babananick.pap.ui.theme.montserratFontFamily
 
 @Composable
 fun RegistrationScreen(
-    onLoginLinkClick: ()-> Unit
+    onLoginLinkClick: () -> Unit
 ) {
     val auth = Firebase.auth
     val emailText = remember { mutableStateOf("") }
@@ -30,19 +29,18 @@ fun RegistrationScreen(
     val repeatPasswordText = remember { mutableStateOf("") }
     val message = remember { mutableStateOf("") }
 
-    val navigator = LocalNavigator.currentOrThrow
-
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.surface)
             .padding(40.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = "Регистрация в Psychology at Pocket",
-            style = MaterialTheme.typography.bodyLarge,
-            color = Color.Black,
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurface,
             fontFamily = montserratFontFamily
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -52,10 +50,14 @@ fun RegistrationScreen(
         Spacer(modifier = Modifier.height(16.dp))
         PasswordField(repeatPasswordText, "Повторите пароль", message)
         Spacer(modifier = Modifier.height(16.dp))
-        Text(message.value, color = Color.Red, fontFamily = dev.babananick.pap.ui.theme.montserratFontFamily)
-        CustomButton(
-            "Зарегистрироваться",
-            {
+        Text(
+            message.value,
+            color = Color.Red,
+            fontFamily = montserratFontFamily
+        )
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
                 if (passwordText.value != repeatPasswordText.value) {
                     message.value = "Пароли не совпадают!"
                 } else if (passwordText.value.length < 6) {
@@ -71,9 +73,13 @@ fun RegistrationScreen(
                             }
                         }
                 }
-            },
-            Modifier.fillMaxWidth()
-        )
+            }
+        ) {
+            Text(
+                text = "Зарегистрироваться",
+                style = MaterialTheme.typography.labelLarge
+            )
+        }
         Spacer(modifier = Modifier.height(16.dp))
         LinkToLogin(
             onClick = onLoginLinkClick

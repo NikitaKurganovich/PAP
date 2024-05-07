@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -33,7 +34,7 @@ fun NavigatorButton(
         modifier = modifier
             .padding(7.dp)
             .background(currentBackgroundColor, shape)
-            .border(4.dp,currentBorderColor, shape)
+            .border(4.dp, currentBorderColor, shape)
             .size(48.dp)
             .clip(shape)
             .clickable(onClick = onClick),
@@ -55,13 +56,17 @@ private fun rememberTextColor(
     position: Int,
     isNeedToAnswer: Boolean,
 ): State<Color> {
+    val surfaceColor = MaterialTheme.colorScheme.surface
+    val answeredColor = MaterialTheme.colorScheme.primary
+    val neutral80 = Color(0xFFC6C7C4)
+    val error = MaterialTheme.colorScheme.error
     val color by remember(currentQuestion, isAnswered, isNeedToAnswer) {
         derivedStateOf {
             when {
-                position == currentQuestion + 1 -> Color.White
-                isAnswered -> Color(0xFF31674D)
-                isNeedToAnswer -> Color(0xFFBC1C1C)
-                else -> Color(0xFFBBDACB)
+                position == currentQuestion + 1 -> surfaceColor
+                isAnswered -> answeredColor
+                isNeedToAnswer -> error
+                else -> neutral80
             }
         }
     }
@@ -73,12 +78,15 @@ private fun rememberBackgroundColor(
     currentQuestion: Int,
     position: Int,
 ): State<Color> {
+    val surfaceColor = MaterialTheme.colorScheme.surface
+    val answeredColor = MaterialTheme.colorScheme.primary
+
     val color by remember(currentQuestion) {
         derivedStateOf {
             if (position == currentQuestion + 1) {
-                Color(0xFF31674D)
+                answeredColor
             } else {
-                Color.White
+                surfaceColor
             }
         }
     }
@@ -92,13 +100,17 @@ private fun rememberBorderColor(
     position: Int,
     isNeedToAnswer: Boolean,
 ): State<Color> {
+    val neutral80 = Color(0xFFC6C7C4)
+    val answeredColor = MaterialTheme.colorScheme.primary
+    val error = MaterialTheme.colorScheme.error
+
     val color by remember(currentQuestion, isAnswered, isNeedToAnswer) {
         derivedStateOf {
             when {
-                position == currentQuestion + 1 -> Color(0xFF31674D)
-                isAnswered -> Color(0xFF31674D)
-                isNeedToAnswer -> Color(0xFFBC1C1C)
-                else -> Color(0xFFBBDACB)
+                position == currentQuestion + 1 -> answeredColor
+                isAnswered -> answeredColor
+                isNeedToAnswer -> error
+                else -> neutral80
             }
         }
     }

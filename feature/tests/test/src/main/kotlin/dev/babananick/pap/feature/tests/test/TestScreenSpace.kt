@@ -64,7 +64,9 @@ data class TestScreenSpace(
                         onBackPressed = {
                             true.also {
                                 testVM.popScreen()
-                                testVM.fetcher(testVM.peekScreen()) {}
+                                testVM.fetcher(testVM.peekScreen()){
+
+                                }
                             }
                         }
                     ) {
@@ -91,7 +93,7 @@ data class TestScreenSpace(
                                         Text(
                                             modifier = Modifier.fillMaxWidth(),
                                             text = data.name!!,
-                                            style = MaterialTheme.typography.headlineSmall,
+                                            style = MaterialTheme.typography.titleLarge,
                                             textAlign = TextAlign.Left
                                         )
                                     },
@@ -252,11 +254,14 @@ data class TestScreenSpace(
                                 Box(
                                     Modifier
                                         .size(5.dp)
-                                        .background(MaterialTheme.colorScheme.primary)
+                                        .background(
+                                            MaterialTheme.colorScheme.primary,
+                                            MaterialTheme.shapes.extraLarge
+                                        )
                                 )
                             }
                         }
-                        NavigateFilled(
+                        Button(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(
@@ -266,8 +271,12 @@ data class TestScreenSpace(
                             onClick = {
                                 topNavigator.pop()
                             },
-                            text = stringResource(R.string.button_to_main_text)
-                        )
+                        ){
+                            Text(
+                                text = stringResource(R.string.button_to_main_text),
+                                style = MaterialTheme.typography.labelLarge
+                            )
+                        }
                     }
                 }
 

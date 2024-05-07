@@ -22,41 +22,35 @@ fun RadioPreview() {
             modifier = mod
         )
     }
-
 }
 
-@Preview
+@Preview()
 @Composable
-fun RadioRowPreview() {
+fun RadioRowPreview(){
     val mod = Modifier.padding(5.dp)
-    var currentVariant by remember {
-        mutableStateOf("Test")
-    }
     Column {
         AnswerRadioButton(
             modifier = mod,
             variantText = "Test",
-            onVariantChange = {
-                currentVariant = it
-            },
-            currentlySelected = { currentVariant }
+            onVariantChange = {},
+            currentlySelected = {"Test"}
         )
         AnswerRadioButton(
             modifier = mod,
-            variantText = "Test\nTest\nTest\nTest",
-            onVariantChange = {
-                currentVariant = it
-            },
-            currentlySelected = { currentVariant }
-        )
-        AnswerRadioButton(
-            modifier = mod,
-            variantText = "Test\nTest",
-            onVariantChange = {
-                currentVariant = it
-            },
-            currentlySelected = { currentVariant }
+            variantText = "Test\nTest\nTest",
+            onVariantChange = {},
+            currentlySelected = {"Non"}
         )
     }
-
 }
+@Preview(
+    name = "Small font",
+    group = "Font scales",
+    fontScale = 0.5f
+)
+@Preview(
+    name = "Large font",
+    group = "Font scales",
+    fontScale = 1.5f
+)
+annotation class FontScalePreviews

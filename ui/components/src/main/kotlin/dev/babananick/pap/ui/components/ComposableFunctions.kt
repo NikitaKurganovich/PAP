@@ -10,43 +10,29 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Eye
 import compose.icons.tablericons.EyeOff
 import dev.babananick.pap.ui.theme.montserratFontFamily
 
-@Composable
-fun DefaultText(
-    text: String,
-    modifier: Modifier = Modifier,
-    textAlign: TextAlign = TextAlign.Justify,
-) {
-    Text(
-        text = text,
-        style = MaterialTheme.typography.displaySmall,
-        fontWeight = FontWeight.Bold,
-        fontFamily = montserratFontFamily,
-        modifier = modifier,
-        textAlign = textAlign
-    )
-}
 
 @Composable
 fun LinkToRegistration(
     onClick: () -> Unit
 ) {
     Row {
-        Text("Нет аккаунта? ", fontFamily = montserratFontFamily)
+        Text("Нет аккаунта? ",
+            fontFamily = montserratFontFamily,
+            color = MaterialTheme.colorScheme.onSurface
+        )
         Text(
             "Регистрация",
             modifier = Modifier.clickable(onClick = onClick),
-            color = Color.Blue,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontFamily = montserratFontFamily
         )
     }
@@ -57,11 +43,15 @@ fun LinkToLogin(
     onClick: () -> Unit
 ) {
     Row {
-        Text("Есть аккаунт? ", fontFamily = montserratFontFamily)
+        Text(
+            "Есть аккаунт? ",
+            fontFamily = montserratFontFamily,
+            color = MaterialTheme.colorScheme.onSurface
+        )
         Text(
             "Вход",
             modifier = Modifier.clickable(onClick = onClick),
-            color = Color.Blue,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontFamily = montserratFontFamily
         )
     }
@@ -98,7 +88,7 @@ fun PasswordField(
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.secondary,
             unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-            containerColor = Color.White
+            containerColor = MaterialTheme.colorScheme.surface
         )
     )
 }
@@ -123,7 +113,7 @@ fun EmailField(
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.secondary,
             unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-            containerColor = Color.White
+            containerColor = MaterialTheme.colorScheme.surface
         )
     )
 }

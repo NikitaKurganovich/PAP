@@ -32,7 +32,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.common)
     implementation(libs.firebase.database.ktx)
-
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
 
     testImplementation(libs.junit)
