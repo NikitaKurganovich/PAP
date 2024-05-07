@@ -1,6 +1,5 @@
 package dev.babananick.pap.ui.components.results
 
-import android.content.res.Resources
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -15,7 +14,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
-import androidx.core.content.res.ResourcesCompat.getFloat
 import dev.babananick.pap.ui.components.R
 
 @Composable
@@ -38,10 +36,7 @@ fun ResultsSecondary(
                     width = 280.dp
                 )
                 .rotate(
-                    getFloat(
-                        Resources.getSystem(),
-                        R.dimen.rotate_secondary_first
-                    )
+                    dimensionResource(R.dimen.rotate_secondary_first).value
                 )
                 .offset(
                     x = dimensionResource(R.dimen.offset_x_secondary_first),
@@ -60,7 +55,7 @@ fun ResultsSecondary(
                     height = 350.dp,
                     width = 280.dp
                 )
-                .rotate(getFloat(Resources.getSystem(), R.dimen.rotate_secondary_second))
+                .rotate(dimensionResource(R.dimen.rotate_secondary_second).value)
                 .offset(
                     x = dimensionResource(R.dimen.offset_x_secondary_second),
                     y = dimensionResource(R.dimen.offset_y_secondary_second)

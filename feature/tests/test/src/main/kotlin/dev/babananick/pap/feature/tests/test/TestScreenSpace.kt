@@ -10,7 +10,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -213,13 +212,18 @@ data class TestScreenSpace(
                                     Column {
                                         Text(
                                             text = preparedInterpretation.message,
-                                            color = Color(0xFF434743),
-                                            textAlign = TextAlign.Center
+                                            color = MaterialTheme.colorScheme.onPrimary,
+                                            textAlign = TextAlign.Center,
+                                            style = MaterialTheme.typography.labelSmall
                                         )
                                         Text(
+                                            modifier = Modifier
+                                                .padding(dimensionResource(dev.babananick.pap.ui.theme.R.dimen.screen_content_horizontal_padding))
+                                                .verticalScroll(rememberScrollState()),
                                             text = preparedInterpretation.result,
-                                            color = Color(0xFF434743),
-                                            textAlign = TextAlign.Center
+                                            color = MaterialTheme.colorScheme.onPrimary,
+                                            textAlign = TextAlign.Center,
+                                            style = MaterialTheme.typography.bodyMedium
                                         )
                                     }
                                 }
@@ -228,13 +232,18 @@ data class TestScreenSpace(
                                     Column {
                                         Text(
                                             text = preparedInterpretation.message,
-                                            color = Color(0xFFEEFDEF),
-                                            textAlign = TextAlign.Center
+                                            color = MaterialTheme.colorScheme.onTertiary,
+                                            textAlign = TextAlign.Center,
+                                            style = MaterialTheme.typography.labelSmall
                                         )
                                         Text(
+                                            modifier = Modifier
+                                                .padding(dimensionResource(dev.babananick.pap.ui.theme.R.dimen.screen_content_horizontal_padding))
+                                                .verticalScroll(rememberScrollState()),
                                             text = preparedInterpretation.result,
-                                            color = Color(0xFFEEFDEF),
-                                            textAlign = TextAlign.Center
+                                            color = MaterialTheme.colorScheme.onTertiary,
+                                            textAlign = TextAlign.Center,
+                                            style = MaterialTheme.typography.bodyMedium
                                         )
                                     }
                                 }
@@ -243,7 +252,7 @@ data class TestScreenSpace(
                                 Box(
                                     Modifier
                                         .size(5.dp)
-                                        .background(Color.Red)
+                                        .background(MaterialTheme.colorScheme.primary)
                                 )
                             }
                         }

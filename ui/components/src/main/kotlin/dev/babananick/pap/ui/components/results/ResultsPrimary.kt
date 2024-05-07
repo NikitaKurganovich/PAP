@@ -1,6 +1,5 @@
 package dev.babananick.pap.ui.components.results
 
-import android.content.res.Resources
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -11,7 +10,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
-import androidx.core.content.res.ResourcesCompat.getFloat
 import dev.babananick.pap.ui.components.R
 import dev.babananick.pap.ui.theme.R as papRes
 
@@ -34,7 +32,7 @@ fun ResultsPrimary(
                     height = 350.dp,
                     width = 280.dp
                 )
-                .rotate(getFloat(Resources.getSystem(), R.dimen.rotate_primary_first))
+                .rotate(dimensionResource(R.dimen.rotate_primary_first).value)
                 .offset(
                     x = dimensionResource(R.dimen.offset_x_primary_first),
                     y = dimensionResource(R.dimen.offset_y_primary_first)
@@ -52,7 +50,7 @@ fun ResultsPrimary(
                     height = 350.dp,
                     width = 280.dp
                 )
-                .rotate(getFloat(Resources.getSystem(), R.dimen.rotate_primary_second))
+                .rotate(dimensionResource(R.dimen.rotate_primary_second).value)
                 .offset(
                     x = dimensionResource(R.dimen.offset_x_primary_second),
                     y = dimensionResource(R.dimen.offset_y_primary_second)
