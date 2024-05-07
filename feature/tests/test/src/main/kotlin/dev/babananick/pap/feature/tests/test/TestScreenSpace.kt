@@ -7,6 +7,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -76,7 +77,7 @@ data class TestScreenSpace(
                         val previous by testVM.previousQuestionPosition.collectAsState()
                         val next by testVM.nextQuestionPosition.collectAsState()
                         val currentPosition by testVM.currentQuestionPosition.collectAsState()
-                        var showDialog by remember { mutableStateOf(true) }
+                        var showDialog by rememberSaveable { mutableStateOf(true) }
                         Scaffold(
                             topBar = {
                                 TopAppBar(
