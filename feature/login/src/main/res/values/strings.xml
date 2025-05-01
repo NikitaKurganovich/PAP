@@ -1,0 +1,8 @@
+<resources>
+    <string name="login_title">Log in to Psychology at Pocket</string>
+    <string name="login_password_prompt">Enter password</string>
+    <string name="login_success_message">You have successfully logged in!</string>
+    <string name="login_incorrect_data_message">Incorrect email or password</string>
+    <string name="login_empty_fields_message">The mail and password fields should not be empty!</string>
+    <string name="login_button_text">Log in</string>
+</resources>

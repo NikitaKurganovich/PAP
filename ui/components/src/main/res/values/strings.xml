@@ -1,0 +1,14 @@
+<resources>
+    <string name="link_to_registration_text">Don\'t have an account?&#160;</string>
+    <string name="link_to_registration_link">Sign up</string>
+
+    <string name="link_to_login_text">Already have an account?&#160;</string>
+    <string name="link_to_login_link">Log in</string>
+
+    <plurals name="question_quantity_text">
+        <item quantity="zero">No questions</item>
+        <item quantity="one">%1$d question</item>
+        <item quantity="other">%1$d questions</item>
+    </plurals>
+
+</resources>

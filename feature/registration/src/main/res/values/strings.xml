@@ -1,0 +1,12 @@
+<resources>
+    <string name="registration_title">Registration in Psychology at Pocket</string>
+    <string name="registration_password_prompt">Enter password</string>
+    <string name="registration_repeat_password_prompt">Repeat password</string>
+
+    <string name="registration_message_passwords_not_match">Passwords do not match!</string>
+    <string name="registration_message_short_password">Password must be at least 6 characters long!</string>
+    <string name="registration_success_message">You have successfully registered!</string>
+    <string name="registration_message_email_busy">Email is already in use</string>
+
+    <string name="registration_button_text">Register</string>
+</resources>

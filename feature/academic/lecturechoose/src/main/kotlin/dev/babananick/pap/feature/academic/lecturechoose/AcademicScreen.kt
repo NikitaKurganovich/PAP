@@ -17,7 +17,9 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.babananick.pap.core.common.BaseScreenStateValues
 import dev.babananick.pap.ui.components.modules.Module
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 import dev.babananick.pap.ui.theme.R as theme
+
 class AcademicScreen : Screen {
     @Composable
     override fun Content() {
@@ -38,19 +40,28 @@ class AcademicScreen : Screen {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         item {
-                            if (isDialogOpened){
+                            if (isDialogOpened) {
                                 AlertDialog(
                                     onDismissRequest = { isDialogOpened = false },
                                     title = {
-                                        Text(text = stringResource(R.string.dialog_header))
+                                        Text(
+                                            text = stringResource(R.string.dialog_header),
+                                            fontFamily = ralewayFontFamily
+                                        )
                                     },
                                     confirmButton = {
                                         Button(onClick = { isDialogOpened = false }) {
-                                            Text(text = stringResource(R.string.dialog_ok))
+                                            Text(
+                                                text = stringResource(R.string.dialog_ok),
+                                                fontFamily = ralewayFontFamily
+                                            )
                                         }
                                     },
                                     text = {
-                                        Text(text = stringResource(R.string.dialog_content))
+                                        Text(
+                                            text = stringResource(R.string.dialog_content),
+                                            fontFamily = ralewayFontFamily
+                                        )
                                     }
                                 )
                             }
@@ -58,9 +69,9 @@ class AcademicScreen : Screen {
                         items(data) { module ->
                             Module(
                                 modifier = Modifier
-                                .padding(
-                                    horizontal = dimensionResource(theme.dimen.screen_content_horizontal_padding),
-                                ),
+                                    .padding(
+                                        horizontal = dimensionResource(theme.dimen.screen_content_horizontal_padding),
+                                    ),
                                 module = module,
                                 onClick = { isDialogOpened = true }
                             )

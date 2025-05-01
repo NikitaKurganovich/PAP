@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile_tab_text">Профиль</string>
+    <string name="profile_exit_button_text">Выйти</string>
+
+    <string name="profile_exit_dialog_title">Выйти из аккаунта?</string>
+    <string name="profile_exit_dialog_confirmation">Вы уверены, что хотите выйти из текущего аккаунта? Это действие нельзя отменить. После выхода, вам нужно будет заново авторизироваться, для прохождения тестов</string>
+    <string name="profile_exit_dialog_ok">ОК</string>
+    <string name="profile_exit_dialog_cancel">Отмена</string>
+</resources>

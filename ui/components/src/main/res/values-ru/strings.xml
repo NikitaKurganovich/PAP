@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="link_to_registration_text">Нет аккаунта?&#160;</string>
+    <string name="link_to_registration_link">Регистрация</string>
+
+    <string name="link_to_login_text">Есть аккаунт?&#160;</string>
+    <string name="link_to_login_link">Вход</string>
+
+    <plurals name="question_quantity_text">
+        <item quantity="one">%1$d вопрос</item>
+        <item quantity="few">%1$d вопроса</item>
+        <item quantity="many">%1$d вопросов</item>
+        <item quantity="other">%1$d вопросов</item>
+    </plurals>
+</resources>

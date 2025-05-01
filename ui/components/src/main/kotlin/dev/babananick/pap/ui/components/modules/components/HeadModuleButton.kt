@@ -18,6 +18,7 @@ import dev.babananick.pap.core.model.modules.AcademicModule
 import dev.babananick.pap.core.model.modules.TestModule
 import dev.babananick.pap.ui.components.R
 import dev.babananick.pap.ui.components.icons.composable.ModuleIcon
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 
 @Composable
 fun HeadModuleButton(
@@ -49,7 +50,8 @@ fun HeadModuleButton(
                 text = module.test_module!!,
                 style = MaterialTheme.typography.labelLarge
                     .copy(fontWeight = FontWeight.W600),
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.onSurface,
+                fontFamily = ralewayFontFamily
             )
         }
         Icon(
@@ -91,7 +93,9 @@ fun HeadModuleButton(
                 text = module.academic_module!!,
                 style = MaterialTheme.typography.labelLarge
                     .copy(fontWeight = FontWeight.W600),
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.onSurface,
+                fontFamily = ralewayFontFamily
+
             )
         }
         Icon(

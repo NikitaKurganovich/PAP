@@ -27,7 +27,7 @@ fun ModuleIcon(
         modifier = modifier
             .size(dimensionResource(R.dimen.module_icon_container_size))
             .background(
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.secondary,
                 shape = MaterialTheme.shapes.medium
             ),
         contentAlignment = Alignment.Center
@@ -37,7 +37,7 @@ fun ModuleIcon(
                 .size(dimensionResource(R.dimen.module_icon_size)),
             painter = painter,
             contentDescription = null,
-            tint = Color.White
+            tint = MaterialTheme.colorScheme.surface,
         )
     }
 }

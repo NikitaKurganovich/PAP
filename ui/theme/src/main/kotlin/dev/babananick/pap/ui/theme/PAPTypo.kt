@@ -15,13 +15,13 @@ val provider = GoogleFont.Provider(
     certificates = R.array.com_google_android_gms_fonts_certs
 )
 
-val montserratFontFamily = FontFamily(
-    Font(googleFont = GoogleFont("Montserrat"), fontProvider = provider)
+val ralewayFontFamily = FontFamily(
+    Font(googleFont = GoogleFont("Raleway"), fontProvider = provider)
 )
 
 val PAPTypography = Typography(
     displayLarge = TextStyle(
-        fontFamily = montserratFontFamily,
+        fontFamily = ralewayFontFamily,
         fontSize = 57.sp,
         lineHeight = 64.sp,
         fontWeight = FontWeight.W400,
@@ -29,7 +29,7 @@ val PAPTypography = Typography(
         hyphens = Hyphens.Auto
     ),
     displayMedium = TextStyle(
-        fontFamily = montserratFontFamily,
+        fontFamily = ralewayFontFamily,
         fontSize = 45.sp,
         lineHeight = 52.sp,
         fontWeight = FontWeight.W400,
@@ -37,7 +37,7 @@ val PAPTypography = Typography(
         hyphens = Hyphens.Auto
     ),
     displaySmall = TextStyle(
-        fontFamily = montserratFontFamily,
+        fontFamily = ralewayFontFamily,
         fontSize = 36.sp,
         lineHeight = 44.sp,
         fontWeight = FontWeight.W400,
@@ -45,7 +45,7 @@ val PAPTypography = Typography(
         hyphens = Hyphens.Auto
     ),
     headlineLarge = TextStyle(
-        fontFamily = montserratFontFamily,
+        fontFamily = ralewayFontFamily,
         fontSize = 32.sp,
         lineHeight = 40.sp,
         fontWeight = FontWeight.W400,
@@ -53,7 +53,7 @@ val PAPTypography = Typography(
         hyphens = Hyphens.Auto
     ),
     headlineMedium = TextStyle(
-        fontFamily = montserratFontFamily,
+        fontFamily = ralewayFontFamily,
         fontSize = 28.sp,
         lineHeight = 36.sp,
         fontWeight = FontWeight.W400,
@@ -61,7 +61,7 @@ val PAPTypography = Typography(
         hyphens = Hyphens.Auto
     ),
     headlineSmall = TextStyle(
-        fontFamily = montserratFontFamily,
+        fontFamily = ralewayFontFamily,
         fontSize = 24.sp,
         lineHeight = 32.sp,
         fontWeight = FontWeight.W400,
@@ -69,7 +69,7 @@ val PAPTypography = Typography(
         hyphens = Hyphens.Auto
     ),
     titleLarge = TextStyle(
-        fontFamily = montserratFontFamily,
+        fontFamily = ralewayFontFamily,
         fontSize = 22.sp,
         lineHeight = 28.sp,
         fontWeight = FontWeight.W400,
@@ -77,47 +77,15 @@ val PAPTypography = Typography(
         hyphens = Hyphens.Auto
     ),
     titleMedium = TextStyle(
-        fontFamily = montserratFontFamily,
+        fontFamily = ralewayFontFamily,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         fontWeight = FontWeight.W500,
         letterSpacing = (0.15).sp,
         hyphens = Hyphens.Auto
     ),
-    titleSmall = TextStyle(
-        fontFamily = montserratFontFamily,
-        fontSize = 14.sp,
-        lineHeight = 20.sp,
-        fontWeight = FontWeight.W500,
-        letterSpacing = (0.1).sp,
-        hyphens = Hyphens.Auto
-    ),
-    labelLarge = TextStyle(
-        fontFamily = montserratFontFamily,
-        fontSize = 14.sp,
-        lineHeight = 20.sp,
-        fontWeight = FontWeight.W500,
-        letterSpacing = (0.1).sp,
-        hyphens = Hyphens.Auto
-    ),
-    labelMedium = TextStyle(
-        fontFamily = montserratFontFamily,
-        fontSize = 12.sp,
-        lineHeight = 16.sp,
-        fontWeight = FontWeight.W500,
-        letterSpacing = (0.5).sp,
-        hyphens = Hyphens.Auto
-    ),
-    labelSmall = TextStyle(
-        fontFamily = montserratFontFamily,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        fontWeight = FontWeight.W500,
-        letterSpacing = (0.5).sp,
-        hyphens = Hyphens.Auto
-    ),
     bodyLarge = TextStyle(
-        fontFamily = montserratFontFamily,
+        fontFamily = ralewayFontFamily,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         fontWeight = FontWeight.W400,
@@ -125,20 +93,11 @@ val PAPTypography = Typography(
         hyphens = Hyphens.Auto
     ),
     bodyMedium = TextStyle(
-        fontFamily = montserratFontFamily,
+        fontFamily = ralewayFontFamily,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         fontWeight = FontWeight.W400,
         letterSpacing = (0.25).sp,
         hyphens = Hyphens.Auto
     ),
-    bodySmall = TextStyle(
-        fontFamily = montserratFontFamily,
-        fontSize = 12.sp,
-        lineHeight = 16.sp,
-        fontWeight = FontWeight.W400,
-        letterSpacing = (0.4).sp,
-        hyphens = Hyphens.Auto
-    ),
 )
-

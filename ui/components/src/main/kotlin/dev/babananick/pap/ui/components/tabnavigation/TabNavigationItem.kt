@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import dev.babananick.pap.ui.components.R
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 
 @Composable
 fun RowScope.TabNavigationItem(
@@ -46,15 +47,16 @@ fun RowScope.TabNavigationItem(
         label = {
             Text(
                 text = tab.options.title,
-                style = tabTextStyle
+                style = tabTextStyle,
+                fontFamily = ralewayFontFamily
             )
         },
         colors = NavigationBarItemColors(
-            selectedIconColor = MaterialTheme.colorScheme.onSurface,
-            selectedTextColor = MaterialTheme.colorScheme.onSurface,
+            selectedIconColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            selectedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
             selectedIndicatorColor = MaterialTheme.colorScheme.secondaryContainer,
-            unselectedIconColor = MaterialTheme.colorScheme.onSurface,
-            unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+            unselectedIconColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            unselectedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
             disabledIconColor = MaterialTheme.colorScheme.onSurface,
             disabledTextColor = MaterialTheme.colorScheme.onSurface,
         )

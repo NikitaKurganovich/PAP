@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="profile_tab_text">Профиль</string>
+    <string name="profile_tab_text">Profile</string>
+    <string name="profile_exit_button_text">Log out</string>
+
+    <string name="profile_exit_dialog_title">Log out of your account?</string>
+    <string name="profile_exit_dialog_confirmation">Are you sure you want to log out of your current account? This action cannot be canceled. After logging out, you will need to re-log in to pass the tests.</string>
+    <string name="profile_exit_dialog_ok">OK</string>
+    <string name="profile_exit_dialog_cancel">Cancel</string>
 </resources>

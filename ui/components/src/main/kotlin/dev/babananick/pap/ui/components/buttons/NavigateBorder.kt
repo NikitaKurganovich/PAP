@@ -13,6 +13,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import dev.babananick.pap.ui.components.text.ButtonText
 import dev.babananick.pap.ui.components.R
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 
 @Composable
 fun NavigateBorder(
@@ -42,7 +43,8 @@ fun NavigateBorder(
         ) {
         ButtonText(
             text = text,
-            color = MaterialTheme.colorScheme.secondary
+            color = MaterialTheme.colorScheme.secondary,
+            fontFamily = ralewayFontFamily
         )
     }
 }

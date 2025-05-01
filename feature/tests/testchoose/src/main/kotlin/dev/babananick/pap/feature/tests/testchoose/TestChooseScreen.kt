@@ -18,14 +18,14 @@ import dev.babananick.pap.feature.tests.test.TestScreenSpace
 import dev.babananick.pap.ui.components.modules.Module
 import dev.babananick.pap.ui.theme.R
 
-class TestChooseScreen: Screen {
+class TestChooseScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val chooseViewModel: TestChooseViewModel = hiltViewModel()
         val screenState by chooseViewModel.state.collectAsState()
-        when(screenState){
-            is TestChooseState.ShowingTestsChoose ->{
+        when (screenState) {
+            is TestChooseState.ShowingTestsChoose -> {
                 val data = (screenState as TestChooseState.ShowingTestsChoose).tests
                 LazyColumn(
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -37,13 +37,14 @@ class TestChooseScreen: Screen {
                                     horizontal = dimensionResource(R.dimen.screen_content_horizontal_padding),
                                 ),
                             module = testModule,
-                            onClick = { id->
+                            onClick = { id ->
                                 navigator.push(TestScreenSpace(id))
                             },
                         )
                     }
                 }
             }
+
             is TestChooseState.Base -> {
                 BaseScreenStateValues(
                     state = (screenState as TestChooseState.Base).state

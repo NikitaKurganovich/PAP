@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import dev.babananick.pap.ui.components.R
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 
 @Composable
 fun TopSnackbar(message: String, show: Boolean, onDismiss: () -> Unit) {
@@ -21,7 +22,9 @@ fun TopSnackbar(message: String, show: Boolean, onDismiss: () -> Unit) {
                 }
             }
         ) {
-            Text(text = message)
+            Text(
+                text = message, fontFamily = ralewayFontFamily
+            )
         }
     }
 

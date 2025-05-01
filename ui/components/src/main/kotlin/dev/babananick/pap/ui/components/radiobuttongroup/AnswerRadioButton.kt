@@ -17,6 +17,7 @@ import dev.babananick.pap.ui.components.R
 import dev.babananick.pap.ui.theme.onSecondaryContainerDark
 import dev.babananick.pap.ui.theme.onSecondaryContainerLight
 import dev.babananick.pap.ui.theme.onSecondaryDark
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 import dev.babananick.pap.ui.theme.secondaryDark
 
 @Composable
@@ -67,7 +68,8 @@ fun AnswerRadioButton(
                 ),
             text = variantText,
             color = textColor,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium,
+            fontFamily = ralewayFontFamily
         )
     }
 }

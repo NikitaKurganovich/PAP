@@ -20,6 +20,7 @@ import dev.babananick.pap.feature.academic.lecturechoose.AcademicTab
 import dev.babananick.pap.feature.profile.ProfileTab
 import dev.babananick.pap.feature.tests.testchoose.TestsTab
 import dev.babananick.pap.ui.components.tabnavigation.TabNavigationItem
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 import dev.babananick.pap.ui.theme.R as theme
 
 class PAPScreen : Screen {
@@ -51,11 +52,12 @@ class PAPScreen : Screen {
                                     text = it.current.options.title,
                                     textAlign = TextAlign.Center,
                                     style = MaterialTheme.typography.titleLarge,
+                                    fontFamily = ralewayFontFamily
                                 )
                             },
                             colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                titleContentColor = MaterialTheme.colorScheme.onSurface
+                                titleContentColor = MaterialTheme.colorScheme.onSecondaryContainer
                             )
                         )
                     }
@@ -70,7 +72,7 @@ class PAPScreen : Screen {
                             height
                         }) {
                         NavigationBar(
-                            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
                             modifier = Modifier
                                 .padding(horizontal = dimensionResource(theme.dimen.tab_horizontal_padding))
                                 .clip(MaterialTheme.shapes.large)

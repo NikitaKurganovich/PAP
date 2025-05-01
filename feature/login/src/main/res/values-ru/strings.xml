@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_title">Вход в Psychology at Pocket</string>
+    <string name="login_password_prompt">Введите пароль</string>
+    <string name="login_success_message">Вы успешно зашли!</string>
+    <string name="login_incorrect_data_message">Некорректная почта или пароль</string>
+    <string name="login_empty_fields_message">Поля почты и пароля не должны быть пустыми!</string>
+    <string name="login_button_text">Войти</string>
+</resources>

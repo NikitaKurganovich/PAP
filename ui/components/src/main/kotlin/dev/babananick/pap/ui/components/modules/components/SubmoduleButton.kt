@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import dev.babananick.pap.core.model.modules.AcademicSubmodule
 import dev.babananick.pap.core.model.modules.TestSubmodule
 import dev.babananick.pap.ui.components.R
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 
 @Composable
 fun SubmoduleButton(
@@ -32,7 +33,7 @@ fun SubmoduleButton(
             .fillMaxWidth()
             .padding(horizontal = dimensionResource(R.dimen.test_in_module_horizontal_padding))
             .background(
-                color = MaterialTheme.colorScheme.secondaryContainer,
+                color = MaterialTheme.colorScheme.tertiaryContainer,
                 shape = MaterialTheme.shapes.medium
             )
             .clip(MaterialTheme.shapes.medium)
@@ -53,7 +54,8 @@ fun SubmoduleButton(
                 style = MaterialTheme.typography.labelMedium
                     .copy(lineBreak = LineBreak.Paragraph),
                 textAlign = TextAlign.Justify,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
+                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                fontFamily = ralewayFontFamily
             )
             Text(
                 text = pluralStringResource(
@@ -62,7 +64,8 @@ fun SubmoduleButton(
                     module.question_quantity!!.toInt(),
                 ),
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
+                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                fontFamily = ralewayFontFamily
             )
         }
         Icon(
@@ -72,7 +75,7 @@ fun SubmoduleButton(
                 .size(dimensionResource(R.dimen.test_in_module_icon_size)),
             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.onSecondaryContainer
+            tint = MaterialTheme.colorScheme.onTertiaryContainer
         )
     }
 }
@@ -89,7 +92,7 @@ fun SubmoduleButton(
             .fillMaxWidth()
             .padding(horizontal = dimensionResource(R.dimen.test_in_module_horizontal_padding))
             .background(
-                color = MaterialTheme.colorScheme.secondaryContainer,
+                color = MaterialTheme.colorScheme.tertiaryContainer,
                 shape = MaterialTheme.shapes.medium
             )
             .clip(MaterialTheme.shapes.medium)
@@ -110,7 +113,9 @@ fun SubmoduleButton(
                 style = MaterialTheme.typography.labelMedium
                     .copy(lineBreak = LineBreak.Paragraph),
                 textAlign = TextAlign.Justify,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
+                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                fontFamily = ralewayFontFamily
+
             )
             Text(
                 text = pluralStringResource(
@@ -119,7 +124,9 @@ fun SubmoduleButton(
                     module.question_quantity!!.toInt(),
                 ),
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
+                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                fontFamily = ralewayFontFamily
+
             )
         }
         Icon(
@@ -129,7 +136,7 @@ fun SubmoduleButton(
                 .size(dimensionResource(R.dimen.test_in_module_icon_size)),
             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.onSecondaryContainer
+            tint = MaterialTheme.colorScheme.onTertiaryContainer
         )
     }
 }

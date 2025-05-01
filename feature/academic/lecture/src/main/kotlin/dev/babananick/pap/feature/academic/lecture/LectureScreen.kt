@@ -15,7 +15,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.babananick.pap.core.common.BaseScreenStateValues
 import dev.babananick.pap.ui.components.CustomButton
-import dev.babananick.pap.ui.theme.montserratFontFamily
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 
 data class LectureScreen(
     private val moduleName: String,
@@ -48,14 +48,17 @@ data class LectureScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         items(listOf(data)) { text ->
-                            Text(text = text, fontFamily = dev.babananick.pap.ui.theme.montserratFontFamily, textAlign = TextAlign.Justify)
+                            Text(
+                                text = text,
+                                fontFamily = ralewayFontFamily,
+                                textAlign = TextAlign.Justify
+                            )
                         }
                         item {
                             Spacer(Modifier.height(5.dp))
                             CustomButton(
                                 prompt = "Пройти тест по лекции",
                                 onClick = {
-
                                 },
                                 modifier = Modifier.height(50.dp)
                             )
@@ -63,7 +66,7 @@ data class LectureScreen(
                     }
                 }
 
-                is LectureState.Base ->{
+                is LectureState.Base -> {
                     BaseScreenStateValues((screenState as LectureState.Base).state)
                 }
             }
@@ -78,13 +81,18 @@ data class LectureScreen(
         if (isDialogOnNotFullOpen.value) {
             AlertDialog(
                 onDismissRequest = { isDialogOnNotFullOpen.value = false },
-                title = { Text("Пропущены вопросы!") },
-                text = { Text("Пожалуйста, удостовереть что вы ответили на все вопросы перед подтверждением проверки") },
+                title = { Text(text = "Пропущены вопросы!", fontFamily = ralewayFontFamily) },
+                text = {
+                    Text(
+                        text = "Пожалуйста, удостовереть что вы ответили на все вопросы перед подтверждением проверки",
+                        fontFamily = ralewayFontFamily
+                    )
+                },
                 confirmButton = {
                     TextButton(onClick = {
                         isDialogOnNotFullOpen.value = false
                     }) {
-                        Text("ОК")
+                        Text(text = "ОК", fontFamily = ralewayFontFamily)
                     }
                 }
             )
@@ -99,18 +107,23 @@ data class LectureScreen(
         if (isDialogOnConfirmOpen.value) {
             AlertDialog(
                 onDismissRequest = {},
-                title = { Text("Проверить результаты?") },
-                text = { Text("Вы уверены, что хотите отправить тест на проверку?") },
+                title = { Text(text = "Проверить результаты?", fontFamily = ralewayFontFamily) },
+                text = {
+                    Text(
+                        text = "Вы уверены, что хотите отправить тест на проверку?",
+                        fontFamily = ralewayFontFamily
+                    )
+                },
                 confirmButton = {
                     TextButton(onClick = {
                         isDialogOnConfirmOpen.value = false
                     }) {
-                        Text("Да")
+                        Text(text = "Да", fontFamily = ralewayFontFamily)
                     }
                 },
                 dismissButton = {
                     TextButton(onClick = { isDialogOnConfirmOpen.value = false }) {
-                        Text("Отмена")
+                        Text(text = "Отмена", fontFamily = ralewayFontFamily)
                     }
                 }
             )

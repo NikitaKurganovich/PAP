@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -17,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Eye
 import compose.icons.tablericons.EyeOff
-import dev.babananick.pap.ui.theme.montserratFontFamily
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 
 
 @Composable
@@ -25,15 +26,16 @@ fun LinkToRegistration(
     onClick: () -> Unit
 ) {
     Row {
-        Text("Нет аккаунта? ",
-            fontFamily = montserratFontFamily,
-            color = MaterialTheme.colorScheme.onSurface
+        Text(
+            text = stringResource(R.string.link_to_registration_text),
+            fontFamily = ralewayFontFamily,
+            color = MaterialTheme.colorScheme.onBackground
         )
         Text(
-            "Регистрация",
+            text = stringResource(R.string.link_to_registration_link),
             modifier = Modifier.clickable(onClick = onClick),
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            fontFamily = montserratFontFamily
+            color = MaterialTheme.colorScheme.primary,
+            fontFamily = ralewayFontFamily
         )
     }
 }
@@ -44,15 +46,15 @@ fun LinkToLogin(
 ) {
     Row {
         Text(
-            "Есть аккаунт? ",
-            fontFamily = montserratFontFamily,
-            color = MaterialTheme.colorScheme.onSurface
+            text = stringResource(R.string.link_to_login_text),
+            fontFamily = ralewayFontFamily,
+            color = MaterialTheme.colorScheme.onBackground
         )
         Text(
-            "Вход",
+            text = stringResource(R.string.link_to_login_link),
             modifier = Modifier.clickable(onClick = onClick),
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            fontFamily = montserratFontFamily
+            color = MaterialTheme.colorScheme.primary,
+            fontFamily = ralewayFontFamily
         )
     }
 }
@@ -72,7 +74,7 @@ fun PasswordField(
             message.value = ""
         },
         visualTransformation = if (isVisible) VisualTransformation.None else PasswordVisualTransformation(),
-        label = { Text(prompt, fontFamily = montserratFontFamily) },
+        label = { Text(prompt, fontFamily = ralewayFontFamily) },
         modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         singleLine = true,
@@ -84,10 +86,10 @@ fun PasswordField(
                 )
             }
         },
-        textStyle = TextStyle(fontFamily = montserratFontFamily),
+        textStyle = TextStyle(fontFamily = ralewayFontFamily),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.secondary,
-            unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+            unfocusedBorderColor = MaterialTheme.colorScheme.outline,
             containerColor = MaterialTheme.colorScheme.surface
         )
     )
@@ -107,12 +109,12 @@ fun EmailField(
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-        label = { Text("Email", fontFamily = montserratFontFamily) },
+        label = { Text("Email", fontFamily = ralewayFontFamily) },
         modifier = Modifier.fillMaxWidth(),
-        textStyle = TextStyle(fontFamily = montserratFontFamily),
+        textStyle = TextStyle(fontFamily = ralewayFontFamily),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.secondary,
-            unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+            unfocusedBorderColor = MaterialTheme.colorScheme.outline,
             containerColor = MaterialTheme.colorScheme.surface
         )
     )
@@ -127,13 +129,13 @@ fun CustomButton(
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.secondary,
-            contentColor = Color.White
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary
         ),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
         shape = RoundedCornerShape(20.dp),
         modifier = modifier
     ) {
-        Text(prompt, fontFamily = montserratFontFamily)
+        Text(prompt, fontFamily = ralewayFontFamily)
     }
 }

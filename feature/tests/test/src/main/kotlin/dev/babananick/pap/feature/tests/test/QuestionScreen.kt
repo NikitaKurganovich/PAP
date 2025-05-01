@@ -19,7 +19,9 @@ import dev.babananick.pap.core.model.tests.MBTIQuestion
 import dev.babananick.pap.core.model.tests.Test
 import dev.babananick.pap.core.model.tests.TestWithSharedVariants
 import dev.babananick.pap.ui.components.radiobuttongroup.RadioButtonGroup
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 import dev.babananick.pap.ui.theme.R as theme
+
 data class QuestionScreen(
     val test: Test,
     val question: Question,
@@ -38,7 +40,7 @@ data class QuestionScreen(
                 QuestionWithScaleContent()
             }
 
-            is MBTIQuestion ->{
+            is MBTIQuestion -> {
                 MBTIContent()
             }
         }
@@ -59,7 +61,8 @@ data class QuestionScreen(
                 modifier = Modifier
                     .padding(horizontal = dimensionResource(theme.dimen.screen_content_horizontal_padding)),
                 text = question.question!!,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
+                fontFamily = ralewayFontFamily
             )
             RadioButtonGroup(
                 question = question,
@@ -93,7 +96,8 @@ data class QuestionScreen(
                 modifier = Modifier
                     .padding(horizontal = dimensionResource(theme.dimen.screen_content_horizontal_padding)),
                 text = question.question!!,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
+                fontFamily = ralewayFontFamily
             )
             RadioButtonGroup(
                 test = test,
@@ -110,7 +114,7 @@ data class QuestionScreen(
     }
 
     @Composable
-    fun MBTIContent(){
+    fun MBTIContent() {
 
         question as MBTIQuestion
         Column(
@@ -125,7 +129,8 @@ data class QuestionScreen(
                 modifier = Modifier
                     .padding(horizontal = dimensionResource(theme.dimen.screen_content_horizontal_padding)),
                 text = question.question!!,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
+                fontFamily = ralewayFontFamily
             )
             RadioButtonGroup(
                 question = question,

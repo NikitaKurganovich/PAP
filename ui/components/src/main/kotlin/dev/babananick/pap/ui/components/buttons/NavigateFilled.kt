@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import dev.babananick.pap.ui.components.text.ButtonText
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 
 
 @Composable
@@ -36,7 +37,8 @@ fun NavigateFilled(
     ) {
         ButtonText(
             text = text,
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onPrimary,
+            fontFamily = ralewayFontFamily
         )
     }
 }

@@ -9,12 +9,14 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dev.babananick.pap.core.common.BaseScreenStateValues
+import dev.babananick.pap.ui.theme.ralewayFontFamily
 
 class ProfileScreen : Screen {
     @Composable
@@ -43,8 +45,9 @@ class ProfileScreen : Screen {
                                 Firebase.auth.signOut()
                             }) {
                             Text(
-                                text = "Выйти",
-                                style = MaterialTheme.typography.labelLarge
+                                text = stringResource(R.string.profile_exit_button_text),
+                                style = MaterialTheme.typography.labelLarge,
+                                fontFamily = ralewayFontFamily
                             )
                         }
                     }
@@ -64,19 +67,30 @@ class ProfileScreen : Screen {
         if (isDialogOnConfirmOpen.value) {
             AlertDialog(
                 onDismissRequest = {},
-                title = { Text("Выйти из аккаунта?") },
-                text = { Text("Вы уверены, что хотите выйти из текущего аккаунта? Это действие нельзя отменить. После выхода, вам нужно будет заново авторизироваться, для прохождения тестов") },
+                title = { Text(text = stringResource(R.string.profile_exit_dialog_title), fontFamily = ralewayFontFamily) },
+                text = {
+                    Text(
+                        text = stringResource(R.string.profile_exit_dialog_confirmation),
+                        fontFamily = ralewayFontFamily
+                    )
+                },
                 confirmButton = {
                     TextButton(onClick = {
                         isDialogOnConfirmOpen.value = false
                         Firebase.auth.signOut()
                     }) {
-                        Text("Да")
+                        Text(
+                            text = stringResource(R.string.profile_exit_dialog_ok),
+                            fontFamily = ralewayFontFamily
+                        )
                     }
                 },
                 dismissButton = {
                     TextButton(onClick = { isDialogOnConfirmOpen.value = false }) {
-                        Text("Отмена")
+                        Text(
+                            text = stringResource(R.string.profile_exit_dialog_cancel),
+                            fontFamily = ralewayFontFamily
+                        )
                     }
                 }
             )

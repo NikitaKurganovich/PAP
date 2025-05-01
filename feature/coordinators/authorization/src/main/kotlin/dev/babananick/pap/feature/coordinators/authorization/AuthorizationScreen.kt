@@ -5,7 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.screen.Screen
-import dev.babananick.pap.RegistrationScreen
+import dev.babananick.pap.feature.registration.RegistrationScreen
 import dev.babananick.pap.feature.login.LoginScreen
 
 class AuthorizationScreen : Screen {
